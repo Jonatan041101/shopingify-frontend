@@ -1,0 +1,97 @@
+.header {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 5.555555555555556%;
+  background: #fff;
+  align-self: stretch;
+  min-width: 62px;
+  &__container {
+    height: 100%;
+    @include flex(column, nowrap, space-between, center, 0);
+    padding: 1em 0;
+  }
+  &__logo {
+  }
+  &__nav {
+    width: 100%;
+    box-sizing: content-box;
+    padding: 1em 0;
+  }
+
+  &__ul {
+    width: 100%;
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__link {
+    width: 100%;
+  }
+  &__li {
+    width: 100%;
+    padding: 1.2em 0.5em;
+    @include flex(row, nowrap, center, center, 0);
+    position: relative;
+    cursor: pointer;
+    transition: 0.5s ease;
+    &:hover {
+      background: #ebebeb;
+    }
+    &:hover > .header__title {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  &__title {
+    position: absolute;
+    z-index: 5;
+    padding: 0.5em 0.5em 0.5em 1em;
+    left: 100%;
+    background: $color-icon;
+    color: #fff;
+    border-radius: 0.4em;
+    clip-path: polygon(8% 41%, 8% 0, 100% 0, 100% 100%, 8% 100%, 8% 58%, 0 50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s ease;
+  }
+  &__select {
+    background: $color-yellow;
+    border-radius: 0 0.5em 0.5em 0;
+    height: 100%;
+    width: 0.4em;
+    position: absolute;
+    left: 0;
+  }
+  &__icon {
+    color: $color-icon;
+    width: 1.7em;
+  }
+  &__bottom {
+    position: relative;
+    @include flex(row, nowrap, center, center, 0);
+    color: $color-icon;
+    background: $color-yellow;
+    border-radius: 50%;
+    box-sizing: content-box;
+    padding: 0.5em;
+    width: 1.8em;
+    height: 1.8em;
+    color: #fff;
+  }
+  &__counter {
+    position: absolute;
+    background: $color-red;
+    // box-sizing: content-box;
+    // padding: 0.4em;
+    height: 1.5em;
+    width: 1.5em;
+    @include flex(row, nowrap, center, center, 0);
+    border-radius: 0.34em;
+    font-weight: bold;
+    bottom: 65%;
+    left: 66%;
+  }
+  &__cart {
+    color: inherit;
+    width: 1.5em;
+  }
+}

@@ -1,0 +1,19 @@
+.items {
+  width: 100%;
+  @include flex(column, nowrap, flex-start, flex-start, 1.5em);
+  height: calc(100vh - 112px);
+  overflow: auto;
+  &__container {
+    width: 100%;
+    @include flex(column, nowrap, flex-start, flex-start, 1.5em);
+  }
+  &__h2 {
+    font-weight: 600;
+    font-size: 1.3em;
+    color: $color-icon;
+  }
+  &__section {
+    width: 100%;
+    @include flex(row, wrap, flex-start, flex-start, 1em);
+  }
+}

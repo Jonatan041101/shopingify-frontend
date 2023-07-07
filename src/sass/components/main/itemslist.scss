@@ -1,0 +1,80 @@
+.itemslist {
+  color: #000;
+  width: 100%;
+  height: calc(100vh - 22.762em);
+  overflow: auto;
+  max-width: 340px;
+  &__div {
+    width: 100%;
+    @include flex(column, nowrap, flex-start, flex-start, 0.8em);
+  }
+  &__product {
+    @include flex(row, nowrap, flex-start, center, 0.3em);
+  }
+  &__h2 {
+    color: $color-title-items;
+    font-weight: bold;
+  }
+  &__section {
+    width: 100%;
+    @include flex(column, nowrap, flex-start, flex-start, 0.5em);
+  }
+  &__article {
+    width: 100%;
+    @include flex(row, nowrap, space-between, center, 0);
+    padding: 0 0.25em;
+  }
+  &__h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  &__white {
+    background: #fff;
+    @include flex(row, nowrap, space-between, center, 0.25em);
+    border-radius: 0.4em;
+  }
+  &__delete {
+    background: $color-yellow;
+    padding: 0.7em 0.5em;
+    border-radius: 0.4em;
+  }
+  &__count {
+    color: $color-yellow;
+    border: 2px solid $color-yellow;
+    border-radius: 1em;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+  }
+  &__nonproducts {
+    height: 100%;
+    @include flex(column, nowrap, flex-end, center, 4em);
+    &--container {
+      height: 80%;
+      @include flex(column, nowrap, space-between, center, 0);
+    }
+    &--p {
+      font-weight: bold;
+      font-size: 1.25em;
+    }
+    &--icon {
+      font-size: clamp(0.625em, 0.1563em + 0.8vw, 1em);
+    }
+    &--i {
+      // font-size: clamp(0.6em, 0.3em + 0.4vw, 1em);
+      width: 15.313em;
+      height: 12.688em;
+    }
+  }
+  &__checked {
+    height: 1.2em;
+    width: 1.2em;
+    border-radius: 0.3em;
+    border: 2px solid $color-yellow;
+    &--i {
+      color: $color-yellow;
+    }
+  }
+  &__tached {
+    text-decoration: line-through 2px solid #000;
+  }
+}

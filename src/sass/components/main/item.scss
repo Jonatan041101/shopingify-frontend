@@ -1,0 +1,35 @@
+.item {
+  @include flex(row, nowrap, space-between, center, 0);
+  min-width: 7em;
+  width: 9.5em;
+  box-sizing: content-box;
+  background: #fff;
+  padding: 0.5em;
+  @include shadow;
+  border-radius: 0.35em;
+  &__name {
+    width: 100%;
+    max-width: 7em;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    &:hover {
+      color: $color-yellow;
+    }
+  }
+  &__more {
+    color: #000;
+  }
+  &__icon {
+    width: 100%;
+    cursor: pointer;
+    max-width: 1em;
+    &:hover {
+      color: $color-yellow;
+    }
+  }
+  &__count {
+    font-size: 0.8em;
+    @include flex(row, nowrap, space-between, center, 0.3em);
+  }
+}

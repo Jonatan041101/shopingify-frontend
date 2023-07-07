@@ -1,0 +1,17 @@
+@import './mixins/mixin.scss', './variables/variables.scss',
+  './reset/reset.scss', './components/main/header.scss',
+  './components/main/items.scss', './components/main/item.scss',
+  './atoms/button.scss', './components/main/inputname.scss',
+  './atoms/input.scss', './components/main/create.scss', './atoms/alert.scss',
+  './components/stats/stats.scss', './atoms/modal.scss',
+  './components/message.scss', './components/history/history.scss',
+  './components/main/detailproduct.scss', './components/main/itemslist.scss',
+  './components/main/list.scss', './components/main/product.scss';
+.body {
+  display: flex;
+}
+.main {
+  height: 100%;
+  width: 100%;
+  @include flex(row, nowrap, flex-start, flex-start, 0);
+}

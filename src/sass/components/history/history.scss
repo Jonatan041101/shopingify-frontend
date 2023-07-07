@@ -1,0 +1,109 @@
+.historial {
+  width: 100%;
+  @include flex(column, nowrap, space-between, center, 1.5em);
+  height: calc(100vh - 102px);
+  overflow: auto;
+  &__order {
+    width: 100%;
+    @include flex(column, nowrap, space-between, center, 0.8em);
+  }
+  &__section {
+    width: 100%;
+    @include flex(column, nowrap, space-between, center, 1.5em);
+  }
+  &__h3 {
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  &__article {
+    width: 100%;
+    padding: 0.8em 1em;
+    border-radius: 0.5em;
+    @include flex(row, nowrap, space-between, center, 0);
+    @include shadow;
+    cursor: pointer;
+    &:hover > .historial__name {
+      letter-spacing: 1px;
+    }
+    &:hover > .historial__container .historial__arrow {
+      opacity: 1;
+    }
+  }
+  &__name {
+    font-weight: bold;
+    transition: 0.5s ease;
+  }
+  &__container {
+    @include flex(row, nowrap, space-between, center, 0.5em);
+  }
+  &__date {
+    color: $color-placeholder;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-transform: capitalize;
+    @include flex(row, nowrap, flex-start, center, 0.8em);
+    @include responsive(600px) {
+      display: none;
+    }
+  }
+  &__details {
+    color: $color-placeholder;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-transform: capitalize;
+    @include flex(row, nowrap, flex-start, center, 0.8em);
+  }
+  &__icondate {
+    width: 1.25em;
+    min-width: 1.25em;
+    color: $color-placeholder;
+  }
+  &__span {
+  }
+  &__status {
+    padding: 0.2em 0.4em;
+    border-radius: 0.5em;
+    font-size: 0.7em;
+    border: 1px solid #56ccf2;
+    color: #56ccf2;
+    font-weight: bold;
+  }
+  &__arrow {
+    opacity: 0;
+    transition: 0.5s ease;
+    color: $color-yellow;
+    width: 1.25em;
+    min-width: 1em;
+  }
+  &__detail {
+    width: 100%;
+    @include flex(column, nowrap, flex-start, flex-start, 0.5em);
+    &--name {
+      font-size: 1.25em;
+      font-weight: bold;
+    }
+    & .button:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__one {
+    width: 100%;
+    @include flex(column, nowrap, flex-start, flex-start, 1.5em);
+  }
+  &__title {
+    @include flex(column, nowrap, flex-start, flex-start, 0.5em);
+  }
+}
+.pendiente {
+  border: 1px solid $color-yellow;
+  color: $color-yellow;
+}
+.completado {
+}
+.cancelado {
+  border: 1px solid $color-red;
+  color: $color-red;
+}

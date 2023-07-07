@@ -1,0 +1,43 @@
+.input {
+  width: 100%;
+  // background: red;
+  @include flex(column-reverse, nowrap, flex-start, flex-start, 0.5em);
+  &__label {
+    width: 100%;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: $color-icon;
+  }
+  &__span {
+  }
+  &__input {
+    width: 100%;
+    border: 2px solid #bdbdbd;
+    width: 100%;
+    padding: 1em;
+    border-radius: 1em;
+    outline: none;
+    color: #000;
+    &:focus {
+      border-color: $color-yellow;
+    }
+    &:focus ~ .input__label {
+      color: $color-yellow;
+    }
+  }
+  &__textarea {
+    width: 100%;
+    border: 2px solid #bdbdbd;
+    width: 100%;
+    padding: 1em;
+    border-radius: 1em;
+    outline: none;
+    color: #000;
+    &:focus {
+      border-color: $color-yellow;
+    }
+    &:focus ~ .input__label {
+      color: $color-yellow;
+    }
+  }
+}

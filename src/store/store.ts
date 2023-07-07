@@ -1,0 +1,29 @@
+import { create } from 'zustand'
+import { ProductDetail, productSlice } from './slice/productSlice'
+import { List, buySlice } from './slice/buySlice'
+import { CreateProduct, createSlice } from './slice/createSlice'
+import { Drive, driveSlice } from './slice/driveSlice'
+import { AlertNotify, sliceAlert } from './slice/alertSlice'
+import { Styles, styleSlice } from './slice/styleSlice'
+import { FunctionsModal, sliceModal } from './slice/sliceModal'
+import { Filter, sliceFilter } from './slice/sliceFilter'
+
+export const useBearStore = create<
+  List &
+    ProductDetail &
+    CreateProduct &
+    Drive &
+    AlertNotify &
+    Styles &
+    FunctionsModal &
+    Filter
+>((...set) => ({
+  ...buySlice(...set),
+  ...productSlice(...set),
+  ...createSlice(...set),
+  ...driveSlice(...set),
+  ...sliceAlert(...set),
+  ...styleSlice(...set),
+  ...sliceModal(...set),
+  ...sliceFilter(...set),
+}))

@@ -1,0 +1,55 @@
+.detailproduct {
+  background: #fff;
+  flex-grow: 1;
+  width: 100%;
+  @include flex(column, nowrap, space-between, center, 2em);
+  padding: 1em;
+  &__top {
+    width: 100%;
+    @include flex(column, nowrap, center, center, 0.5em);
+  }
+  &__image {
+    object-fit: scale-down;
+    aspect-ratio: 16 / 9;
+  }
+  &__back {
+    width: 100%;
+    & button {
+      transition: 0.5s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+  &__description {
+    width: 100%;
+    flex-grow: 1;
+    @include flex(column, nowrap, space-between, center, 1.5em);
+  }
+  &__des {
+    width: 100%;
+    flex-grow: 1;
+    @include flex(column, nowrap, flex-start, center, 1.5em);
+  }
+  &__section {
+    width: 100%;
+    &:nth-of-type(3) {
+      height: calc(100vh - 25.774em);
+      overflow: auto;
+    }
+  }
+  &__name {
+    color: $color-placeholder;
+    font-weight: bold;
+  }
+  &__p {
+    color: #000;
+    font-weight: 600;
+  }
+  &__buttons {
+    @include flex(row, nowrap, center, center, 1.5em);
+  }
+}
+[data-title='true'] {
+  font-size: 1.25em;
+}

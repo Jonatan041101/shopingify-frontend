@@ -1,0 +1,74 @@
+.list {
+  flex-grow: 5;
+  width: 100%;
+  max-width: 350px;
+  align-self: stretch;
+  @include flex(column, nowrap, flex-start, center, 0);
+  @include responsive(950px) {
+    transition: 0.5s ease;
+    position: fixed;
+    height: 100vh;
+    right: 0;
+    transform: translateX(600px);
+  }
+  @include responsive(550px) {
+    max-width: calc(100% - 62px);
+  }
+  &__top {
+    background: $color-bordo;
+    @include flex(row, nowrap, space-around, center, 1em);
+    width: 100%;
+    max-width: 340px;
+    border-radius: 1.2em;
+    padding: 0.5em 1em;
+  }
+  &__botl {
+    position: relative;
+    width: 100%;
+    max-width: 81px;
+    min-height: 125px;
+  }
+  &__bottle {
+    position: absolute;
+    bottom: 1em;
+  }
+  &__add {
+    @include flex(column, nowrap, center, center, 0.75em);
+  }
+  &__non {
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+  }
+  &__button {
+    padding: 0.5em 0.8em;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.5em;
+  }
+  &__name {
+    width: 100%;
+    max-width: 340px;
+    @include flex(row, nowrap, space-between, center, 0);
+  }
+  &__list {
+    color: #000;
+    font-weight: 700;
+    font-size: 1.4em;
+  }
+  &__lapiz {
+    width: 1em;
+    color: #000;
+  }
+  &__items {
+    width: 100%;
+    background: $color-list;
+    padding: 1.8em 1em;
+    flex-grow: 1;
+    @include flex(column, nowrap, center, center, 0.5em);
+  }
+}
+[data-translate='true'] {
+  transform: translateX(0);
+}

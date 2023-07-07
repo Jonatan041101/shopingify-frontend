@@ -1,0 +1,49 @@
+.create {
+  background: #fff;
+  color: #000;
+  flex-grow: 1;
+  width: 100%;
+  padding: 1.5em 1.2em;
+  @include flex(column, nowrap, space-between, center, 0);
+  &__div {
+    width: 100%;
+    max-width: 400px;
+    @include flex(column, nowrap, flex-start, flex-start, 2em);
+  }
+  &__title {
+    width: 100%;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-align: center;
+  }
+  &__inputs {
+    width: 100%;
+    @include flex(column, nowrap, flex-start, flex-start, 0.8em);
+  }
+  &__buttons {
+    width: 100%;
+    max-width: 400px;
+    @include flex(row, nowrap, space-between, center, 1em);
+  }
+  &__select {
+    width: 100%;
+  }
+  &__categorys {
+    width: 100%;
+    min-height: 3em;
+    flex-grow: 1;
+    height: calc(100vh - 546.77px);
+    overflow: auto;
+    border-radius: 1em;
+    border: 2px solid #bdbdbd;
+  }
+  &__li {
+    cursor: pointer;
+    width: 100%;
+    padding: 1em;
+    &:hover {
+      background: $color-placeholder;
+      font-weight: bold;
+    }
+  }
+}
