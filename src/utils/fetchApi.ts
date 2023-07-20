@@ -17,7 +17,11 @@ export const getProductsWithCategory = async () => {
   const products = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
     cache: 'no-cache',
   })
+  console.log({ products })
+
   const parseProducts = await products.json()
+  console.log({ parseProducts })
+
   if (!parseProducts.products)
     throw new Error('No es la respuesta esperada {products:[]}')
   return parseProducts as GetProduct

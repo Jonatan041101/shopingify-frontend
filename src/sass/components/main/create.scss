@@ -33,9 +33,13 @@
     min-height: 3em;
     flex-grow: 1;
     height: calc(100vh - 546.77px);
+    max-height: 250px;
     overflow: auto;
     border-radius: 1em;
     border: 2px solid #bdbdbd;
+    position: absolute;
+    top: 100%;
+    z-index: 5;
   }
   &__li {
     cursor: pointer;

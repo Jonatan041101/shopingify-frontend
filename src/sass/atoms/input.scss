@@ -2,6 +2,7 @@
   width: 100%;
   // background: red;
   @include flex(column-reverse, nowrap, flex-start, flex-start, 0.5em);
+  position: relative;
   &__label {
     width: 100%;
     font-size: 0.85em;

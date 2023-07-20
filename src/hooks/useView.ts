@@ -5,8 +5,12 @@ export default function useView() {
   const changeView = () => {
     setView(!view)
   }
+  const manualView = (view: boolean) => {
+    setView(view)
+  }
   return {
     view,
     changeView,
+    manualView,
   }
 }

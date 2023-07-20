@@ -512,6 +512,7 @@ button {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 0.5em;
+  position: relative;
 }
 .input__label {
   width: 100%;
@@ -618,9 +619,13 @@ button {
   min-height: 3em;
   flex-grow: 1;
   height: calc(100vh - 546.77px);
+  max-height: 250px;
   overflow: auto;
   border-radius: 1em;
   border: 2px solid #bdbdbd;
+  position: absolute;
+  top: 100%;
+  z-index: 5;
 }
 .create__li {
   cursor: pointer;

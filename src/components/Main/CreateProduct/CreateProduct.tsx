@@ -7,7 +7,7 @@ import useView from '@/hooks/useView'
 import { useBearStore } from '@/store/store'
 import { Category, InputChange, NewItem } from '@/types/types'
 import { createProduct } from '@/utils/fetchApi'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 const INITIAL_STATE = {
   categoryName: '',
   image: '',
@@ -19,7 +19,8 @@ export default function CreateProduct() {
     (state) => state
   )
   const [newProduct, setNewProduct] = useState<NewItem>(INITIAL_STATE)
-  const { view, changeView } = useView()
+  const { view, changeView, manualView } = useView()
+  const refCloseSelect = useRef<boolean>(true)
   const { createAlert } = useAlert()
   const handleChangeViewCreate = () => {
     changeViewCreate(false)
@@ -34,45 +35,62 @@ export default function CreateProduct() {
     })
   }
   const handleCreateProduct = async () => {
-    const product = await createProduct(newProduct)
-    console.log({ product: product.product.category.name })
+    try {
+      const product = await createProduct(newProduct)
 
-    const newItems: Category[] = [...items]
-    const category = newItems.find(
-      ({ name }) => name === product.product.category.name
-    )
-    if (category) {
-      category.product.push(product.product)
-      addItemsProducts(newItems)
-      createAlert(`${product.product.name} agregado a ${category.name}`, false)
-    } else {
-      const newCategoryWithProduct: Category = {
-        name: product.product.category.name,
-        id: product.product.category.id,
-        product: [product.product],
-      }
-      addItemsProducts([...newItems, newCategoryWithProduct])
-      createAlert(
-        `Categoria ${newCategoryWithProduct.name} creada y producto ${product.product.name} agregado.`,
-        false
+      const newItems: Category[] = [...items]
+      const category = newItems.find(
+        ({ name }) => name === product.product.category.name
       )
+      if (category) {
+        category.product.push(product.product)
+        addItemsProducts(newItems)
+        createAlert(
+          `${product.product.name} agregado a ${category.name}`,
+          false
+        )
+      } else {
+        const newCategoryWithProduct: Category = {
+          name: product.product.category.name,
+          id: product.product.category.id,
+          product: [product.product],
+        }
+        addItemsProducts([...newItems, newCategoryWithProduct])
+        createAlert(
+          `Categoria ${newCategoryWithProduct.name} creada y producto ${product.product.name} agregado.`,
+          false
+        )
+      }
+      handleChangeViewCreate()
+      setNewProduct(INITIAL_STATE)
+    } catch (error) {
+      console.log({ error })
     }
-    handleChangeViewCreate()
-    setNewProduct(INITIAL_STATE)
+  }
+  const changeRefView = (view: boolean) => {
+    refCloseSelect.current = view
   }
   const handleViewCategory = () => {
-    setTimeout(() => {
-      changeView()
-    }, 300)
+    changeRefView(false)
+    manualView(true)
+  }
+  const handleCloseCategory = () => {
+    changeRefView(true)
   }
   const handleChangeCategory = (category: string) => {
     setNewProduct({
       ...newProduct,
       categoryName: category,
     })
+    changeView()
+  }
+  const closeViewCategory = () => {
+    if (refCloseSelect.current) {
+      manualView(false)
+    }
   }
   return (
-    <div className="create">
+    <div className="create" onClick={closeViewCategory}>
       <div className="create__div">
         <h2 className="create__title">Agregar nuevo producto</h2>
         <div className="create__inputs">
@@ -102,26 +120,16 @@ export default function CreateProduct() {
           <div className="create__select">
             <SelectCategory
               handleChange={handleChangeCreateProduct}
-              handleBlur={handleViewCategory}
+              handleBlur={handleCloseCategory}
               handleFocus={handleViewCategory}
               value={newProduct.categoryName}
+              category={category}
+              view={view}
+              handleChangeCategory={handleChangeCategory}
               name="categoryName"
               label="Categoria"
               place="Ingresar nueva categoria"
             />
-            {view && (
-              <ul className="create__categorys">
-                {category.map(({ name, id }) => (
-                  <li
-                    className="create__li"
-                    key={id}
-                    onClick={() => handleChangeCategory(name)}
-                  >
-                    {name}{' '}
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
         </div>
       </div>
