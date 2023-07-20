@@ -1422,7 +1422,7 @@ button {
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
-  gap: 1em;
+  gap: 0.7em;
   width: 100%;
   max-width: 340px;
   border-radius: 1.2em;
@@ -1451,7 +1451,7 @@ button {
   text-align: center;
 }
 .list__button {
-  padding: 0.5em 0.8em;
+  padding: 0.5em;
   background: #fff;
   color: #000;
   font-weight: 600;

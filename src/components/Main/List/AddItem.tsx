@@ -18,7 +18,7 @@ export default function AddItem() {
       <div className="list__add">
         <h3 className="list__non">¿No encontró lo que necesita?</h3>
         <button className="list__button" onClick={handleClick}>
-          Agregar articulo
+          Agregar producto
         </button>
       </div>
     </div>

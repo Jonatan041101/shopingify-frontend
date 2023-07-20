@@ -89,10 +89,15 @@ export const updateCountProductListHistory = async (
         count,
       }),
     })
-    const message = (await res.json()) as ResUpdateList
-    return message
+    const message = await res.json()
+    if (!res.ok) {
+      const ERROR = message as Error
+      throw new Error(ERROR.message)
+    }
+    return message as ResUpdateList
   } catch (error) {
-    console.log({ error })
+    const ERROR = error as Error
+    throw new Error(ERROR.message)
   }
 }
 export const statHistory = async () => {
