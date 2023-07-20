@@ -1,19 +1,21 @@
 'use client'
-import Spinner from '@/atoms/Spinner'
 import Button from '@/atoms/button/Button'
-import Icons from '@/atoms/icons'
-import Input from '@/atoms/input/Input'
-import SelectCategory from '@/atoms/input/SelectCategory'
 import useAlert from '@/hooks/useAlert'
 import useView from '@/hooks/useView'
 import { useBearStore } from '@/store/store'
-import { EventFile } from '@/types/events'
-import { Category, InputChange, NewItem } from '@/types/types'
+import { EventFile, EventInput } from '@/types/events'
+import { InputChange, NewItem } from '@/types/types'
 import { uploadFiles } from '@/utils/cloduinary/files'
 import { createProduct } from '@/utils/fetchApi'
-import Image from 'next/image'
+import {
+  parseCategoryToAdd,
+  parseProductToAdd,
+} from '@/utils/parse/productWithCategory'
+import { newProductToAdd } from '@/utils/parse/searchingProductOrCategory'
 import React, { useRef, useState } from 'react'
-const INITIAL_STATE = {
+import UpImage from './UpImage'
+import RestForm from './RestForm'
+const INITIAL_STATE: NewItem = {
   categoryName: '',
   image: '',
   name: '',
@@ -33,9 +35,7 @@ export default function CreateProduct() {
   const handleChangeViewCreate = () => {
     changeViewCreate(false)
   }
-  const handleChangeCreateProduct = (
-    evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChangeCreateProduct = (evt: EventInput) => {
     const { name, value } = evt.target
     setNewProduct({
       ...newProduct,
@@ -47,33 +47,21 @@ export default function CreateProduct() {
       if (isNaN(Number(newProduct.price)) || isNaN(Number(newProduct.stock))) {
         throw new Error(`El precio  y el stock deben ser numeros`)
       }
-      const NEW_PRODUCT: NewItem = {
-        ...newProduct,
-        stock: Number(newProduct.stock) ?? 0,
-        price: Number(newProduct.price) ?? 0,
-      }
-      const product = await createProduct(newProduct)
-
-      const newItems: Category[] = [...items]
-      const category = newItems.find(
-        ({ name }) => name === product.product.category.name
+      const { NEW_PRODUCT } = parseProductToAdd(newProduct)
+      const { product } = await createProduct(NEW_PRODUCT)
+      const { newItems, category } = newProductToAdd(
+        items,
+        product.category.name
       )
       if (category) {
-        category.product.push(product.product)
+        category.product.push(product)
         addItemsProducts(newItems)
-        createAlert(
-          `${product.product.name} agregado a ${category.name}`,
-          false
-        )
+        createAlert(`${product.name} agregado a ${category.name}`, false)
       } else {
-        const newCategoryWithProduct: Category = {
-          name: product.product.category.name,
-          id: product.product.category.id,
-          product: [product.product],
-        }
+        const { newCategoryWithProduct } = parseCategoryToAdd(product)
         addItemsProducts([...newItems, newCategoryWithProduct])
         createAlert(
-          `Categoria ${newCategoryWithProduct.name} creada y producto ${product.product.name} agregado.`,
+          `Categoria ${newCategoryWithProduct.name} creada y producto ${product.name} agregado.`,
           false
         )
       }
@@ -85,13 +73,6 @@ export default function CreateProduct() {
   }
   const changeRefView = (view: boolean) => {
     refCloseSelect.current = view
-  }
-  const handleViewCategory = () => {
-    changeRefView(false)
-    manualView(true)
-  }
-  const handleCloseCategory = () => {
-    changeRefView(true)
   }
   const handleChangeCategory = (category: string) => {
     setNewProduct({
@@ -112,7 +93,6 @@ export default function CreateProduct() {
       if (file) {
         setNewProduct({ ...newProduct, image: file?.secure_url })
       }
-      console.log({ file })
       setLoading(() => false)
     } catch (error) {
       console.log({ error })
@@ -123,82 +103,22 @@ export default function CreateProduct() {
       <div className="create__div">
         <h2 className="create__title">Agregar nuevo producto</h2>
         <div className="create__inputs">
-          <Input
-            handleChange={handleChangeCreateProduct}
-            value={newProduct.name}
-            name="name"
-            input
-            label="Nombre"
-            place="Ingresar nombre"
+          <RestForm
+            category={category}
+            changeRefView={changeRefView}
+            handleChangeCategory={handleChangeCategory}
+            handleChangeCreateProduct={handleChangeCreateProduct}
+            manualView={manualView}
+            newProduct={newProduct}
+            view={view}
           />
-          <Input
-            handleChange={handleChangeCreateProduct}
-            value={newProduct.note}
-            name="note"
-            label="Nota (Opcional)"
-            place="Ingresar nota"
-          />
-          <div className="create__select">
-            <SelectCategory
-              handleChange={handleChangeCreateProduct}
-              handleBlur={handleCloseCategory}
-              handleFocus={handleViewCategory}
-              value={newProduct.categoryName}
-              category={category}
-              view={view}
-              handleChangeCategory={handleChangeCategory}
-              name="categoryName"
-              label="Categoria"
-              place="Ingresar nueva categoria"
-            />
-          </div>
-          <div className="create__numbers">
-            <Input
-              handleChange={handleChangeCreateProduct}
-              value={newProduct.price}
-              name="price"
-              label="Precio"
-              place="Precio"
-              input
-              type="number"
-            />
-            <Input
-              handleChange={handleChangeCreateProduct}
-              value={newProduct.stock}
-              name="stock"
-              label="Cantidad"
-              place="Ingresar cantidad"
-              input
-              type="number"
-            />
-          </div>
           <div className="create__images">
-            <div className="create__image">
-              {loading ? (
-                <Spinner height="6em" width="6em" />
-              ) : (
-                <>
-                  {newProduct.image.length > 0 ? (
-                    <Image
-                      className="create__img"
-                      src={newProduct.image}
-                      alt={`Image del producto${newProduct.name}`}
-                      width={80}
-                      height={80}
-                    />
-                  ) : (
-                    <i className="create__files">
-                      <Icons icon="image-up" />
-                    </i>
-                  )}
-                  <input
-                    type="file"
-                    onChange={handleUpImage}
-                    className="create__file"
-                  />
-                </>
-              )}
-            </div>
+            <UpImage
+              handleUpImage={handleUpImage}
+              image={newProduct.image}
+              loading={loading}
+              name={newProduct.name}
+            />
           </div>
         </div>
       </div>

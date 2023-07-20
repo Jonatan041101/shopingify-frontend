@@ -112,6 +112,11 @@ export default function DetailProduct({ product }: Props) {
         <div className="detailproduct__des">
           <Section name="Nombre" text={product.product.name} titleName />
           <Section name="Categoria" text={product.category} />
+          <Section
+            name="Precio"
+            text={String(Number(product.product.price) * 525)}
+          />
+          <Section name="Cantidad" text={String(product.product.stock)} />
           <Section name="Nota" text={product.product.note} />
         </div>
         <div className="detailproduct__buttons">
@@ -121,7 +126,7 @@ export default function DetailProduct({ product }: Props) {
             classN="button__white"
           />
           <Button
-            text="Agregar a la lista"
+            text="Agregar"
             click={handleAddItemList}
             classN="button__yellow"
           />

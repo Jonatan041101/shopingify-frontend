@@ -75,6 +75,8 @@ export default function ProductList({ product, listItems }: Props) {
     }
   }
   const handleViewProductDetail = () => {
+    console.log({ product })
+
     const { newProduct } = createBuyProduct(product)
     viewProductDetail(newProduct)
   }

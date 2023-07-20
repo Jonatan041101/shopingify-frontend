@@ -15,6 +15,8 @@ export interface Product {
   name: string
   note: string
   category: CategoryName
+  price: number | string
+  stock: number | string
 }
 export interface ProductCount extends Product {
   count?: number

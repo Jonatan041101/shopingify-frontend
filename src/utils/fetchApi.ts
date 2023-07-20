@@ -6,7 +6,7 @@ import {
   NewItem,
   Product,
 } from '@/types/types'
-interface CreateProduct {
+interface ResponseProduct {
   product: Product
 }
 export const getProductsWithCategory = async () => {
@@ -39,7 +39,7 @@ export const createProduct = async (product: NewItem) => {
     },
     body: JSON.stringify(product),
   })
-  const productCreated = (await res.json()) as CreateProduct
+  const productCreated = (await res.json()) as ResponseProduct
   return productCreated
 }
 export const createHistory = async (history: HistoryCreate) => {

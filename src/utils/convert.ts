@@ -44,6 +44,8 @@ export const historyPendingToListBuy = (historyPending: HistoryPending) => {
           image: product.product.image,
           name: product.product.name,
           note: product.product.note,
+          price: product.product.price,
+          stock: product.product.stock,
         }
         category.product.push(newProductList)
       }

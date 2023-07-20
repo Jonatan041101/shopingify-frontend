@@ -26,12 +26,13 @@
     border: 2px solid $color-placeholder;
     border-radius: 1em;
     outline: none;
+    padding: 0 1em;
     color: #000;
     @include flex(row, nowrap, flex-start, center, 0.5em);
   }
   &__value {
     width: 100%;
-    padding: 1em;
+    padding: 1em 0;
     color: #000;
     outline: none;
   }
@@ -48,7 +49,7 @@
     outline: none;
     color: #000;
     width: 100%;
-    padding: 1em;
+    padding: 1em 0;
     resize: none;
   }
 }
