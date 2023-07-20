@@ -4,7 +4,7 @@ import useAlert from '@/hooks/useAlert'
 import useView from '@/hooks/useView'
 import { useBearStore } from '@/store/store'
 import { EventFile, EventInput } from '@/types/events'
-import { InputChange, NewItem } from '@/types/types'
+import { InputChange } from '@/types/types'
 import { uploadFiles } from '@/utils/cloduinary/files'
 import { createProduct } from '@/utils/fetchApi'
 import {
@@ -12,23 +12,16 @@ import {
   parseProductToAdd,
 } from '@/utils/parse/productWithCategory'
 import { newProductToAdd } from '@/utils/parse/searchingProductOrCategory'
-import React, { useRef, useState } from 'react'
+import React, { useReducer, useRef } from 'react'
 import UpImage from './UpImage'
 import RestForm from './RestForm'
-const INITIAL_STATE: NewItem = {
-  categoryName: '',
-  image: '',
-  name: '',
-  note: '',
-  price: '',
-  stock: '',
-}
+import { INITIAL_STATE_REDUCER, reducer } from './reduder'
+
 export default function CreateProduct() {
   const { items, category, changeViewCreate, addItemsProducts } = useBearStore(
     (state) => state
   )
-  const [newProduct, setNewProduct] = useState<NewItem>(INITIAL_STATE)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE_REDUCER)
   const { view, changeView, manualView } = useView()
   const refCloseSelect = useRef<boolean>(true)
   const { createAlert } = useAlert()
@@ -37,17 +30,23 @@ export default function CreateProduct() {
   }
   const handleChangeCreateProduct = (evt: EventInput) => {
     const { name, value } = evt.target
-    setNewProduct({
-      ...newProduct,
-      [name as InputChange]: value,
+    dispatch({
+      type: '@change/new-product',
+      payload: {
+        name: name as InputChange,
+        value: value,
+      },
     })
   }
   const handleCreateProduct = async () => {
     try {
-      if (isNaN(Number(newProduct.price)) || isNaN(Number(newProduct.stock))) {
+      if (
+        isNaN(Number(state.newProduct.price)) ||
+        isNaN(Number(state.newProduct.stock))
+      ) {
         throw new Error(`El precio  y el stock deben ser numeros`)
       }
-      const { NEW_PRODUCT } = parseProductToAdd(newProduct)
+      const { NEW_PRODUCT } = parseProductToAdd(state.newProduct)
       const { product } = await createProduct(NEW_PRODUCT)
       const { newItems, category } = newProductToAdd(
         items,
@@ -66,7 +65,7 @@ export default function CreateProduct() {
         )
       }
       handleChangeViewCreate()
-      setNewProduct(INITIAL_STATE)
+      dispatch({ type: '@reset/new-product' })
     } catch (error) {
       console.log({ error })
     }
@@ -75,9 +74,12 @@ export default function CreateProduct() {
     refCloseSelect.current = view
   }
   const handleChangeCategory = (category: string) => {
-    setNewProduct({
-      ...newProduct,
-      categoryName: category,
+    dispatch({
+      type: '@change/new-product',
+      payload: {
+        name: 'categoryName',
+        value: category,
+      },
     })
     changeView()
   }
@@ -88,12 +90,18 @@ export default function CreateProduct() {
   }
   const handleUpImage = async (evt: EventFile) => {
     try {
-      setLoading(() => true)
+      dispatch({ type: '@change/loading', payload: true })
       const file = await uploadFiles(evt)
       if (file) {
-        setNewProduct({ ...newProduct, image: file?.secure_url })
+        dispatch({
+          type: '@change/new-product',
+          payload: {
+            name: 'image',
+            value: file.secure_url,
+          },
+        })
       }
-      setLoading(() => false)
+      dispatch({ type: '@change/loading', payload: false })
     } catch (error) {
       console.log({ error })
     }
@@ -109,15 +117,15 @@ export default function CreateProduct() {
             handleChangeCategory={handleChangeCategory}
             handleChangeCreateProduct={handleChangeCreateProduct}
             manualView={manualView}
-            newProduct={newProduct}
+            newProduct={state.newProduct}
             view={view}
           />
           <div className="create__images">
             <UpImage
               handleUpImage={handleUpImage}
-              image={newProduct.image}
-              loading={loading}
-              name={newProduct.name}
+              image={state.newProduct.image}
+              loading={state.loading}
+              name={state.newProduct.name}
             />
           </div>
         </div>
