@@ -1,5 +1,4 @@
 import { useBearStore } from '@/store/store'
-import React from 'react'
 
 export default function useAlert() {
   const { textAlert, isError, changeTextAlert } = useBearStore((state) => state)

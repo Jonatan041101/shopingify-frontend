@@ -37,7 +37,13 @@ export interface NewItem {
   note: string
 }
 export interface CategoryName extends Omit<Category, 'product'> {}
-export type InputChange = 'categoryName' | 'image' | 'name' | 'note'
+export type InputChange =
+  | 'categoryName'
+  | 'image'
+  | 'name'
+  | 'note'
+  | 'user'
+  | 'password'
 export interface ProductHistory {
   productId: string
   count: number

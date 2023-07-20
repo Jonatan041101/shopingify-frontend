@@ -526,6 +526,9 @@ button {
   height: 1.2em;
   min-height: 1.2em;
 }
+.input__btn {
+  cursor: pointer;
+}
 .input__input {
   width: 100%;
   border: 2px solid #bdbdbd;
@@ -539,6 +542,9 @@ button {
   justify-content: flex-start;
   align-items: center;
   gap: 0.5em;
+}
+.input__value {
+  color: #000;
 }
 .input__textarea {
   width: 100%;

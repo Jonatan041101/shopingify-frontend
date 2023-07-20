@@ -15,6 +15,9 @@
     height: 1.2em;
     min-height: 1.2em;
   }
+  &__btn {
+    cursor: pointer;
+  }
   &__span {
   }
   &__input {
@@ -28,6 +31,7 @@
     @include flex(row, nowrap, flex-start, center, 0.5em);
   }
   &__value {
+    color: #000;
   }
   &__textarea {
     width: 100%;

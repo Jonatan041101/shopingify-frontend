@@ -1,8 +1,9 @@
 import { InputChange } from '@/types/types'
-import React from 'react'
+import React, { useState } from 'react'
 import Icons from '../icons'
 import { IconsTypes } from '../icons/types'
 import useBoolean from '@/hooks/useBoolean'
+import { EventInput, TypeInput } from '@/types/events'
 interface Props {
   label: string
   place: string
@@ -11,9 +12,8 @@ interface Props {
   input?: boolean
   iconLeft?: IconsTypes
   iconRigth?: IconsTypes
-  handleChange: (
-    evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void
+  type?: TypeInput
+  handleChange: (evt: EventInput) => void
 }
 
 export default function Input({
@@ -24,9 +24,17 @@ export default function Input({
   value,
   iconLeft,
   iconRigth,
+  type,
   handleChange,
 }: Props) {
   const { focus, handleChangeFocus } = useBoolean()
+  const [typeInput, setTtypeInput] = useState<TypeInput>(type ?? 'text')
+  const handleChangeType = () => {
+    if (typeInput === 'text') {
+      return setTtypeInput('password')
+    }
+    setTtypeInput('text')
+  }
   return (
     <div className="input">
       <div className="input__input" data-background={focus}>
@@ -38,7 +46,7 @@ export default function Input({
         {input ? (
           <input
             id={name}
-            // className="input__input"
+            type={typeInput}
             onFocus={handleChangeFocus}
             onBlur={handleChangeFocus}
             className="input__value"
@@ -60,7 +68,11 @@ export default function Input({
           />
         )}
         {iconRigth && (
-          <i className="input__icon" data-color={focus}>
+          <i
+            className="input__icon input__btn"
+            data-color={typeInput === 'text'}
+            onClick={handleChangeType}
+          >
             <Icons icon={iconRigth} />
           </i>
         )}
