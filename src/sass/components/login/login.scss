@@ -1,0 +1,23 @@
+.login {
+  width: 100%;
+  @include flex(row, nowrap, center, center, 0.5em);
+  &__landing {
+    @include flex(column, nowrap, center, center, 0.4em);
+  }
+  &__h3 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  &__span {
+    color: $color-yellow;
+  }
+  &__image {
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  &__container {
+  }
+  &__form {
+    @include flex(column, nowrap, center, center, 0.8em);
+  }
+}

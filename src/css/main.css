@@ -400,6 +400,7 @@ button {
   gap: 0.3em;
   color: #f9a109;
   transition: 0.3s ease;
+  width: 100%;
 }
 .button__span {
   color: inherit;
@@ -1073,6 +1074,40 @@ button {
 .cancelado {
   border: 1px solid #eb5757;
   color: #eb5757;
+}
+
+.login {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.login__landing {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+}
+.login__h3 {
+  font-size: 2em;
+  font-weight: bold;
+}
+.login__span {
+  color: #f9a109;
+}
+.login__image {
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.login__form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8em;
 }
 
 .detailproduct {
