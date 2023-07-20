@@ -1,6 +1,7 @@
 import { EventFile, EventInput } from '@/types/events'
 import { CloudinaryResponse } from '@/types/response'
 import { NO_ENVIRONMENT_VARIABLE } from '../api/loginApi'
+import { Message } from '../apiHistory'
 export const uploadFiles = async (evt: EventFile) => {
   try {
     const files = evt.target.files
@@ -9,15 +10,22 @@ export const uploadFiles = async (evt: EventFile) => {
       throw new Error(NO_ENVIRONMENT_VARIABLE)
     if (files) {
       data.append('file', files[0])
-      data.append('upload-preset', 'regaleria')
+      data.append('upload_preset', 'regaleria')
+      console.log(process.env.NEXT_PUBLIC_API_CLOUDINARY)
+
       const res = await fetch(
-        `ttps://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_API_CLOUDINARY}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_API_CLOUDINARY}/image/upload`,
         { method: 'POST', body: data, cache: 'no-cache' }
       )
-      const file = (await res.json()) as CloudinaryResponse
-      return file
+      const file = await res.json()
+      if (!res.ok) {
+        const File = file as Message
+        throw new Error(File.message)
+      }
+      return file as CloudinaryResponse
     }
   } catch (error) {
-    console.log({ error })
+    const ERROR = error as Error
+    throw new Error(ERROR.message)
   }
 }

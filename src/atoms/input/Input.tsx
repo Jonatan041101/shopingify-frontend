@@ -8,7 +8,7 @@ interface Props {
   label: string
   place: string
   name: InputChange
-  value: string
+  value: string | number
   input?: boolean
   iconLeft?: IconsTypes
   iconRigth?: IconsTypes
@@ -35,6 +35,8 @@ export default function Input({
     }
     setTtypeInput('text')
   }
+  console.log(typeInput)
+
   return (
     <div className="input">
       <div className="input__input" data-background={focus}>

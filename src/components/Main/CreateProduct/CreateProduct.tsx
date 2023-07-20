@@ -1,24 +1,32 @@
 'use client'
+import Spinner from '@/atoms/Spinner'
 import Button from '@/atoms/button/Button'
+import Icons from '@/atoms/icons'
 import Input from '@/atoms/input/Input'
 import SelectCategory from '@/atoms/input/SelectCategory'
 import useAlert from '@/hooks/useAlert'
 import useView from '@/hooks/useView'
 import { useBearStore } from '@/store/store'
+import { EventFile } from '@/types/events'
 import { Category, InputChange, NewItem } from '@/types/types'
+import { uploadFiles } from '@/utils/cloduinary/files'
 import { createProduct } from '@/utils/fetchApi'
+import Image from 'next/image'
 import React, { useRef, useState } from 'react'
 const INITIAL_STATE = {
   categoryName: '',
   image: '',
   name: '',
   note: '',
+  price: '',
+  stock: '',
 }
 export default function CreateProduct() {
   const { items, category, changeViewCreate, addItemsProducts } = useBearStore(
     (state) => state
   )
   const [newProduct, setNewProduct] = useState<NewItem>(INITIAL_STATE)
+  const [loading, setLoading] = useState<boolean>(false)
   const { view, changeView, manualView } = useView()
   const refCloseSelect = useRef<boolean>(true)
   const { createAlert } = useAlert()
@@ -36,6 +44,14 @@ export default function CreateProduct() {
   }
   const handleCreateProduct = async () => {
     try {
+      if (isNaN(Number(newProduct.price)) || isNaN(Number(newProduct.stock))) {
+        throw new Error(`El precio  y el stock deben ser numeros`)
+      }
+      const NEW_PRODUCT: NewItem = {
+        ...newProduct,
+        stock: Number(newProduct.stock) ?? 0,
+        price: Number(newProduct.price) ?? 0,
+      }
       const product = await createProduct(newProduct)
 
       const newItems: Category[] = [...items]
@@ -89,6 +105,19 @@ export default function CreateProduct() {
       manualView(false)
     }
   }
+  const handleUpImage = async (evt: EventFile) => {
+    try {
+      setLoading(() => true)
+      const file = await uploadFiles(evt)
+      if (file) {
+        setNewProduct({ ...newProduct, image: file?.secure_url })
+      }
+      console.log({ file })
+      setLoading(() => false)
+    } catch (error) {
+      console.log({ error })
+    }
+  }
   return (
     <div className="create" onClick={closeViewCategory}>
       <div className="create__div">
@@ -109,14 +138,6 @@ export default function CreateProduct() {
             label="Nota (Opcional)"
             place="Ingresar nota"
           />
-          <Input
-            handleChange={handleChangeCreateProduct}
-            value={newProduct.image}
-            name="image"
-            input
-            label="Imagen"
-            place="Ingresa URL"
-          />
           <div className="create__select">
             <SelectCategory
               handleChange={handleChangeCreateProduct}
@@ -130,6 +151,54 @@ export default function CreateProduct() {
               label="Categoria"
               place="Ingresar nueva categoria"
             />
+          </div>
+          <div className="create__numbers">
+            <Input
+              handleChange={handleChangeCreateProduct}
+              value={newProduct.price}
+              name="price"
+              label="Precio"
+              place="Precio"
+              input
+              type="number"
+            />
+            <Input
+              handleChange={handleChangeCreateProduct}
+              value={newProduct.stock}
+              name="stock"
+              label="Cantidad"
+              place="Ingresar cantidad"
+              input
+              type="number"
+            />
+          </div>
+          <div className="create__images">
+            <div className="create__image">
+              {loading ? (
+                <Spinner height="6em" width="6em" />
+              ) : (
+                <>
+                  {newProduct.image.length > 0 ? (
+                    <Image
+                      className="create__img"
+                      src={newProduct.image}
+                      alt={`Image del producto${newProduct.name}`}
+                      width={80}
+                      height={80}
+                    />
+                  ) : (
+                    <i className="create__files">
+                      <Icons icon="image-up" />
+                    </i>
+                  )}
+                  <input
+                    type="file"
+                    onChange={handleUpImage}
+                    className="create__file"
+                  />
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

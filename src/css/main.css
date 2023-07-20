@@ -533,8 +533,6 @@ button {
 .input__input {
   width: 100%;
   border: 2px solid #bdbdbd;
-  width: 100%;
-  padding: 1em;
   border-radius: 1em;
   outline: none;
   color: #000;
@@ -545,18 +543,30 @@ button {
   gap: 0.5em;
 }
 .input__value {
+  width: 100%;
+  padding: 1em;
   color: #000;
   outline: none;
+}
+.input__category {
+  border: 2px solid #bdbdbd;
+  width: 100%;
+  outline: none;
+  padding: 1em;
+  border-radius: 1em;
+  color: #000;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
 }
 .input__textarea {
   outline: none;
   color: #000;
-}
-.input__textarea:focus {
-  border-color: #f9a109;
-}
-.input__textarea:focus ~ .input__label {
-  color: #f9a109;
+  width: 100%;
+  padding: 1em;
+  resize: none;
 }
 
 [data-color=true] {
@@ -626,6 +636,7 @@ button {
   position: absolute;
   top: 100%;
   z-index: 5;
+  background: #fff;
 }
 .create__li {
   cursor: pointer;
@@ -635,6 +646,50 @@ button {
 .create__li:hover {
   background: #bdbdbd;
   font-weight: bold;
+}
+.create__numbers {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+}
+.create__images {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.create__image {
+  position: relative;
+  height: 8em;
+  width: 8em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.create__img {
+  mix-blend-mode: multiply;
+  width: 100%;
+  height: 100%;
+}
+.create__files {
+  width: 100%;
+  height: 100%;
+  color: #bdbdbd;
+}
+.create__file {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  cursor: pointer;
+  opacity: 0;
 }
 
 .alert {
@@ -673,12 +728,10 @@ button {
 
 .loader {
   display: block;
-  width: 1em;
-  height: 1em;
 }
 .loader__spin {
-  width: 1em;
-  height: 1em;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   border: 1px solid #000000;
   border-color: #000000 transparent #000000 transparent;

@@ -35,6 +35,8 @@ export interface NewItem {
   image: string
   name: string
   note: string
+  price: number | string
+  stock: number | string
 }
 export interface CategoryName extends Omit<Category, 'product'> {}
 export type InputChange =
@@ -44,6 +46,8 @@ export type InputChange =
   | 'note'
   | 'user'
   | 'password'
+  | 'price'
+  | 'stock'
 export interface ProductHistory {
   productId: string
   count: number

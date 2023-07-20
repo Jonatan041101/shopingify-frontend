@@ -33,7 +33,7 @@ export default function SelectCategory({
     <div className="input">
       <input
         id={name}
-        className="input__input"
+        className="input__category"
         placeholder={place}
         name={name}
         value={value}

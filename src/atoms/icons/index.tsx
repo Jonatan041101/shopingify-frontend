@@ -20,6 +20,7 @@ import Close from './Close'
 import Padlock from './Padlock'
 import User from './User'
 import Visibility from './Visibility'
+import ImageUp from './ImageUp'
 
 interface Props {
   icon: IconsTypes
@@ -48,6 +49,7 @@ export default function Icons({ icon }: Props) {
       {icon === 'padlock' && <Padlock />}
       {icon === 'user' && <User />}
       {icon === 'visibility' && <Visibility />}
+      {icon === 'image-up' && <ImageUp />}
     </>
   )
 }
