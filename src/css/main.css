@@ -545,13 +545,9 @@ button {
 }
 .input__value {
   color: #000;
+  outline: none;
 }
 .input__textarea {
-  width: 100%;
-  border: 2px solid #bdbdbd;
-  width: 100%;
-  padding: 1em;
-  border-radius: 1em;
   outline: none;
   color: #000;
 }
@@ -1090,6 +1086,11 @@ button {
   align-items: center;
   gap: 0.5em;
 }
+@media screen and (max-width: 700px) {
+  .login {
+    flex-direction: column;
+  }
+}
 .login__landing {
   display: flex;
   flex-flow: column nowrap;
@@ -1104,9 +1105,14 @@ button {
 .login__span {
   color: #f9a109;
 }
+.login__img {
+  font-size: clamp(0.5em, 0.3em + 0.9vw, 1em);
+}
 .login__image {
   object-fit: contain;
   mix-blend-mode: multiply;
+  width: 31.25em;
+  height: 31.25em;
 }
 .login__container {
   width: 100%;
@@ -1451,6 +1457,7 @@ button {
 }
 .products__shoppingify {
   color: #f9a109;
+  text-transform: capitalize;
 }
 .products__input {
   display: flex;

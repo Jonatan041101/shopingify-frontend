@@ -32,13 +32,9 @@
   }
   &__value {
     color: #000;
+    outline: none;
   }
   &__textarea {
-    width: 100%;
-    border: 2px solid $color-placeholder;
-    width: 100%;
-    padding: 1em;
-    border-radius: 1em;
     outline: none;
     color: #000;
     &:focus {

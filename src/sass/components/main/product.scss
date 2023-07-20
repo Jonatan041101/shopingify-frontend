@@ -23,6 +23,7 @@
   }
   &__shoppingify {
     color: $color-yellow;
+    text-transform: capitalize;
   }
   &__input {
     @include flex(row, nowrap, flex-start, center, 0.6em);
