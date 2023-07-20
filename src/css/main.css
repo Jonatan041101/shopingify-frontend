@@ -1108,12 +1108,25 @@ button {
   object-fit: contain;
   mix-blend-mode: multiply;
 }
+.login__container {
+  width: 100%;
+  max-width: 270px;
+  position: relative;
+}
 .login__form {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   gap: 0.8em;
+}
+.login__err {
+  color: #eb5757;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  position: absolute;
+  top: 100%;
 }
 
 .detailproduct {

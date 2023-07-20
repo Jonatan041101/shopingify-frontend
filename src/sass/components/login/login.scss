@@ -16,8 +16,19 @@
     mix-blend-mode: multiply;
   }
   &__container {
+    width: 100%;
+    max-width: 270px;
+    position: relative;
   }
   &__form {
     @include flex(column, nowrap, center, center, 0.8em);
+  }
+  &__err {
+    color: $color-red;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+    position: absolute;
+    top: 100%;
   }
 }

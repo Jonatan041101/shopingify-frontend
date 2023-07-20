@@ -1,12 +1,15 @@
 'use client'
 import Button from '@/atoms/button/Button'
 import Input from '@/atoms/input/Input'
+import { useBearStore } from '@/store/store'
 import { Login } from '@/types/api-types'
 import { EventForm, EventInput } from '@/types/events'
+import { UserNonPassword } from '@/types/model'
 import { loginQuery } from '@/utils/api/loginApi'
 import { login } from '@/utils/images'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useRef, useState } from 'react'
 
 const INITIAL_STATE: Login = {
   user: '',
@@ -14,6 +17,10 @@ const INITIAL_STATE: Login = {
 }
 export default function Login() {
   const [loginText, setLoginText] = useState<Login>(INITIAL_STATE)
+  const [err, setErr] = useState<string>('')
+  const refErr = useRef<NodeJS.Timeout>()
+  const { changeUser } = useBearStore((state) => state)
+  const router = useRouter()
   const handleChange = (evt: EventInput) => {
     const { name, value } = evt.target
     if (name === 'password' || name === 'user') {
@@ -27,8 +34,17 @@ export default function Login() {
     evt.preventDefault()
     try {
       const user = await loginQuery(loginText)
-      console.log({ user })
+      const { password, ...resUser } = user.user
+      const newUser: UserNonPassword = {
+        ...resUser,
+      }
+      changeUser(newUser)
+      router.push('/home')
     } catch (error) {
+      const ERROR = error as Error
+      setErr(ERROR.message)
+      clearInterval(refErr.current)
+      refErr.current = setTimeout(() => setErr(''), 3500)
       console.log({ error })
     }
   }
@@ -75,6 +91,7 @@ export default function Login() {
             text="Iniciar Sesion"
             classNIcon="button__color"
           />
+          {err.length > 0 && <span className="login__err">{err}</span>}
         </form>
       </div>
     </div>

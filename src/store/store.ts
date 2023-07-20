@@ -7,6 +7,7 @@ import { AlertNotify, sliceAlert } from './slice/alertSlice'
 import { Styles, styleSlice } from './slice/styleSlice'
 import { FunctionsModal, sliceModal } from './slice/sliceModal'
 import { Filter, sliceFilter } from './slice/sliceFilter'
+import { UserSlice, userSlice } from './slice/userSlice'
 
 export const useBearStore = create<
   List &
@@ -16,7 +17,8 @@ export const useBearStore = create<
     AlertNotify &
     Styles &
     FunctionsModal &
-    Filter
+    Filter &
+    UserSlice
 >((...set) => ({
   ...buySlice(...set),
   ...productSlice(...set),
@@ -26,4 +28,5 @@ export const useBearStore = create<
   ...styleSlice(...set),
   ...sliceModal(...set),
   ...sliceFilter(...set),
+  ...userSlice(...set),
 }))
