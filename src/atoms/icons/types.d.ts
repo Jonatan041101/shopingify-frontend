@@ -16,3 +16,6 @@ export type IconsTypes =
   | 'arrow'
   | 'nice'
   | 'close'
+  | 'padlock'
+  | 'user'
+  | 'visibility'

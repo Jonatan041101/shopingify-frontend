@@ -127,6 +127,7 @@ label {
   font-size: inherit;
   hyphens: auto;
   background-color: transparent;
+  outline: none;
   display: block;
   /* (Opcional) */
 }
@@ -517,6 +518,13 @@ button {
   font-weight: 600;
   color: #454545;
 }
+.input__icon {
+  min-width: 1.2em;
+  width: 1.2em;
+  color: #bdbdbd;
+  height: 1.2em;
+  min-height: 1.2em;
+}
 .input__input {
   width: 100%;
   border: 2px solid #bdbdbd;
@@ -525,12 +533,11 @@ button {
   border-radius: 1em;
   outline: none;
   color: #000;
-}
-.input__input:focus {
-  border-color: #f9a109;
-}
-.input__input:focus ~ .input__label {
-  color: #f9a109;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
 }
 .input__textarea {
   width: 100%;
@@ -546,6 +553,14 @@ button {
 }
 .input__textarea:focus ~ .input__label {
   color: #f9a109;
+}
+
+[data-color=true] {
+  color: #f9a109;
+}
+
+[data-background=true] {
+  border-color: #f9a109;
 }
 
 .create {

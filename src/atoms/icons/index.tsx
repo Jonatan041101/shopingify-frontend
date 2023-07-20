@@ -17,6 +17,9 @@ import ArrowBack from './ArrowBack'
 import Arrow from './Arrow'
 import Nice from './Nice'
 import Close from './Close'
+import Padlock from './Padlock'
+import User from './User'
+import Visibility from './Visibility'
 
 interface Props {
   icon: IconsTypes
@@ -42,6 +45,9 @@ export default function Icons({ icon }: Props) {
       {icon === 'stats' && <Stats />}
       {icon === 'less' && <Less />}
       {icon === 'logo' && <Logo />}
+      {icon === 'padlock' && <Padlock />}
+      {icon === 'user' && <User />}
+      {icon === 'visibility' && <Visibility />}
     </>
   )
 }

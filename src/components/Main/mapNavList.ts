@@ -5,7 +5,7 @@ export const listNav: ListNav[] = [
     id: 'a9c6f59d-f4ea-4a5b-ba9e-d5a0473eff03',
     icon: 'list',
     name: 'Productos',
-    path: '/',
+    path: '/home',
   },
   {
     id: 'f64defb6-ca61-4fa1-86f8-b7a05235b761',

@@ -1,5 +1,5 @@
 'use client'
-import { GRAPH } from '@/app/stats/page'
+import { GRAPH } from '@/app/(admin-banner)/stats/page'
 import {
   LineChart,
   Line,

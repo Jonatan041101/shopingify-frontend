@@ -8,26 +8,30 @@
     font-weight: 600;
     color: $color-icon;
   }
+  &__icon {
+    min-width: 1.2em;
+    width: 1.2em;
+    color: $color-placeholder;
+    height: 1.2em;
+    min-height: 1.2em;
+  }
   &__span {
   }
   &__input {
     width: 100%;
-    border: 2px solid #bdbdbd;
+    border: 2px solid $color-placeholder;
     width: 100%;
     padding: 1em;
     border-radius: 1em;
     outline: none;
     color: #000;
-    &:focus {
-      border-color: $color-yellow;
-    }
-    &:focus ~ .input__label {
-      color: $color-yellow;
-    }
+    @include flex(row, nowrap, flex-start, center, 0.5em);
+  }
+  &__value {
   }
   &__textarea {
     width: 100%;
-    border: 2px solid #bdbdbd;
+    border: 2px solid $color-placeholder;
     width: 100%;
     padding: 1em;
     border-radius: 1em;
@@ -40,4 +44,10 @@
       color: $color-yellow;
     }
   }
+}
+[data-color='true'] {
+  color: $color-yellow;
+}
+[data-background='true'] {
+  border-color: $color-yellow;
 }

@@ -1,12 +1,6 @@
 import './globals.css'
-import { Inter, Quicksand } from 'next/font/google'
+import { Quicksand } from 'next/font/google'
 import '../css/main.css'
-import Header from '@/components/Main/Header'
-import List from '@/components/Main/List'
-import SearchPendingHistory from '@/components/History/SearchPendingHistory'
-import Alert from '@/atoms/Alert'
-import ModalConfirm from '@/components/Modal/ModalConfirm'
-const inter = Inter({ subsets: ['latin'] })
 const quicksand = Quicksand({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
@@ -23,14 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${quicksand.className} body`}>
-        <Header />
-        <Alert />
-        <ModalConfirm />
-        <SearchPendingHistory />
-        {children}
-        <List />
-      </body>
+      <body className={`${quicksand.className} body`}>{children}</body>
     </html>
   )
 }
