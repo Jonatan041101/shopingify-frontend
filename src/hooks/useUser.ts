@@ -23,10 +23,13 @@ export default function useUser() {
         } catch (error) {
           const ERROR = error as Error
           setErrFetch(ERROR.message)
+          handleRouter(RouterNames.LOGIN)
           setTimeout(() => setErrFetch(''), 3000)
         }
       }
       keepSession()
+    } else {
+      handleRouter(RouterNames.LOGIN)
     }
   }, [])
   return {

@@ -1,6 +1,7 @@
 import './globals.css'
 import { Quicksand } from 'next/font/google'
 import '../css/main.css'
+import Session from '@/components/Session'
 const quicksand = Quicksand({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
@@ -17,7 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${quicksand.className} body`}>{children}</body>
+      <body className={`${quicksand.className} body`}>
+        <Session />
+
+        {children}
+      </body>
     </html>
   )
 }
