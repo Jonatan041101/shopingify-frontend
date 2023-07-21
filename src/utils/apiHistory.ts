@@ -1,4 +1,6 @@
 import { ProductCategoryStat, ResUpdateList } from '@/types/types'
+import { errorFunction } from './handlerError/error'
+import { ResponseProductListHistory } from '@/types/response'
 export interface Message {
   message: string
 }
@@ -6,24 +8,26 @@ export const completeList = async (complete: boolean, historyId: string) => {
   const STATUS = complete ? 'Completado' : 'Cancelado'
   if (!process.env.NEXT_PUBLIC_API_HISTORY)
     throw new Error('No has ingresado la variable de entorno para las historys')
-  const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-cache',
-    body: JSON.stringify({
-      status: STATUS,
-      historyId,
-    }),
-  })
-  const history = await res.json()
-  return history
+  try {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-cache',
+      body: JSON.stringify({
+        status: STATUS,
+        historyId,
+      }),
+    })
+    const history = await res.json()
+    return history
+  } catch (error) {
+    console.log({ error })
+    errorFunction(error)
+  }
 }
-interface ResponseProductListHistory {
-  message: string
-  id: string
-}
+
 export const addProductListHistory = async (
   historyId: string,
   productId: string
@@ -45,9 +49,12 @@ export const addProductListHistory = async (
       }),
     })
     const message = (await res.json()) as ResponseProductListHistory
+    console.log({ res, message })
+
     return message
   } catch (error) {
-    // console.log({ error })
+    console.log({ error })
+    errorFunction(error)
   }
 }
 
@@ -69,6 +76,7 @@ export const deleteProductListHistory = async (productId: string) => {
     return message
   } catch (error) {
     console.log({ error })
+    errorFunction(error)
   }
 }
 export const updateCountProductListHistory = async (
@@ -91,13 +99,11 @@ export const updateCountProductListHistory = async (
     })
     const message = await res.json()
     if (!res.ok) {
-      const ERROR = message as Error
-      throw new Error(ERROR.message)
+      errorFunction(message)
     }
     return message as ResUpdateList
   } catch (error) {
-    const ERROR = error as Error
-    throw new Error(ERROR.message)
+    errorFunction(error)
   }
 }
 export const statHistory = async () => {
@@ -112,6 +118,6 @@ export const statHistory = async () => {
     const stats = (await res.json()) as ProductCategoryStat
     return stats
   } catch (error) {
-    console.log({ error })
+    errorFunction(error)
   }
 }

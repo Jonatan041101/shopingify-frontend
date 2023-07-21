@@ -1,3 +1,7 @@
+import {
+  ProductShoppingListWithCategoryClient,
+  ProductShoppingListWithCategoryClientOne,
+} from '@/types/parse'
 import { BuyProduct, ListBuy } from '@/types/types'
 import { parseListBuyTheBuyProduct } from '@/utils/parse/parseForListBuy'
 import {
@@ -6,26 +10,33 @@ import {
 } from '@/utils/searching/searchingProductOrCategory'
 
 export const addOrUpdateFromAllListToShoppingList = (
-  item: BuyProduct,
-  items: ListBuy[]
+  productShoppingList: ProductShoppingListWithCategoryClientOne,
+  productShoppingListAll: ProductShoppingListWithCategoryClient[]
 ) => {
-  const { newItems, category } = newProductToAdd<ListBuy>(items, item.category)
+  const { newItems, category } =
+    newProductToAdd<ProductShoppingListWithCategoryClient>(
+      productShoppingListAll,
+      productShoppingList.category
+    )
 
   //Buscamos si existe el producto con la categoria
-  console.log('HOLA COMO ESTAS')
 
   if (!category) {
     //SI NO EXISTE AGREGAMOS EL PRODUCTO CON SU CATEGORIA
-    const { newCategoryWithProduct } = parseListBuyTheBuyProduct(item)
+    const { newCategoryWithProduct } =
+      parseListBuyTheBuyProduct(productShoppingList)
     newItems.push(newCategoryWithProduct)
     return newItems // DEVOLVEMOS UN ARRAY MUTADO PERO NO DA PROBLEMAS PORQUE MUTAMOS UN ARRAY EXTERNO RECUERDA SIEMPRE QUE NO ES BUENO MUTAR PERO EN ESTE CASO ES UNA EXCEPCION
   }
   // const productExist = category.product.find(({ id }) => id === item.product.id)
-  const { product } = searchingProductWithID(category, item.product.id)
+  const { product } = searchingProductWithID(
+    category,
+    productShoppingList.product.id
+  )
   // Buscamos si el producto no existe ya en la categoria si no existe lo agregamos directamente
   if (!product) {
     //SI EXISTE SOLO AÑADIMOS EL PRODUCTO A LA CATEGORIA EXISTENTE
-    category.product.push(item.product)
+    category.product.push(productShoppingList.product)
     return newItems // DEVOLVEMOS UN ARRAY MUTADO PERO NO DA PROBLEMAS PORQUE MUTAMOS UN ARRAY EXTERNO RECUERDA SIEMPRE QUE NO ES BUENO MUTAR PERO EN ESTE CASO ES UNA EXCEPCION
   }
   //Si el producto existe aumentamos su count porque lo que hace es la funciona de agregar
@@ -34,12 +45,13 @@ export const addOrUpdateFromAllListToShoppingList = (
 }
 
 export const counterItem = (
-  items: ListBuy[],
+  items: ProductShoppingListWithCategoryClient[],
   count: number,
   PRODUCT_ID: string,
   categoryName: string
 ) => {
-  const { newItems, category } = newProductToAdd<ListBuy>(items, categoryName)
+  const { newItems, category } =
+    newProductToAdd<ProductShoppingListWithCategoryClient>(items, categoryName)
   if (!category)
     throw new Error(`Categoria no encontrada del nombre ${categoryName}`)
   const { product } = searchingProductWithID(category, PRODUCT_ID)
@@ -47,6 +59,6 @@ export const counterItem = (
     throw new Error(
       `Producto no encontrado para actualizar con el id ${PRODUCT_ID}`
     )
-  product.count = product.count + count
+  product.count = count
   return newItems
 }

@@ -1,3 +1,4 @@
+import { ResponseCategoryWithProduct } from '@/types/response'
 import {
   GetProduct,
   HistoryCreate,
@@ -6,6 +7,7 @@ import {
   NewItem,
   Product,
 } from '@/types/types'
+import { errorFunction } from './handlerError/error'
 interface ResponseProduct {
   product: Product
 }
@@ -14,15 +16,19 @@ export const getProductsWithCategory = async () => {
     throw new Error(
       'No has ingresado la variable de entorno para los productos'
     )
-  const products = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
-    cache: 'no-cache',
-  })
+  try {
+    const products = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
+      cache: 'no-cache',
+    })
 
-  const parseProducts = await products.json()
+    const parseProducts = await products.json()
 
-  if (!parseProducts.products)
-    throw new Error('No es la respuesta esperada {products:[]}')
-  return parseProducts as GetProduct
+    if (!parseProducts.products)
+      throw new Error('No es la respuesta esperada {products:[]}')
+    return parseProducts as ResponseCategoryWithProduct
+  } catch (error) {
+    errorFunction(error)
+  }
 }
 export const createProduct = async (product: NewItem) => {
   if (!process.env.NEXT_PUBLIC_API_PRODUCTS)

@@ -5,7 +5,6 @@ import ViewNoProducts from './ViewNoProducts'
 import ListHistroyOrCreated from './ListHistroyOrCreated'
 export default function ItemsList() {
   const { list, historyListPending } = useBearStore((state) => state)
-  console.log({ historyListPending, list })
 
   return (
     <div className="itemslist">

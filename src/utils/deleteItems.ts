@@ -1,12 +1,15 @@
-import { Category } from '@/types/types'
+import { CategoryWithProductClient } from '@/types/parse'
 
-export const deleteItemsHome = (items: Category[], id: string) => {
-  const newItems: Category[] = []
+export const deleteItemsHome = (
+  items: CategoryWithProductClient[],
+  id: string
+) => {
+  const newItems: CategoryWithProductClient[] = []
   items.forEach((item) => {
     let itemDelete = false
-    const newItem: Category = {
+    const newItem: CategoryWithProductClient = {
       id: item.id,
-      name: item.name,
+      category: item.category,
       product: [],
     }
     item.product.forEach((prod, index) => {

@@ -1,21 +1,22 @@
 import { useBearStore } from '@/store/store'
 import { addProductListHistory } from '@/utils/apiHistory'
 import useAlert from './useAlert'
-import { createBuyProduct } from '@/utils/convert'
+import { createProductShoppinList } from '@/utils/convert'
 import { Product } from '@/types/types'
 import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
+import { ProductModel } from '@/types/model'
 
 export default function useAddItem() {
   const { historyId, historyListPending, addProductHistory } = useBearStore(
     (state) => state
   )
   const { createAlert } = useAlert()
-  const addItemHistory = async (id: string, product: Product) => {
+  const addItemHistory = async (id: string, product: ProductModel) => {
     if (historyListPending) {
       const message = await addProductListHistory(historyId, id)
       if (message) {
         createAlert(`Producto ${product.name} agregado a lista `, false)
-        const { newProduct } = createBuyProduct(product)
+        const { newProduct } = createProductShoppinList(product)
         const addProduct = {
           ...newProduct,
           product: {

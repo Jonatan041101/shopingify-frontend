@@ -1,11 +1,13 @@
 'use client'
-import { CategoryName, GetProduct } from '@/types/types'
+import { CategoryName } from '@/types/types'
 import React, { useEffect } from 'react'
 import { useBearStore } from '@/store/store'
 import CategoryItems from './CategoryItems'
+import { ResponseCategoryWithProduct } from '@/types/response'
+import { CategoryWithProductClient } from '@/types/parse'
 
 interface Props {
-  products: GetProduct
+  products: ResponseCategoryWithProduct
 }
 
 export default function Items({ products }: Props) {
@@ -14,14 +16,21 @@ export default function Items({ products }: Props) {
   useEffect(() => {
     const categorys: CategoryName[] = products.products.map(({ id, name }) => ({
       id,
-      name,
+      category: name,
     }))
     addCategorys(categorys)
     if (searchNameItemOrCategory.length === 0) {
       const categoryWithProducts = products.products.filter(
         ({ product }) => product.length > 0
       )
-      addItemsProducts(categoryWithProducts)
+      const category: CategoryWithProductClient[] = categoryWithProducts.map(
+        ({ name, id, product }) => ({
+          category: name,
+          id,
+          product,
+        })
+      )
+      addItemsProducts(category)
     }
   }, [])
   return (

@@ -7,14 +7,20 @@ import {
   ProductList,
 } from '@/types/types'
 import { limpCategorys } from './addCategoryProduct'
+import {
+  ProductShoppingListWithCategoryClient,
+  ProductShoppingListWithCategoryClientOne,
+} from '@/types/parse'
+import { ProductModel } from '@/types/model'
 
-export const createBuyProduct = (product: Product) => {
-  const newProduct: BuyProduct = {
-    category: product.category.category,
+export const createProductShoppinList = (product: ProductModel) => {
+  const newProduct: ProductShoppingListWithCategoryClientOne = {
+    category: product.category.name,
     id: product.category.id,
     product: {
-      ...product,
       count: 1,
+      id: '',
+      product,
     },
   }
   return { newProduct }

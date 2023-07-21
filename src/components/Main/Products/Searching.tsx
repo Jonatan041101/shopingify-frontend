@@ -16,6 +16,8 @@ export default function Searching() {
   ) => {
     const { value } = evt.target
     changeSearchName(value)
+    console.log({ copyItems })
+
     const searchCategory = copyItems.filter(({ category }) =>
       category.toLowerCase().includes(value.toLowerCase())
     )

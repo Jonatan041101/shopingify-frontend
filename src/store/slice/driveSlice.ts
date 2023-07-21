@@ -1,13 +1,19 @@
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 import { ListBuy } from '@/types/types'
 import { StateCreator } from 'zustand'
 export interface Drive {
   viewDrive: boolean
   listForView: boolean
-  historyListPending: ListBuy[] | null
+  historyListPending: ProductShoppingListWithCategoryClient[] | null
   historyId: string
-  addProductHistory: (historyListPending: ListBuy[]) => void
+  addProductHistory: (
+    historyListPending: ProductShoppingListWithCategoryClient[]
+  ) => void
   endHistoryPending: () => void
-  existHistoryListPending: (history: ListBuy[], historyId: string) => void
+  existHistoryListPending: (
+    history: ProductShoppingListWithCategoryClient[],
+    historyId: string
+  ) => void
   changeViewDrive: (viewDrive: boolean) => void
   changeListForView: (listForView: boolean) => void
 }

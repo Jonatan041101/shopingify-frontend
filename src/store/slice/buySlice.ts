@@ -1,12 +1,13 @@
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 import { ListBuy } from '@/types/types'
 import { StateCreator } from 'zustand'
 
 export interface List {
-  list: ListBuy[]
+  list: ProductShoppingListWithCategoryClient[]
   nameList: string
   changeNameList: (nameList: string) => void
   deleteListBuy: () => void
-  addItemList: (buy: ListBuy[]) => void
+  addItemList: (buy: ProductShoppingListWithCategoryClient[]) => void
 }
 
 export const buySlice: StateCreator<List> = (set) => ({

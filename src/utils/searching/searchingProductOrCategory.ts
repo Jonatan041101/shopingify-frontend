@@ -1,5 +1,6 @@
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 import { Category, ListBuy } from '@/types/types'
-type ValidTypes = Category | ListBuy
+type ValidTypes = Category | ProductShoppingListWithCategoryClient
 export const searchCategory = <T extends ValidTypes>(
   newItems: T[],
   categoryName: string
@@ -23,11 +24,12 @@ export const newProductToAdd = <T extends ValidTypes>(
   }
 }
 export const searchingProductWithID = (
-  category: ListBuy,
+  category: ProductShoppingListWithCategoryClient,
   PRODUCT_ID: string
 ) => {
   const product = category.product.find(
-    ({ id, productId }) => productId === PRODUCT_ID || id === PRODUCT_ID
+    ({ id: productShoppingListId, product: { id: productId } }) =>
+      productShoppingListId === PRODUCT_ID || productId === PRODUCT_ID
   )
   return { product }
 }

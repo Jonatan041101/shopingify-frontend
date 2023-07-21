@@ -4,7 +4,7 @@ export const limpCategorys = (allCategorys: CategoryName[]) => {
   allCategorys.forEach((repeatCategory) => {
     let exist = false
     uniqueCategory.forEach((category) => {
-      if (repeatCategory.name === category.name) {
+      if (repeatCategory.category === category.category) {
         exist = true
       }
     })
@@ -16,23 +16,23 @@ export const limpCategorys = (allCategorys: CategoryName[]) => {
 }
 export const addCategoryProduct = (history: HistoryItem) => {
   const allCategorys: CategoryName[] = history.product.map(({ product }) => ({
-    name: product.category.name,
+    category: product.category.category,
     id: product.category.id,
   }))
   const uniqueCategory = limpCategorys(allCategorys)
   const newCategoryWithProduct: CategoryHistory[] = []
-  uniqueCategory.forEach(({ id, name }) => {
-    const category: CategoryHistory = {
+  uniqueCategory.forEach(({ id, category }) => {
+    const newCategory: CategoryHistory = {
       id,
-      name,
+      category,
       product: [],
     }
     history.product.forEach((product, index) => {
-      if (name === product.product.category.name) {
-        category.product.push(product)
+      if (category === product.product.category.category) {
+        newCategory.product.push(product)
       }
       if (history.product.length - 1 === index) {
-        newCategoryWithProduct.push(category)
+        newCategoryWithProduct.push(newCategory)
       }
     })
   })

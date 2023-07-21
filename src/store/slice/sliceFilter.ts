@@ -1,13 +1,14 @@
+import { CategoryWithProductClient } from '@/types/parse'
 import { Category } from '@/types/types'
 import { StateCreator } from 'zustand'
 export interface Filter {
   searchNameItemOrCategory: string
-  items: Category[]
-  copyItems: Category[]
+  items: CategoryWithProductClient[]
+  copyItems: CategoryWithProductClient[]
   changeSearchName: (text: string) => void
-  addItemsProducts: (items: Category[]) => void
-  addItemsFiltered: (items: Category[]) => void
-  deleteItems: (items: Category[]) => void
+  addItemsProducts: (items: CategoryWithProductClient[]) => void
+  addItemsFiltered: (items: CategoryWithProductClient[]) => void
+  deleteItems: (items: CategoryWithProductClient[]) => void
 }
 
 export const sliceFilter: StateCreator<Filter> = (set) => ({

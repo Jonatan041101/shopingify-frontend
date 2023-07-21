@@ -1,4 +1,4 @@
-import { User } from './model'
+import { CategoryModel, User } from './model'
 
 export interface ResponseLogin {
   user: User
@@ -26,4 +26,11 @@ export interface CloudinaryResponse {
   secure_url: string
   access_mode: string
   original_filename: string
+}
+export interface ResponseProductListHistory {
+  message: string
+  id: string
+}
+export interface ResponseCategoryWithProduct {
+  products: CategoryModel[]
 }

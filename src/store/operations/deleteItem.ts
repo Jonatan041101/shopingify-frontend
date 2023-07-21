@@ -1,6 +1,7 @@
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 import { BuyProduct, ListBuy } from '@/types/types'
 export const deleteItemList = (
-  list: ListBuy[],
+  list: ProductShoppingListWithCategoryClient[],
   categoryName: string,
   productId: string
 ) => {

@@ -11,8 +11,9 @@ import useAddItem from '@/hooks/useAddItem'
 import { deleteItemToListArticles } from '@/utils/products'
 import useAlert from '@/hooks/useAlert'
 import { deleteItemsHome } from '@/utils/deleteItems'
+import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
 interface Props {
-  product: BuyProduct
+  product: ProductShoppingListWithCategoryClientOne
 }
 export default function DetailProduct({ product }: Props) {
   const {
@@ -33,7 +34,7 @@ export default function DetailProduct({ product }: Props) {
   }
   const handleAddItemList = async () => {
     if (historyListPending) {
-      addItemHistory(product.product.id, product.product)
+      addItemHistory(product.product.id, product.product.product)
       return
     }
     const newList = addOrUpdateFromAllListToShoppingList(product, list)
@@ -81,7 +82,7 @@ export default function DetailProduct({ product }: Props) {
   const handleConfirm = () => {
     changeStatus(
       false,
-      `Esta seguro que desea eliminar de la lista de articulos el producto ${product.product.name}`,
+      `Esta seguro que desea eliminar de la lista de articulos el producto ${product.product.product.name}`,
       true,
       deleteItem
     )
@@ -99,22 +100,29 @@ export default function DetailProduct({ product }: Props) {
         </div>
         <Image
           className="detailproduct__image"
-          src={product.product.image}
-          alt={`Imagen del producto ${product.product.name}`}
+          src={product.product.product.image}
+          alt={`Imagen del producto ${product.product.product.name}`}
           width={150}
           height={100}
         />
       </div>
       <section className="detailproduct__description">
         <div className="detailproduct__des">
-          <Section name="Nombre" text={product.product.name} titleName />
+          <Section
+            name="Nombre"
+            text={product.product.product.name}
+            titleName
+          />
           <Section name="Categoria" text={product.category} />
           <Section
             name="Precio"
-            text={String(Number(product.product.price) * 525)}
+            text={String(Number(product.product.product.price) * 525)}
           />
-          <Section name="Cantidad" text={String(product.product.stock)} />
-          <Section name="Nota" text={product.product.note} />
+          <Section
+            name="Cantidad"
+            text={String(product.product.product.stock.count)}
+          />
+          <Section name="Nota" text={product.product.product.note} />
         </div>
         <div className="detailproduct__buttons">
           <Button

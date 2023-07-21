@@ -7,34 +7,39 @@ import {
 } from '@/utils/apiHistory'
 import useAlert from './useAlert'
 import { ListBuy } from '@/types/types'
+import useError from './useError'
 
 export default function useProduct() {
   const { historyListPending, addItemList, addProductHistory } = useBearStore(
     (state) => state
   )
   const { createAlert } = useAlert()
-
+  const { handlerMsgErr } = useError()
   const handleUpdateProduct = async (
     count: number,
     productId: string,
     categoryName: string,
     listItems: ListBuy[]
   ) => {
-    console.log({ productId })
-
     if (historyListPending) {
       try {
         const response = await updateCountProductListHistory(productId, count)
-        console.log({ response })
-        const newList = counterItem(listItems, count, productId, categoryName)
-        addProductHistory(newList)
-        return
+        if (response) {
+          const newList = counterItem(
+            listItems,
+            response.product.count,
+            response.product.id, //ID  del producto en productList
+            categoryName
+          )
+          addProductHistory(newList)
+        }
       } catch (error) {
-        console.log({ error })
+        handlerMsgErr(error)
       }
+    } else {
+      const newList = counterItem(listItems, count, productId, categoryName)
+      addItemList(newList)
     }
-    const newList = counterItem(listItems, count, productId, categoryName)
-    addItemList(newList)
   }
   const deleteItem = async (
     productId: string,
@@ -54,8 +59,7 @@ export default function useProduct() {
       const newList = deleteItemList(listItems, categoryName, productId)
       addItemList(newList)
     } catch (error) {
-      const ERROR = error as Error
-      createAlert(ERROR.message, true)
+      handlerMsgErr(error)
     }
   }
   return {

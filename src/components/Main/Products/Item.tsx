@@ -4,12 +4,13 @@ import useAddItem from '@/hooks/useAddItem'
 import useAlert from '@/hooks/useAlert'
 import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { useBearStore } from '@/store/store'
+import { ProductModel } from '@/types/model'
 import { ProductCount } from '@/types/types'
-import { createBuyProduct } from '@/utils/convert'
+import { createProductShoppinList } from '@/utils/convert'
 import React from 'react'
 
 interface Props {
-  product: ProductCount
+  product: ProductModel
 }
 
 export default function Item({ product }: Props) {
@@ -23,7 +24,7 @@ export default function Item({ product }: Props) {
         addItemHistory(product.id, product)
         return
       } else {
-        const { newProduct } = createBuyProduct(product)
+        const { newProduct } = createProductShoppinList(product)
         const newList = addOrUpdateFromAllListToShoppingList(newProduct, list)
         addItemList(newList)
       }
@@ -33,7 +34,7 @@ export default function Item({ product }: Props) {
     }
   }
   const handleViewProductDetail = () => {
-    const { newProduct } = createBuyProduct(product)
+    const { newProduct } = createProductShoppinList(product)
     viewProductDetail(newProduct)
   }
 
@@ -42,18 +43,19 @@ export default function Item({ product }: Props) {
       <h3 className="item__name" onClick={handleViewProductDetail}>
         {product.name}
       </h3>
-      {product.count ? (
+      {/* {product.count ? (
         <div className="itemslist__count item__count">
           <div>{product.count}</div>
           <div> pzas</div>
-        </div>
-      ) : (
-        <button className="item__more" onClick={handleAddItemList}>
-          <i className="item__icon">
-            <Icons icon="more" />
-          </i>
-        </button>
-      )}
+        </div> 
+      ) : ( */}
+      {/* Este componente comentado es para el historial que muestrra la cantidad */}
+      <button className="item__more" onClick={handleAddItemList}>
+        <i className="item__icon">
+          <Icons icon="more" />
+        </i>
+      </button>
+      {/* // )} */}
     </article>
   )
 }

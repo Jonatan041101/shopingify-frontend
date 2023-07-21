@@ -17,7 +17,7 @@ export default function HistoryDetail({ product, handleViewHistory }: Props) {
   const productSeparate = addCategoryProduct(product)
   const category: Category[] = productSeparate.map((category) => ({
     id: category.id,
-    name: category.name,
+    category: category.category,
     product: category.product.map((product) => ({
       ...product.product,
       count: product.count,
