@@ -4,7 +4,7 @@ import {
   ResponseHistoryPending,
   ResponseHistoryShoppingModelAll,
 } from '@/types/response'
-import { HistoryCreate, HistoryGet } from '@/types/types'
+import { HistoryCreate } from '@/types/types'
 import { errorFunction } from './handlerError/error'
 import { CreateProductModel } from '@/types/sendBackend'
 
@@ -62,7 +62,7 @@ export const createHistory = async (history: HistoryCreate) => {
         'No has ingresado la variable de entorno para las historys'
       )
 
-    const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HISTORY}`, {
       cache: 'no-cache',
       method: 'POST',
       headers: {

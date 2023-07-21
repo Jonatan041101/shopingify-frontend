@@ -26,7 +26,6 @@ export default function CreateProduct() {
   const { view, changeView, manualView } = useView()
   const refCloseSelect = useRef<boolean>(true)
   const { createAlert } = useAlert()
-  console.log(state)
 
   const handleChangeViewCreate = () => {
     changeViewCreate(false)
@@ -53,7 +52,6 @@ export default function CreateProduct() {
       const productCreated = await createProduct(NEW_PRODUCT)
       if (productCreated) {
         const { product } = productCreated
-        console.log({ product })
 
         const { newItems, category } =
           newProductToAdd<CategoryWithProductClient>(

@@ -11,20 +11,21 @@ export default function SearchPendingHistory() {
     const fetchToPending = async () => {
       try {
         const historyPending = await getHistoryPending()
-        if (typeof historyPending === 'string') throw new Error(historyPending)
-
-        const parseHistoryPendingToListBuy =
-          historyPendingToListBuy(historyPending)
-        // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY
-        existHistoryListPending(
-          parseHistoryPendingToListBuy,
-          historyPending.history.id
-        )
-        changeNameList(historyPending.history.name)
-        if (parseHistoryPendingToListBuy.length > 0) {
-          changeListForView(true)
+        if (historyPending) {
+          const parseHistoryPendingToListBuy = historyPendingToListBuy(
+            historyPending.history
+          )
+          // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY
+          existHistoryListPending(
+            parseHistoryPendingToListBuy,
+            historyPending.history.id
+          )
+          changeNameList(historyPending.history.name)
+          if (parseHistoryPendingToListBuy.length > 0) {
+            changeListForView(true)
+          }
+          // No obtengo el date y el status de el history por si las dudas
         }
-        // No obtengo el date y el status de el history por si las dudas
       } catch (error) {
         console.log({ error })
       }

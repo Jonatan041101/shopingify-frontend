@@ -9,8 +9,6 @@ type Props = {
 }
 
 export default function Products({ products }: Props) {
-  console.log(products)
-
   return (
     <div className="products">
       <Top />

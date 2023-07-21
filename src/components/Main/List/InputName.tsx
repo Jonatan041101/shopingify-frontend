@@ -42,11 +42,13 @@ export default function InputName() {
       const productsHistory: HistoryCreate = {
         nameList: name.length === 0 ? 'Lista de compras' : name,
         status: 'Pendiente',
-        productsList: products.map(({ id, count }) => ({
-          productId: id,
+        productsList: products.map(({ id, count, product }) => ({
+          productId: id.length === 0 ? product.id : id,
           count,
         })),
       }
+      console.log({ products, productsHistory })
+
       const historyCreated = await createHistory(productsHistory)
       if (historyCreated) {
         const { history } = historyCreated

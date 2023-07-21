@@ -42,21 +42,8 @@ export const historyPendingToListBuy = (
     historyPending.product.forEach((product, index) => {
       if (category === product.product.category.name) {
         const newProductList: ProductShoppingListModel = {
-          // category: {
-          //   id: product.product.category.id,
-          //   name: product.product.category.name,
-          //   product:[product.product]
-          // },
-          // categoryId: product.product.categoryId,
           count: product.count,
-          id: product.product.id,
-          // productId: product.id,
-          // ID DEL PRODUCTLIST SCHEMA DE BASE DE DATOS EN VES DEL PRODUCTO  PARA UTILIZAR EN EL UPDATE,
-          // image: product.product.image,
-          // name: product.product.name,
-          // note: product.product.note,
-          // price: product.product.price,
-          // stock: product.product.stock,
+          id: product.id,
           product: product.product,
         }
         categoryList.product.push(newProductList)

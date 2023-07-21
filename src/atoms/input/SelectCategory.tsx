@@ -1,7 +1,7 @@
-import { CategoryName } from '@/types/types'
 import React from 'react'
 import Category from '../list/Category'
 import { InputChange } from '@/types/string'
+import { CategoryWithNameOnly } from '@/types/parse'
 interface Props {
   label: string
   place: string
@@ -9,7 +9,7 @@ interface Props {
   value: string
   input?: boolean
   view: boolean
-  category: CategoryName[]
+  category: CategoryWithNameOnly[]
   handleChangeCategory: (category: string) => void
   handleChange: (
     evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,8 +30,6 @@ export default function SelectCategory({
   view,
   category,
 }: Props) {
-  console.log({ CATEGORY: category })
-
   return (
     <div className="input">
       <input
