@@ -8,7 +8,7 @@ const INITIAL_STATE: CreateProductModel = {
   note: '',
   price: '',
   stock: {
-    count: 0,
+    count: '',
   },
 }
 interface StateReducer {
