@@ -50,27 +50,31 @@ export default function CreateProduct() {
         throw new Error(`El precio  y el stock deben ser numeros`)
       }
       const { NEW_PRODUCT } = parseProductToAdd(state.newProduct)
-      const { product } = await createProduct(NEW_PRODUCT)
-      console.log({ product })
+      const productCreated = await createProduct(NEW_PRODUCT)
+      if (productCreated) {
+        const { product } = productCreated
+        console.log({ product })
 
-      const { newItems, category } = newProductToAdd<CategoryWithProductClient>(
-        items,
-        product.category.name
-      )
-      if (category) {
-        category.product.push(product)
-        addItemsProducts(newItems)
-        createAlert(`${product.name} agregado a ${category.category}`, false)
-      } else {
-        const { newCategoryWithProduct } = parseCategoryToAdd(product)
-        addItemsProducts([...newItems, newCategoryWithProduct])
-        createAlert(
-          `Categoria ${newCategoryWithProduct.category} creada y producto ${product.name} agregado.`,
-          false
-        )
+        const { newItems, category } =
+          newProductToAdd<CategoryWithProductClient>(
+            items,
+            product.category.name
+          )
+        if (category) {
+          category.product.push(product)
+          addItemsProducts(newItems)
+          createAlert(`${product.name} agregado a ${category.category}`, false)
+        } else {
+          const { newCategoryWithProduct } = parseCategoryToAdd(product)
+          addItemsProducts([...newItems, newCategoryWithProduct])
+          createAlert(
+            `Categoria ${newCategoryWithProduct.category} creada y producto ${product.name} agregado.`,
+            false
+          )
+        }
+        handleChangeViewCreate()
+        dispatch({ type: '@reset/new-product' })
       }
-      handleChangeViewCreate()
-      dispatch({ type: '@reset/new-product' })
     } catch (error) {
       console.log({ error })
     }

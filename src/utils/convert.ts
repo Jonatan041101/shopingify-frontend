@@ -1,17 +1,14 @@
-import {
-  BuyProduct,
-  CategoryName,
-  HistoryPending,
-  ListBuy,
-  Product,
-  ProductList,
-} from '@/types/types'
 import { limpCategorys } from './addCategoryProduct'
 import {
+  CategoryWithNameOnly,
   ProductShoppingListWithCategoryClient,
   ProductShoppingListWithCategoryClientOne,
 } from '@/types/parse'
-import { ProductModel } from '@/types/model'
+import {
+  HistoryShoppingModel,
+  ProductModel,
+  ProductShoppingListModel,
+} from '@/types/model'
 
 export const createProductShoppinList = (product: ProductModel) => {
   const newProduct: ProductShoppingListWithCategoryClientOne = {
@@ -25,39 +22,46 @@ export const createProductShoppinList = (product: ProductModel) => {
   }
   return { newProduct }
 }
-export const historyPendingToListBuy = (historyPending: HistoryPending) => {
-  const categorys: CategoryName[] = historyPending.history.product.map(
+export const historyPendingToListBuy = (
+  historyPending: HistoryShoppingModel
+) => {
+  const categorys: CategoryWithNameOnly[] = historyPending.product.map(
     (category) => ({
       id: category.product.category.id,
-      category: category.product.category.category,
+      category: category.product.category.name,
     })
   )
   const uniqueCategory = limpCategorys(categorys)
-  const listBuy: ListBuy[] = []
+  const listBuy: ProductShoppingListWithCategoryClient[] = []
   uniqueCategory.forEach(({ id, category }) => {
-    const categoryList: ListBuy = {
+    const categoryList: ProductShoppingListWithCategoryClient = {
       id,
       category: category,
       product: [],
     }
-    historyPending.history.product.forEach((product, index) => {
-      if (category === product.product.category.category) {
-        const newProductList: ProductList = {
-          category: product.product.category,
-          categoryId: product.product.categoryId,
+    historyPending.product.forEach((product, index) => {
+      if (category === product.product.category.name) {
+        const newProductList: ProductShoppingListModel = {
+          // category: {
+          //   id: product.product.category.id,
+          //   name: product.product.category.name,
+          //   product:[product.product]
+          // },
+          // categoryId: product.product.categoryId,
           count: product.count,
           id: product.product.id,
-          productId: product.id,
+          // productId: product.id,
           // ID DEL PRODUCTLIST SCHEMA DE BASE DE DATOS EN VES DEL PRODUCTO  PARA UTILIZAR EN EL UPDATE,
-          image: product.product.image,
-          name: product.product.name,
-          note: product.product.note,
-          price: product.product.price,
-          stock: product.product.stock,
+          // image: product.product.image,
+          // name: product.product.name,
+          // note: product.product.note,
+          // price: product.product.price,
+          // stock: product.product.stock,
+          product: product.product,
         }
         categoryList.product.push(newProductList)
       }
-      if (historyPending.history.product.length - 1 === index) {
+      if (historyPending.product.length - 1 === index) {
         listBuy.push(categoryList)
       }
     })

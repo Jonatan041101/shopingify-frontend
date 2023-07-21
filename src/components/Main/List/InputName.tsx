@@ -32,28 +32,38 @@ export default function InputName() {
   }
 
   const handleSendNameList = async () => {
-    if (historyListPending)
-      return createAlert('No puedes tener mas de una lista activa.', true)
-    changeNameList(name)
-    setName('')
-    let products: ProductShoppingListModel[] = []
-    list.forEach(({ product }) => products.push(...product))
-    const productsHistory: HistoryCreate = {
-      nameList: name.length === 0 ? 'Lista de compras' : name,
-      status: 'Pendiente',
-      productsList: products.map(({ id, count }) => ({ productId: id, count })),
-    }
-    const historyCreated = await createHistory(productsHistory)
-    const parseHistoryPendingToListBuy = historyPendingToListBuy(historyCreated)
-    // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY Y EN EL COMPONENTE ItemList se vuelve a renderizar
-    // pero con los productos de "parseHistoryPendingToListBuy"
-    console.log({ historyCreated, parseHistoryPendingToListBuy })
+    try {
+      if (historyListPending)
+        return createAlert('No puedes tener mas de una lista activa.', true)
+      changeNameList(name)
+      setName('')
+      let products: ProductShoppingListModel[] = []
+      list.forEach(({ product }) => products.push(...product))
+      const productsHistory: HistoryCreate = {
+        nameList: name.length === 0 ? 'Lista de compras' : name,
+        status: 'Pendiente',
+        productsList: products.map(({ id, count }) => ({
+          productId: id,
+          count,
+        })),
+      }
+      const historyCreated = await createHistory(productsHistory)
+      if (historyCreated) {
+        const { history } = historyCreated
+        const parseHistoryPendingToListBuy = historyPendingToListBuy(history)
+        // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY Y EN EL COMPONENTE ItemList se vuelve a renderizar
+        // pero con los productos de "parseHistoryPendingToListBuy"
+        console.log({ historyCreated, parseHistoryPendingToListBuy })
 
-    existHistoryListPending(
-      parseHistoryPendingToListBuy,
-      historyCreated.history.id
-    )
-    changeListForView(true)
+        existHistoryListPending(
+          parseHistoryPendingToListBuy,
+          historyCreated.history.id
+        )
+        changeListForView(true)
+      }
+    } catch (error) {
+      console.log({ error })
+    }
   }
   const handleEndList = async (status: boolean) => {
     const history = await completeList(status, historyId)
