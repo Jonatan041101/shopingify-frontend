@@ -1,12 +1,13 @@
 import Input from '@/atoms/input/Input'
 import SelectCategory from '@/atoms/input/SelectCategory'
 import { EventInput } from '@/types/events'
+import { CreateProductModel } from '@/types/sendBackend'
 import { CategoryName, NewItem } from '@/types/types'
 import React from 'react'
 
 interface Props {
   handleChangeCreateProduct: (evt: EventInput) => void
-  newProduct: NewItem
+  newProduct: CreateProductModel
   changeRefView: (view: boolean) => void
   manualView: (view: boolean) => void
   // Props exclusivas para SelectCategory
@@ -54,11 +55,11 @@ export default function RestForm({
           handleChange={handleChangeCreateProduct}
           handleBlur={handleCloseCategory}
           handleFocus={handleViewCategory}
-          value={newProduct.categoryName}
+          value={newProduct.category}
           category={category}
           view={view}
           handleChangeCategory={handleChangeCategory}
-          name="categoryName"
+          name="category"
           label="Categoria"
           place="Ingresar nueva categoria"
         />
@@ -75,7 +76,7 @@ export default function RestForm({
         />
         <Input
           handleChange={handleChangeCreateProduct}
-          value={newProduct.stock}
+          value={newProduct.stock.count}
           name="stock"
           label="Cantidad"
           place="Ingresar cantidad"

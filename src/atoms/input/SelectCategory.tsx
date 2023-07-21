@@ -30,6 +30,8 @@ export default function SelectCategory({
   view,
   category,
 }: Props) {
+  console.log({ CATEGORY: category })
+
   return (
     <div className="input">
       <input

@@ -8,8 +8,12 @@ interface Props {
 export default function Category({ category, handleChangeCategory }: Props) {
   return (
     <ul className="create__categorys">
-      {category.map(({ name, id }) => (
-        <Li key={id} name={name} handleChangeCategory={handleChangeCategory} />
+      {category.map(({ category, id }) => (
+        <Li
+          key={id}
+          name={category}
+          handleChangeCategory={handleChangeCategory}
+        />
       ))}
     </ul>
   )

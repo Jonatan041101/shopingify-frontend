@@ -1,6 +1,5 @@
 'use client'
 import Button from '@/atoms/button/Button'
-import { BuyProduct, Category } from '@/types/types'
 import Image from 'next/image'
 import React from 'react'
 import Section from './Section'

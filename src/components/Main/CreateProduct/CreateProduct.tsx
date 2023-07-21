@@ -17,6 +17,7 @@ import RestForm from './RestForm'
 import { INITIAL_STATE_REDUCER, reducer } from './reduder'
 import { InputChange } from '@/types/string'
 import { Category } from '@/types/types'
+import { CategoryWithProductClient } from '@/types/parse'
 
 export default function CreateProduct() {
   const { items, category, changeViewCreate, addItemsProducts } = useBearStore(
@@ -26,6 +27,8 @@ export default function CreateProduct() {
   const { view, changeView, manualView } = useView()
   const refCloseSelect = useRef<boolean>(true)
   const { createAlert } = useAlert()
+  console.log(state)
+
   const handleChangeViewCreate = () => {
     changeViewCreate(false)
   }
@@ -49,9 +52,11 @@ export default function CreateProduct() {
       }
       const { NEW_PRODUCT } = parseProductToAdd(state.newProduct)
       const { product } = await createProduct(NEW_PRODUCT)
-      const { newItems, category } = newProductToAdd<Category>(
+      console.log({ product })
+
+      const { newItems, category } = newProductToAdd<CategoryWithProductClient>(
         items,
-        product.category.category
+        product.category.name
       )
       if (category) {
         category.product.push(product)
@@ -78,7 +83,7 @@ export default function CreateProduct() {
     dispatch({
       type: '@change/new-product',
       payload: {
-        name: 'categoryName',
+        name: 'category',
         value: category,
       },
     })
@@ -107,6 +112,8 @@ export default function CreateProduct() {
       console.log({ error })
     }
   }
+  console.log({ category })
+
   return (
     <div className="create" onClick={closeViewCategory}>
       <div className="create__div">

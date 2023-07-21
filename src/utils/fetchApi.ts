@@ -1,16 +1,11 @@
-import { ResponseCategoryWithProduct } from '@/types/response'
 import {
-  GetProduct,
-  HistoryCreate,
-  HistoryGet,
-  HistoryPending,
-  NewItem,
-  Product,
-} from '@/types/types'
+  ResponseCategoryWithProduct,
+  ResponseCreateProduct,
+} from '@/types/response'
+import { HistoryCreate, HistoryGet, HistoryPending } from '@/types/types'
 import { errorFunction } from './handlerError/error'
-interface ResponseProduct {
-  product: Product
-}
+import { CreateProductModel } from '@/types/sendBackend'
+
 export const getProductsWithCategory = async () => {
   if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
     throw new Error(
@@ -30,7 +25,9 @@ export const getProductsWithCategory = async () => {
     errorFunction(error)
   }
 }
-export const createProduct = async (product: NewItem) => {
+export const createProduct = async (product: CreateProductModel) => {
+  console.log({ product })
+
   if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
     throw new Error(
       'No has ingresado la variable de entorno para los productos'
@@ -43,7 +40,9 @@ export const createProduct = async (product: NewItem) => {
     },
     body: JSON.stringify(product),
   })
-  const productCreated = (await res.json()) as ResponseProduct
+  console.log({ res })
+
+  const productCreated = (await res.json()) as ResponseCreateProduct
   return productCreated
 }
 export const createHistory = async (history: HistoryCreate) => {

@@ -1,6 +1,10 @@
-import { ProductShoppingListWithCategoryClient } from '@/types/parse'
-import { Category, ListBuy } from '@/types/types'
-type ValidTypes = Category | ProductShoppingListWithCategoryClient
+import {
+  CategoryWithProductClient,
+  ProductShoppingListWithCategoryClient,
+} from '@/types/parse'
+type ValidTypes =
+  | CategoryWithProductClient
+  | ProductShoppingListWithCategoryClient
 export const searchCategory = <T extends ValidTypes>(
   newItems: T[],
   categoryName: string

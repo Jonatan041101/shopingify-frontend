@@ -1,16 +1,18 @@
+import { CreateProductModel } from '@/types/sendBackend'
 import { InputChange } from '@/types/string'
-import { NewItem } from '@/types/types'
 
-const INITIAL_STATE: NewItem = {
-  categoryName: '',
+const INITIAL_STATE: CreateProductModel = {
+  category: '',
   image: '',
   name: '',
   note: '',
   price: '',
-  stock: '',
+  stock: {
+    count: 0,
+  },
 }
 interface StateReducer {
-  newProduct: NewItem
+  newProduct: CreateProductModel
   loading: boolean
 }
 export const INITIAL_STATE_REDUCER: StateReducer = {

@@ -3,7 +3,7 @@ import { Status } from './string'
 export interface GetProduct {
   products: Category[]
 }
-
+export interface CategoryWithProduct {}
 export interface Category {
   id: string
   category: string

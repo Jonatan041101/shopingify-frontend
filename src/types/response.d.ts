@@ -1,4 +1,4 @@
-import { CategoryModel, User } from './model'
+import { CategoryModel, ProductModel, User } from './model'
 
 export interface ResponseLogin {
   user: User
@@ -33,4 +33,7 @@ export interface ResponseProductListHistory {
 }
 export interface ResponseCategoryWithProduct {
   products: CategoryModel[]
+}
+interface ResponseCreateProduct {
+  product: ProductModel
 }

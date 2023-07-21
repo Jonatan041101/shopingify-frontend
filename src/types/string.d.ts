@@ -1,5 +1,5 @@
 export type InputChange =
-  | 'categoryName'
+  | 'category'
   | 'image'
   | 'name'
   | 'note'
