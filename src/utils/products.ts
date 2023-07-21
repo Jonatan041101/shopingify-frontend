@@ -1,6 +1,7 @@
-import { Message } from './apiHistory'
+import { Message } from '@/types/response'
+import { errorFunction } from './handlerError/error'
 
-export const deleteItemToListArticles = async (id: string) => {
+export const deleteProductModel = async (id: string) => {
   if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
     throw new Error(
       'No has ingresado la variable de entorno para los productos'
@@ -16,9 +17,12 @@ export const deleteItemToListArticles = async (id: string) => {
         id,
       }),
     })
-    const message = (await res.json()) as Message
-    return message
+    const message = await res.json()
+    if (!res.ok) {
+      errorFunction(message)
+    }
+    return message as Message
   } catch (error) {
-    console.log({ error })
+    errorFunction(error)
   }
 }

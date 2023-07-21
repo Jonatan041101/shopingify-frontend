@@ -2,7 +2,7 @@ import {
   ProductShoppingListWithCategoryClient,
   ProductShoppingListWithCategoryClientOne,
 } from '@/types/parse'
-import { parseListBuyTheBuyProduct } from '@/utils/parse/parseForListBuy'
+import { parseListBuyTheBuyProduct } from '@/utils/parse/parseToProductShoppinList'
 import {
   newProductToAdd,
   searchingProductWithID,

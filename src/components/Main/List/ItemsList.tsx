@@ -4,7 +4,9 @@ import React from 'react'
 import ViewNoProducts from './ViewNoProducts'
 import ListHistroyOrCreated from './ListHistroyOrCreated'
 export default function ItemsList() {
-  const { list, historyListPending } = useBearStore((state) => state)
+  const { shoppinList: list, historyListPending } = useBearStore(
+    (state) => state
+  )
 
   return (
     <div className="itemslist">

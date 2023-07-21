@@ -6,7 +6,7 @@ import React from 'react'
 
 export default function Searching() {
   const {
-    copyItems,
+    copyProducts: copyItems,
     searchNameItemOrCategory,
     changeSearchName,
     addItemsFiltered,

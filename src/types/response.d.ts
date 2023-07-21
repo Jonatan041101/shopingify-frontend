@@ -2,6 +2,7 @@ import {
   CategoryModel,
   HistoryShoppingModel,
   ProductModel,
+  ProductShoppingListModel,
   User,
 } from './model'
 
@@ -45,6 +46,19 @@ interface ResponseCreateProduct {
 export interface ResponseHistoryPending {
   history: HistoryShoppingModel
 }
-interface ResponseHistoryShoppingModelAll {
+// [string, HistoryShoppingModel[]][]
+interface HistoryShoppingModelWithMonth {
   [key: string]: HistoryShoppingModel[]
+}
+// 'JULIO-2023':HistoryShoppingModel[{}]con objectValues ['Julio-2023',HistoryShoppingModel[{}]][]
+// type HistoryShoppingModelAll = [HistoryShoppingModelWithMonth][]
+
+interface ResponseHistoryShoppingModelAll {
+  history: HistoryShoppingModelWithMonth
+}
+interface ResponseHistoryUpdateCountProductShoppinList {
+  product: Pick<ProductShoppingListModel, 'count' | 'id'>
+}
+export interface Message {
+  message: string
 }

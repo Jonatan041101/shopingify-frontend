@@ -1,9 +1,9 @@
 import { useBearStore } from '@/store/store'
-import { addProductListHistory } from '@/utils/apiHistory'
 import useAlert from './useAlert'
-import { createProductShoppinList } from '@/utils/convert'
+import { parseProductModelToProductShoppingListWithCategoryClientOne } from '@/utils/parse/parseShoppingList'
 import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { ProductModel } from '@/types/model'
+import { addProductListHistory } from '@/utils/api/productList'
 
 export default function useAddItem() {
   const { historyId, historyListPending, addProductHistory } = useBearStore(
@@ -15,7 +15,8 @@ export default function useAddItem() {
       const message = await addProductListHistory(historyId, id)
       if (message) {
         createAlert(`Producto ${product.name} agregado a lista `, false)
-        const { newProduct } = createProductShoppinList(product)
+        const { newProduct } =
+          parseProductModelToProductShoppingListWithCategoryClientOne(product)
         const addProduct = {
           ...newProduct,
           product: {

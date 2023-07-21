@@ -4,9 +4,8 @@ import useAlert from '@/hooks/useAlert'
 import { useBearStore } from '@/store/store'
 import { ProductShoppingListModel } from '@/types/model'
 import { HistoryCreate } from '@/types/types'
-import { completeList } from '@/utils/apiHistory'
-import { historyPendingToListBuy } from '@/utils/convert'
-import { createHistory } from '@/utils/fetchApi'
+import { completeList, createHistory } from '@/utils/api/history'
+import { historyPendingToProductShoppingListWithCategoryClient } from '@/utils/parse/parseShoppingList'
 import React, { useRef, useState } from 'react'
 
 export default function InputName() {
@@ -15,7 +14,7 @@ export default function InputName() {
   // const [status, setStatus] = useState<boolean>(false)
   const status = useRef<boolean>(false)
   const {
-    list,
+    shoppinList: list,
     historyListPending,
     historyId,
     nameList,
@@ -52,7 +51,8 @@ export default function InputName() {
       const historyCreated = await createHistory(productsHistory)
       if (historyCreated) {
         const { history } = historyCreated
-        const parseHistoryPendingToListBuy = historyPendingToListBuy(history)
+        const parseHistoryPendingToListBuy =
+          historyPendingToProductShoppingListWithCategoryClient(history)
         // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY Y EN EL COMPONENTE ItemList se vuelve a renderizar
         // pero con los productos de "parseHistoryPendingToListBuy"
         console.log({ historyCreated, parseHistoryPendingToListBuy })

@@ -3,9 +3,8 @@ import useView from '@/hooks/useView'
 import React from 'react'
 import Pzas from '../Pzas'
 import { useBearStore } from '@/store/store'
-import { createProductShoppinList } from '@/utils/convert'
+import { parseProductModelToProductShoppingListWithCategoryClientOne } from '@/utils/parse/parseShoppingList'
 import useProduct from '@/hooks/useProduct'
-import MarkerCheck from './MarkerCheck'
 import OptionsProduct from './OptionsProduct'
 import { ProductShoppingListModel } from '@/types/model'
 import { ProductShoppingListWithCategoryClient } from '@/types/parse'
@@ -16,20 +15,18 @@ interface Props {
 
 export default function ProductList({ product, listItems }: Props) {
   const { view, changeView } = useView()
-  const { view: checked, changeView: changeChecked } = useView()
   const { deleteItem, handleUpdateProduct } = useProduct()
-  const { viewDrive, viewProductDetail, changeStatus } = useBearStore(
-    (state) => state
-  )
+  const { viewProductDetail, changeStatus } = useBearStore((state) => state)
 
   const categoryName = product.product.category.name
   const handleViewProductDetail = () => {
-    const { newProduct } = createProductShoppinList(product.product)
+    const { newProduct } =
+      parseProductModelToProductShoppingListWithCategoryClientOne(
+        product.product
+      )
     viewProductDetail(newProduct)
   }
-  const handleChangeListProductBuy = () => {
-    changeChecked()
-  }
+
   const handleConfirmDelete = (confirm: boolean) => {
     if (confirm) {
       deleteItem(product.id, categoryName, listItems)
@@ -50,15 +47,7 @@ export default function ProductList({ product, listItems }: Props) {
   return (
     <article className="itemslist__article">
       <div className="itemslist__product">
-        <MarkerCheck
-          checked={checked}
-          viewDrive={viewDrive}
-          handleChangeListProductBuy={handleChangeListProductBuy}
-        />
-        <h3
-          className={`itemslist__h3 ${checked ? 'itemslist__tached' : ''}`}
-          onClick={handleViewProductDetail}
-        >
+        <h3 className={`itemslist__h3`} onClick={handleViewProductDetail}>
           {product.product.name}
         </h3>
       </div>

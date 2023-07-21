@@ -1,8 +1,7 @@
+import HistoryParseGraph from '@/components/History/HistoryParseGraph'
 import Message from '@/components/Message'
-import { Graphics } from '@/components/Stats/Graphics'
 import TopItemCategory from '@/components/Stats/TopItemCategory'
-import { statHistory } from '@/utils/apiHistory'
-import { getHistorys } from '@/utils/fetchApi'
+import { getHistorys, statHistory } from '@/utils/api/history'
 import React from 'react'
 
 export interface GRAPH {
@@ -10,17 +9,9 @@ export interface GRAPH {
   PRODUCTOS: number
 }
 
-export default async function page() {
+export default async function PageStats() {
   const stats = await statHistory()
   const historys = await getHistorys()
-  const history = Object.entries(historys.history)
-  const graph: GRAPH[] = history.map((histor) => ({
-    name: histor[0].toUpperCase(),
-    PRODUCTOS: histor[1].reduce(
-      (a, b) => a + b.product.reduce((a, b) => a + b.count, 0),
-      0
-    ),
-  }))
 
   return (
     <div className="products">
@@ -55,7 +46,11 @@ export default async function page() {
             </section>
           </div>
         </div>
-        <Graphics graph={graph} />
+        {historys ? (
+          <HistoryParseGraph historys={historys} />
+        ) : (
+          <div>Error al cargar</div>
+        )}
       </div>
     </div>
   )

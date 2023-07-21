@@ -1,6 +1,9 @@
 import { HistoryShoppingModel } from '@/types/model'
 import { CategoryInHistoryClient, CategoryWithNameOnly } from '@/types/parse'
-export const limpCategorys = (allCategorys: CategoryWithNameOnly[]) => {
+import { parseCategoryWithName } from './parse/parseCategoryWithName'
+export const deleteNameCopyCategory = (
+  allCategorys: CategoryWithNameOnly[]
+) => {
   const uniqueCategory: CategoryWithNameOnly[] = []
   allCategorys.forEach((repeatCategory) => {
     let exist = false
@@ -16,13 +19,8 @@ export const limpCategorys = (allCategorys: CategoryWithNameOnly[]) => {
   return uniqueCategory
 }
 export const addCategoryProduct = (history: HistoryShoppingModel) => {
-  const allCategorys: CategoryWithNameOnly[] = history.product.map(
-    ({ product }) => ({
-      category: product.category.name,
-      id: product.category.id,
-    })
-  )
-  const uniqueCategory = limpCategorys(allCategorys)
+  const allCategorys: CategoryWithNameOnly[] = parseCategoryWithName(history)
+  const uniqueCategory = deleteNameCopyCategory(allCategorys)
   const newCategoryWithProduct: CategoryInHistoryClient[] = []
   uniqueCategory.forEach(({ id, category }) => {
     const newCategory: CategoryInHistoryClient = {

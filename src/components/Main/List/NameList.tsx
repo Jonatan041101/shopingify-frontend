@@ -8,9 +8,11 @@ export default function NameList() {
     (state) => state
   )
   const handleViewDrive = () => {
-    if (!listForView) return 'Guarda la lista para empezar a usarla.'
+    // if (!listForView) return 'Guarda la lista para empezar a usarla.'
     changeViewDrive(!viewDrive)
   }
+  console.log({ viewDrive })
+
   return (
     <div className="list__name">
       <p className="list__list">

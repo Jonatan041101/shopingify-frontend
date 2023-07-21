@@ -9,7 +9,7 @@ import { deleteItemList } from '@/store/operations/deleteItem'
 import useAddItem from '@/hooks/useAddItem'
 import { deleteItemToListArticles } from '@/utils/products'
 import useAlert from '@/hooks/useAlert'
-import { deleteItemsHome } from '@/utils/deleteItems'
+import { deleteProductModelHome } from '@/utils/deleteProductModel'
 import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
 interface Props {
   product: ProductShoppingListWithCategoryClientOne
@@ -20,9 +20,9 @@ export default function DetailProduct({ product }: Props) {
     addItemList,
     changeStatus,
     addProductHistory,
-    deleteItems,
-    items,
-    list,
+    deleteProducts: deleteItems,
+    products: items,
+    shoppinList: list,
     historyListPending,
   } = useBearStore((state) => state)
   const { addItemHistory } = useAddItem()
@@ -57,7 +57,7 @@ export default function DetailProduct({ product }: Props) {
 
           addProductHistory(newList)
           changeStatus(false, '', false, () => {})
-          const ITEMS = deleteItemsHome(items, product.product.id)
+          const ITEMS = deleteProductModelHome(items, product.product.id)
           deleteItems(ITEMS)
           return
         }
@@ -69,7 +69,7 @@ export default function DetailProduct({ product }: Props) {
 
         addItemList(newList)
         changeStatus(false, '', false, () => {})
-        const ITEMS = deleteItemsHome(items, product.product.id)
+        const ITEMS = deleteProductModelHome(items, product.product.id)
         deleteItems(ITEMS)
         return
       }

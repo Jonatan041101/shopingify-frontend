@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { ProductDetail, productSlice } from './slice/productSlice'
-import { List, buySlice } from './slice/buySlice'
+import { Shopping, buySlice } from './slice/shoppingSlice'
 import { CreateProduct, createSlice } from './slice/createSlice'
 import { Drive, driveSlice } from './slice/driveSlice'
 import { AlertNotify, sliceAlert } from './slice/alertSlice'
@@ -10,7 +10,7 @@ import { Filter, sliceFilter } from './slice/sliceFilter'
 import { UserSlice, userSlice } from './slice/userSlice'
 
 export const useBearStore = create<
-  List &
+  Shopping &
     ProductDetail &
     CreateProduct &
     Drive &

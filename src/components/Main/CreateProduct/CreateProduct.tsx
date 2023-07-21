@@ -5,7 +5,7 @@ import useView from '@/hooks/useView'
 import { useBearStore } from '@/store/store'
 import { EventFile, EventInput } from '@/types/events'
 import { uploadFiles } from '@/utils/cloduinary/files'
-import { createProduct } from '@/utils/fetchApi'
+import { createProduct } from '@/utils/api/product'
 import {
   parseCategoryToAdd,
   parseProductToAdd,
@@ -19,9 +19,12 @@ import { InputChange } from '@/types/string'
 import { CategoryWithProductClient } from '@/types/parse'
 
 export default function CreateProduct() {
-  const { items, category, changeViewCreate, addItemsProducts } = useBearStore(
-    (state) => state
-  )
+  const {
+    products: items,
+    category,
+    changeViewCreate,
+    addItemsProducts,
+  } = useBearStore((state) => state)
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE_REDUCER)
   const { view, changeView, manualView } = useView()
   const refCloseSelect = useRef<boolean>(true)

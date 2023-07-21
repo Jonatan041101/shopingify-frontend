@@ -2,28 +2,28 @@ import { CategoryWithProductClient } from '@/types/parse'
 import { StateCreator } from 'zustand'
 export interface Filter {
   searchNameItemOrCategory: string
-  items: CategoryWithProductClient[]
-  copyItems: CategoryWithProductClient[]
+  products: CategoryWithProductClient[]
+  copyProducts: CategoryWithProductClient[]
   changeSearchName: (text: string) => void
   addItemsProducts: (items: CategoryWithProductClient[]) => void
   addItemsFiltered: (items: CategoryWithProductClient[]) => void
-  deleteItems: (items: CategoryWithProductClient[]) => void
+  deleteProducts: (items: CategoryWithProductClient[]) => void
 }
 
 export const sliceFilter: StateCreator<Filter> = (set) => ({
   searchNameItemOrCategory: '',
-  items: [],
-  copyItems: [],
+  products: [],
+  copyProducts: [],
   changeSearchName: (text) => {
     set((state) => ({ ...state, searchNameItemOrCategory: text }))
   },
   addItemsProducts: (items) => {
-    set((state) => ({ ...state, items, copyItems: items }))
+    set((state) => ({ ...state, products: items, copyProducts: items }))
   },
   addItemsFiltered: (items) => {
-    set((state) => ({ ...state, items }))
+    set((state) => ({ ...state, products: items }))
   },
-  deleteItems: (items) => {
-    set((state) => ({ ...state, items, copyItems: items }))
+  deleteProducts: (items) => {
+    set((state) => ({ ...state, products: items, copyProducts: items }))
   },
 })

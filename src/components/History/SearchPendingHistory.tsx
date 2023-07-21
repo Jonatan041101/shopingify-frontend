@@ -1,7 +1,7 @@
 'use client'
 import { useBearStore } from '@/store/store'
-import { historyPendingToListBuy } from '@/utils/convert'
-import { getHistoryPending } from '@/utils/fetchApi'
+import { getHistoryPending } from '@/utils/api/history'
+import { historyPendingToProductShoppingListWithCategoryClient } from '@/utils/parse/parseShoppingList'
 import React, { useEffect } from 'react'
 
 export default function SearchPendingHistory() {
@@ -12,9 +12,10 @@ export default function SearchPendingHistory() {
       try {
         const historyPending = await getHistoryPending()
         if (historyPending) {
-          const parseHistoryPendingToListBuy = historyPendingToListBuy(
-            historyPending.history
-          )
+          const parseHistoryPendingToListBuy =
+            historyPendingToProductShoppingListWithCategoryClient(
+              historyPending.history
+            )
           // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY
           existHistoryListPending(
             parseHistoryPendingToListBuy,

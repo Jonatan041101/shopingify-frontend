@@ -1,8 +1,8 @@
 import Input from '@/atoms/input/Input'
 import SelectCategory from '@/atoms/input/SelectCategory'
 import { EventInput } from '@/types/events'
+import { CategoryWithNameOnly } from '@/types/parse'
 import { CreateProductModel } from '@/types/sendBackend'
-import { CategoryName } from '@/types/types'
 import React from 'react'
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   changeRefView: (view: boolean) => void
   manualView: (view: boolean) => void
   // Props exclusivas para SelectCategory
-  category: CategoryName[]
+  category: CategoryWithNameOnly[]
   view: boolean
   handleChangeCategory: (category: string) => void
 }

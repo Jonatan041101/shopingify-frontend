@@ -1491,6 +1491,13 @@ button {
   transform: translateX(0);
 }
 
+.facture {
+  background: #fff;
+  height: 90%;
+  width: 100%;
+  border-radius: 1em;
+}
+
 .products {
   flex-grow: 12;
   width: 100%;

@@ -11,8 +11,12 @@ interface Props {
 }
 
 export default function Items({ products }: Props) {
-  const { addCategorys, addItemsProducts, items, searchNameItemOrCategory } =
-    useBearStore((state) => state)
+  const {
+    addCategorys,
+    addItemsProducts,
+    products: items,
+    searchNameItemOrCategory,
+  } = useBearStore((state) => state)
   useEffect(() => {
     const categorys: CategoryWithNameOnly[] = products.products.map(
       ({ id, name }) => ({

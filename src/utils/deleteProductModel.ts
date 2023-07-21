@@ -1,6 +1,6 @@
 import { CategoryWithProductClient } from '@/types/parse'
 
-export const deleteItemsHome = (
+export const deleteProductModelHome = (
   items: CategoryWithProductClient[],
   id: string
 ) => {

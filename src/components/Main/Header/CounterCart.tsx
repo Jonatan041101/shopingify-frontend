@@ -17,7 +17,9 @@ const countItems = (
 }
 
 export default function CounterCart() {
-  const { list, historyListPending } = useBearStore((state) => state)
+  const { shoppinList: list, historyListPending } = useBearStore(
+    (state) => state
+  )
   const { count } = countItems(list, historyListPending)
   return <span className="header__counter">{count}</span>
 }
