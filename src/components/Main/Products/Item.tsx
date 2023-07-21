@@ -2,7 +2,7 @@
 import Icons from '@/atoms/icons'
 import useAddItem from '@/hooks/useAddItem'
 import useAlert from '@/hooks/useAlert'
-import { addItemOrUpdate } from '@/store/operations/addItem'
+import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { useBearStore } from '@/store/store'
 import { ProductCount } from '@/types/types'
 import { createBuyProduct } from '@/utils/convert'
@@ -24,7 +24,7 @@ export default function Item({ product }: Props) {
         return
       } else {
         const { newProduct } = createBuyProduct(product)
-        const newList = addItemOrUpdate(newProduct, list)
+        const newList = addOrUpdateFromAllListToShoppingList(newProduct, list)
         addItemList(newList)
       }
     } catch (error) {

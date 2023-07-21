@@ -3,7 +3,7 @@ import { addProductListHistory } from '@/utils/apiHistory'
 import useAlert from './useAlert'
 import { createBuyProduct } from '@/utils/convert'
 import { Product } from '@/types/types'
-import { addItemOrUpdate } from '@/store/operations/addItem'
+import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 
 export default function useAddItem() {
   const { historyId, historyListPending, addProductHistory } = useBearStore(
@@ -23,7 +23,10 @@ export default function useAddItem() {
             id: message.id,
           },
         }
-        const newList = addItemOrUpdate(addProduct, historyListPending)
+        const newList = addOrUpdateFromAllListToShoppingList(
+          addProduct,
+          historyListPending
+        )
         addProductHistory(newList)
       }
     }

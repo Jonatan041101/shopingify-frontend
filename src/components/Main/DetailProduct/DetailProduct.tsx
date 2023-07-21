@@ -5,7 +5,7 @@ import Image from 'next/image'
 import React from 'react'
 import Section from './Section'
 import { useBearStore } from '@/store/store'
-import { addItemOrUpdate } from '@/store/operations/addItem'
+import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { deleteItemList } from '@/store/operations/deleteItem'
 import useAddItem from '@/hooks/useAddItem'
 import { deleteItemToListArticles } from '@/utils/products'
@@ -36,7 +36,7 @@ export default function DetailProduct({ product }: Props) {
       addItemHistory(product.product.id, product.product)
       return
     }
-    const newList = addItemOrUpdate(product, list)
+    const newList = addOrUpdateFromAllListToShoppingList(product, list)
     addItemList(newList)
   }
   const deleteItem = async (confirm: boolean) => {

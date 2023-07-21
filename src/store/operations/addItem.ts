@@ -5,10 +5,14 @@ import {
   searchingProductWithID,
 } from '@/utils/searching/searchingProductOrCategory'
 
-export const addItemOrUpdate = (item: BuyProduct, items: ListBuy[]) => {
+export const addOrUpdateFromAllListToShoppingList = (
+  item: BuyProduct,
+  items: ListBuy[]
+) => {
   const { newItems, category } = newProductToAdd<ListBuy>(items, item.category)
 
   //Buscamos si existe el producto con la categoria
+  console.log('HOLA COMO ESTAS')
 
   if (!category) {
     //SI NO EXISTE AGREGAMOS EL PRODUCTO CON SU CATEGORIA
