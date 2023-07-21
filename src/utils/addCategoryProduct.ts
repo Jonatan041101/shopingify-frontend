@@ -1,6 +1,7 @@
-import { CategoryHistory, CategoryName, HistoryItem } from '@/types/types'
-export const limpCategorys = (allCategorys: CategoryName[]) => {
-  const uniqueCategory: CategoryName[] = []
+import { HistoryShoppingModel } from '@/types/model'
+import { CategoryInHistoryClient, CategoryWithNameOnly } from '@/types/parse'
+export const limpCategorys = (allCategorys: CategoryWithNameOnly[]) => {
+  const uniqueCategory: CategoryWithNameOnly[] = []
   allCategorys.forEach((repeatCategory) => {
     let exist = false
     uniqueCategory.forEach((category) => {
@@ -14,21 +15,23 @@ export const limpCategorys = (allCategorys: CategoryName[]) => {
   })
   return uniqueCategory
 }
-export const addCategoryProduct = (history: HistoryItem) => {
-  const allCategorys: CategoryName[] = history.product.map(({ product }) => ({
-    category: product.category.category,
-    id: product.category.id,
-  }))
+export const addCategoryProduct = (history: HistoryShoppingModel) => {
+  const allCategorys: CategoryWithNameOnly[] = history.product.map(
+    ({ product }) => ({
+      category: product.category.name,
+      id: product.category.id,
+    })
+  )
   const uniqueCategory = limpCategorys(allCategorys)
-  const newCategoryWithProduct: CategoryHistory[] = []
+  const newCategoryWithProduct: CategoryInHistoryClient[] = []
   uniqueCategory.forEach(({ id, category }) => {
-    const newCategory: CategoryHistory = {
+    const newCategory: CategoryInHistoryClient = {
       id,
       category,
       product: [],
     }
     history.product.forEach((product, index) => {
-      if (category === product.product.category.category) {
+      if (category === product.product.category.name) {
         newCategory.product.push(product)
       }
       if (history.product.length - 1 === index) {

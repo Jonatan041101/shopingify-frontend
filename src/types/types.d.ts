@@ -4,11 +4,11 @@ import { Status } from './string'
 //   products: Category[]
 // }
 // export interface CategoryWithProduct {}
-export interface Category {
-  id: string
-  category: string
-  product: ProductCount[]
-}
+// export interface Category {
+//   id: string
+//   category: string
+//   product: ProductCount[]
+// }
 
 // export interface Product {
 //   categoryId: string
@@ -59,33 +59,35 @@ export interface HistoryCreate {
 export interface HistoryGet {
   history: History
 }
-interface History {
-  [key: string]: HistoryItem[]
-}
-export interface HistoryPending {
-  history: HistoryItem
-}
-export interface HistoryItem {
-  date: Date
-  id: string
-  name: string
-  status: string
-  product: ProductElement[]
-}
+// interface History {
+//   [key: string]: HistoryShopping[]
+// }
+// export interface HistoryPending {
+//   history: HistoryShopping
+// }
 
-export interface ProductElement {
-  count: number
-  historyId: string
-  id: string
-  product: Product
-  productId: string
-}
-export interface CategoryHistory extends Category {
-  product: ProductElement[]
-}
-export interface ResUpdateList {
-  product: ProductElement
-}
+// export interface HistoryShoppingModel {
+//   date: Date
+//   id: string
+//   name: string
+//   status: string
+//   product: ProductElement[]
+// }
+
+// export interface ProductElement {
+//   count: number
+//   historyId: string
+//   id: string
+//   product: Product
+//   productId: string
+// }
+// export interface CategoryHistory extends Category {
+//   product: ProductElement[]
+// }
+// export interface ResUpdateList {
+//   product: ProductElement
+// }
+
 export interface ProductCategoryStat {
   categoryStat100: number
   categoryStats: Stat[]

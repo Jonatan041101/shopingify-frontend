@@ -26,6 +26,14 @@ export interface CategoryModel {
 }
 export interface ProductShoppingListModel {
   id: string
+  // historyId:string
   count: number
   product: ProductModel
+}
+export interface HistoryShoppingModel {
+  date: Date
+  id: string
+  name: string
+  status: string
+  product: ProductShoppingListModel[]
 }

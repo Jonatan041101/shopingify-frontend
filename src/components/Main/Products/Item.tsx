@@ -5,15 +5,15 @@ import useAlert from '@/hooks/useAlert'
 import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { useBearStore } from '@/store/store'
 import { ProductModel } from '@/types/model'
-import { ProductCount } from '@/types/types'
 import { createProductShoppinList } from '@/utils/convert'
 import React from 'react'
 
 interface Props {
   product: ProductModel
+  count?: number
 }
 
-export default function Item({ product }: Props) {
+export default function Item({ product, count }: Props) {
   const { list, historyListPending, addItemList, viewProductDetail } =
     useBearStore((state) => state)
   const { createAlert } = useAlert()
@@ -43,19 +43,17 @@ export default function Item({ product }: Props) {
       <h3 className="item__name" onClick={handleViewProductDetail}>
         {product.name}
       </h3>
-      {/* {product.count ? (
+      {count ? (
         <div className="itemslist__count item__count">
-          <div>{product.count}</div>
-          <div> pzas</div>
-        </div> 
-      ) : ( */}
-      {/* Este componente comentado es para el historial que muestrra la cantidad */}
-      <button className="item__more" onClick={handleAddItemList}>
-        <i className="item__icon">
-          <Icons icon="more" />
-        </i>
-      </button>
-      {/* // )} */}
+          <div>{count}</div>
+        </div>
+      ) : (
+        <button className="item__more" onClick={handleAddItemList}>
+          <i className="item__icon">
+            <Icons icon="more" />
+          </i>
+        </button>
+      )}
     </article>
   )
 }

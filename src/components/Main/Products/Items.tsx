@@ -5,6 +5,7 @@ import { useBearStore } from '@/store/store'
 import CategoryItems from './CategoryItems'
 import { ResponseCategoryWithProduct } from '@/types/response'
 import { CategoryWithProductClient } from '@/types/parse'
+import Item from './Item'
 
 interface Props {
   products: ResponseCategoryWithProduct
@@ -36,7 +37,11 @@ export default function Items({ products }: Props) {
   return (
     <div className="items">
       {items.map((category) => (
-        <CategoryItems key={category.id} category={category} />
+        <CategoryItems key={category.id} category={category}>
+          {category.product.map((produdct) => (
+            <Item key={produdct.id} product={produdct} />
+          ))}
+        </CategoryItems>
       ))}
     </div>
   )
