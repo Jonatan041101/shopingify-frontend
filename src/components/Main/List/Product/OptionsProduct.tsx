@@ -2,18 +2,19 @@ import Button from '@/atoms/button/Button'
 import React from 'react'
 import Pzas from '../Pzas'
 import { ListBuy } from '@/types/types'
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 interface Props {
   handleCofirm: (view: boolean) => void
   handleUpdateProduct: (
     count: number,
     productId: string,
     categoryName: string,
-    listItems: ListBuy[]
+    listItems: ProductShoppingListWithCategoryClient[]
   ) => void
   count: number
   categoryName: string
   productId: string
-  listItems: ListBuy[]
+  listItems: ProductShoppingListWithCategoryClient[]
 }
 export default function OptionsProduct({
   count,

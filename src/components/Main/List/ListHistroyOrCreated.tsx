@@ -1,10 +1,11 @@
 import { ListBuy } from '@/types/types'
 import React from 'react'
 import ProductList from './Product/ProductList'
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 
 interface Props {
-  products: ListBuy
-  list: ListBuy[]
+  products: ProductShoppingListWithCategoryClient
+  list: ProductShoppingListWithCategoryClient[]
 }
 
 export default function ListHistroyOrCreated({ products, list }: Props) {

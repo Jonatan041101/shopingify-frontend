@@ -1,16 +1,18 @@
 'use client'
 import useView from '@/hooks/useView'
-import { ListBuy, ProductList } from '@/types/types'
+import { ProductList } from '@/types/types'
 import React from 'react'
 import Pzas from '../Pzas'
 import { useBearStore } from '@/store/store'
-import { createBuyProduct } from '@/utils/convert'
+import { createProductShoppinList } from '@/utils/convert'
 import useProduct from '@/hooks/useProduct'
 import MarkerCheck from './MarkerCheck'
 import OptionsProduct from './OptionsProduct'
+import { ProductShoppingListModel } from '@/types/model'
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 interface Props {
-  product: ProductList
-  listItems: ListBuy[]
+  product: ProductShoppingListModel
+  listItems: ProductShoppingListWithCategoryClient[]
 }
 
 export default function ProductList({ product, listItems }: Props) {
@@ -21,9 +23,9 @@ export default function ProductList({ product, listItems }: Props) {
     (state) => state
   )
 
-  const categoryName = product.category.category
+  const categoryName = product.product.category.name
   const handleViewProductDetail = () => {
-    const { newProduct } = createBuyProduct(product)
+    const { newProduct } = createProductShoppinList(product.product)
     viewProductDetail(newProduct)
   }
   const handleChangeListProductBuy = () => {
@@ -41,7 +43,7 @@ export default function ProductList({ product, listItems }: Props) {
     // Paso la funcion handleDecision para ejecutarla en la modal y asi poder reutilizar esa modal con distintas funciones
     changeStatus(
       stat,
-      `Estas seguro que deseas eliminar de la lista el producto ${product.name}`,
+      `Estas seguro que deseas eliminar de la lista el producto ${product.product.name}`,
       true,
       handleConfirmDelete
     )
@@ -58,14 +60,14 @@ export default function ProductList({ product, listItems }: Props) {
           className={`itemslist__h3 ${checked ? 'itemslist__tached' : ''}`}
           onClick={handleViewProductDetail}
         >
-          {product.name}
+          {product.product.name}
         </h3>
       </div>
       {view ? (
         <OptionsProduct
           categoryName={categoryName}
           count={product.count}
-          productId={product?.productId ?? product.id}
+          productId={product?.id ?? product.product.id}
           listItems={listItems}
           handleCofirm={handleCofirm}
           handleUpdateProduct={handleUpdateProduct}

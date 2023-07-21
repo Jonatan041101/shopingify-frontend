@@ -8,6 +8,7 @@ import {
 import useAlert from './useAlert'
 import { ListBuy } from '@/types/types'
 import useError from './useError'
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 
 export default function useProduct() {
   const { historyListPending, addItemList, addProductHistory } = useBearStore(
@@ -19,7 +20,7 @@ export default function useProduct() {
     count: number,
     productId: string,
     categoryName: string,
-    listItems: ListBuy[]
+    listItems: ProductShoppingListWithCategoryClient[]
   ) => {
     if (historyListPending) {
       try {
@@ -44,7 +45,7 @@ export default function useProduct() {
   const deleteItem = async (
     productId: string,
     categoryName: string,
-    listItems: ListBuy[]
+    listItems: ProductShoppingListWithCategoryClient[]
   ) => {
     try {
       if (historyListPending) {
