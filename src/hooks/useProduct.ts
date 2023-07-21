@@ -6,7 +6,6 @@ import {
   updateCountProductListHistory,
 } from '@/utils/apiHistory'
 import useAlert from './useAlert'
-import { ListBuy } from '@/types/types'
 import useError from './useError'
 import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 

@@ -1,49 +1,49 @@
 import { Status } from './string'
 
-export interface GetProduct {
-  products: Category[]
-}
-export interface CategoryWithProduct {}
+// export interface GetProduct {
+//   products: Category[]
+// }
+// export interface CategoryWithProduct {}
 export interface Category {
   id: string
   category: string
   product: ProductCount[]
 }
 
-export interface Product {
-  categoryId: string
-  id: string
-  image: string
-  name: string
-  note: string
-  category: CategoryName
-  price: number | string
-  stock: number | string
-}
-export interface ProductCount extends Product {
-  count?: number
-}
-export interface ProductList extends Product {
-  count: number
-  productId?: string
-}
-export interface ListBuy {
-  category: string
-  id: string
-  product: ProductList[]
-}
+// export interface Product {
+//   categoryId: string
+//   id: string
+//   image: string
+//   name: string
+//   note: string
+//   category: CategoryName
+//   price: number | string
+//   stock: number | string
+// }
+// export interface ProductCount extends Product {
+//   count?: number
+// }
+// export interface ProductList extends Product {
+//   count: number
+//   productId?: string
+// }
+// export interface ListBuy {
+//   category: string
+//   id: string
+//   product: ProductList[]
+// }
 
-export interface BuyProduct extends ListBuy {
-  product: ProductList
-}
-export interface NewItem {
-  categoryName: string
-  image: string
-  name: string
-  note: string
-  price: number | string
-  stock: number | string
-}
+// export interface BuyProduct extends ListBuy {
+// product: ProductList
+// }
+// export interface NewItem {
+//   categoryName: string
+//   image: string
+//   name: string
+//   note: string
+//   price: number | string
+//   stock: number | string
+// }ç
 export interface CategoryName extends Omit<Category, 'product'> {}
 
 export interface ProductHistory {

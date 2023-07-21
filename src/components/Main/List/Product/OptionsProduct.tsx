@@ -1,7 +1,6 @@
 import Button from '@/atoms/button/Button'
 import React from 'react'
 import Pzas from '../Pzas'
-import { ListBuy } from '@/types/types'
 import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 interface Props {
   handleCofirm: (view: boolean) => void

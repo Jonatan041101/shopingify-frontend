@@ -1,6 +1,5 @@
 'use client'
 import useView from '@/hooks/useView'
-import { ProductList } from '@/types/types'
 import React from 'react'
 import Pzas from '../Pzas'
 import { useBearStore } from '@/store/store'
