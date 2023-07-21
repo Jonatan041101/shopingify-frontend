@@ -29,7 +29,8 @@ export default function useProduct() {
             listItems,
             response.product.count,
             response.product.id, //ID  del producto en productList
-            categoryName
+            categoryName,
+            true
           )
           addProductHistory(newList)
         }

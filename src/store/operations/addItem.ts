@@ -47,8 +47,16 @@ export const counterItem = (
   items: ProductShoppingListWithCategoryClient[],
   count: number,
   PRODUCT_ID: string,
-  categoryName: string
+  categoryName: string,
+  backend?: boolean
 ) => {
+  console.log({
+    items,
+    count,
+    PRODUCT_ID,
+    categoryName,
+  })
+
   const { newItems, category } =
     newProductToAdd<ProductShoppingListWithCategoryClient>(items, categoryName)
   if (!category)
@@ -58,6 +66,10 @@ export const counterItem = (
     throw new Error(
       `Producto no encontrado para actualizar con el id ${PRODUCT_ID}`
     )
-  product.count = count
+  if (!backend) {
+    product.count = product.count + count
+  } else {
+    product.count = count
+  }
   return newItems
 }
