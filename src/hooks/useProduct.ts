@@ -14,13 +14,13 @@ export default function useProduct() {
   )
   const { createAlert } = useAlert()
 
-  const handleUpdateProdcut = async (
+  const handleUpdateProduct = async (
     count: number,
     productId: string,
     categoryName: string,
     listItems: ListBuy[]
   ) => {
-    console.log({ listItems })
+    console.log({ productId })
 
     if (historyListPending) {
       try {
@@ -59,7 +59,7 @@ export default function useProduct() {
     }
   }
   return {
-    handleUpdateProdcut,
+    handleUpdateProduct,
     deleteItem,
   }
 }

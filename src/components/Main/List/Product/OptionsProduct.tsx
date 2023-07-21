@@ -1,30 +1,42 @@
-import Icons from '@/atoms/icons'
+import Button from '@/atoms/button/Button'
 import React from 'react'
-
+import Pzas from '../Pzas'
+import { ListBuy } from '@/types/types'
 interface Props {
-  viewDrive: boolean
-  checked: boolean
-  handleChangeListProductBuy: () => void
+  handleCofirm: (view: boolean) => void
+  handleUpdateProduct: (
+    count: number,
+    productId: string,
+    categoryName: string,
+    listItems: ListBuy[]
+  ) => void
+  count: number
+  categoryName: string
+  productId: string
+  listItems: ListBuy[]
 }
 export default function OptionsProduct({
-  checked,
-  viewDrive,
-  handleChangeListProductBuy,
+  count,
+  categoryName,
+  listItems,
+  productId,
+  handleCofirm,
+  handleUpdateProduct,
 }: Props) {
   return (
-    <>
-      {viewDrive && (
-        <button
-          className="itemslist__checked"
-          onClick={handleChangeListProductBuy}
-        >
-          {checked && (
-            <i className="itemslist__checked--i">
-              <Icons icon="nice" />
-            </i>
-          )}
-        </button>
-      )}
-    </>
+    <div className="itemslist__white">
+      <Button deleteP icon="delete" click={() => handleCofirm(false)} />
+      <Button
+        icon="less"
+        click={() =>
+          handleUpdateProduct(-1, productId, categoryName, listItems)
+        }
+      />
+      <Pzas count={count} />
+      <Button
+        icon="more"
+        click={() => handleUpdateProduct(1, productId, categoryName, listItems)}
+      />
+    </div>
   )
 }

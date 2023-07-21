@@ -1,0 +1,10 @@
+export type InputChange =
+  | 'categoryName'
+  | 'image'
+  | 'name'
+  | 'note'
+  | 'user'
+  | 'password'
+  | 'price'
+  | 'stock'
+export type Status = 'Pendiente' | 'Completado' | 'Cancelado'

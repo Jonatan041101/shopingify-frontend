@@ -43,7 +43,6 @@ export default function DetailProduct({ product }: Props) {
     try {
       if (confirm) {
         const res = await deleteItemToListArticles(product.product.id)
-        console.log({ res })
 
         if (res) {
           createAlert(res.message, true)
@@ -55,7 +54,6 @@ export default function DetailProduct({ product }: Props) {
             product.category,
             product.product.id
           )
-          console.log({ newList })
 
           addProductHistory(newList)
           changeStatus(false, '', false, () => {})
@@ -68,7 +66,6 @@ export default function DetailProduct({ product }: Props) {
           product.category,
           product.product.id
         )
-        console.log({ newList })
 
         addItemList(newList)
         changeStatus(false, '', false, () => {})

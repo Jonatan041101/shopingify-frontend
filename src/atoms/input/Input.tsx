@@ -1,9 +1,9 @@
-import { InputChange } from '@/types/types'
 import React, { useState } from 'react'
 import Icons from '../icons'
 import { IconsTypes } from '../icons/types'
 import useBoolean from '@/hooks/useBoolean'
 import { EventInput, TypeInput } from '@/types/events'
+import { InputChange } from '@/types/string'
 interface Props {
   label: string
   place: string
@@ -35,7 +35,6 @@ export default function Input({
     }
     setTtypeInput('text')
   }
-  console.log(typeInput)
 
   return (
     <div className="input">

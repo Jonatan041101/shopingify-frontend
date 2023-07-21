@@ -4,18 +4,19 @@ import useAlert from '@/hooks/useAlert'
 import useView from '@/hooks/useView'
 import { useBearStore } from '@/store/store'
 import { EventFile, EventInput } from '@/types/events'
-import { InputChange } from '@/types/types'
 import { uploadFiles } from '@/utils/cloduinary/files'
 import { createProduct } from '@/utils/fetchApi'
 import {
   parseCategoryToAdd,
   parseProductToAdd,
 } from '@/utils/parse/productWithCategory'
-import { newProductToAdd } from '@/utils/parse/searchingProductOrCategory'
+import { newProductToAdd } from '@/utils/searching/searchingProductOrCategory'
 import React, { useReducer, useRef } from 'react'
 import UpImage from './UpImage'
 import RestForm from './RestForm'
 import { INITIAL_STATE_REDUCER, reducer } from './reduder'
+import { InputChange } from '@/types/string'
+import { Category } from '@/types/types'
 
 export default function CreateProduct() {
   const { items, category, changeViewCreate, addItemsProducts } = useBearStore(
@@ -48,19 +49,19 @@ export default function CreateProduct() {
       }
       const { NEW_PRODUCT } = parseProductToAdd(state.newProduct)
       const { product } = await createProduct(NEW_PRODUCT)
-      const { newItems, category } = newProductToAdd(
+      const { newItems, category } = newProductToAdd<Category>(
         items,
-        product.category.name
+        product.category.category
       )
       if (category) {
         category.product.push(product)
         addItemsProducts(newItems)
-        createAlert(`${product.name} agregado a ${category.name}`, false)
+        createAlert(`${product.name} agregado a ${category.category}`, false)
       } else {
         const { newCategoryWithProduct } = parseCategoryToAdd(product)
         addItemsProducts([...newItems, newCategoryWithProduct])
         createAlert(
-          `Categoria ${newCategoryWithProduct.name} creada y producto ${product.name} agregado.`,
+          `Categoria ${newCategoryWithProduct.category} creada y producto ${product.name} agregado.`,
           false
         )
       }

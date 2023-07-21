@@ -5,3 +5,7 @@ export interface User {
   readonly admin: number
 }
 export type UserNonPassword = Omit<User, 'password'>
+export interface Stock {
+  id: string
+  count: number
+}

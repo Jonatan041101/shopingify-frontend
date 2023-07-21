@@ -15,7 +15,6 @@ export const deleteItemList = (
   if (category && restProducts) {
     category.product = restProducts
   }
-  console.log({ restProducts })
 
   if (restProducts?.length === 0) {
     const NEW_LIST_DELETE_CATEGORY = newList.filter(

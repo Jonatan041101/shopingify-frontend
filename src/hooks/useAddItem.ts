@@ -11,10 +11,8 @@ export default function useAddItem() {
   )
   const { createAlert } = useAlert()
   const addItemHistory = async (id: string, product: Product) => {
-    console.log('producto')
     if (historyListPending) {
       const message = await addProductListHistory(historyId, id)
-      console.log({ message })
       if (message) {
         createAlert(`Producto ${product.name} agregado a lista `, false)
         const { newProduct } = createBuyProduct(product)

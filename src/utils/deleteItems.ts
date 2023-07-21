@@ -23,7 +23,6 @@ export const deleteItemsHome = (items: Category[], id: string) => {
     })
   })
   const NEW_ITEMS = newItems.filter((product) => product.product.length > 0)
-  console.log({ NEW_ITEMS }, 'DELETEITEM')
 
   return NEW_ITEMS
 }

@@ -12,7 +12,7 @@ export const parseProductToAdd = (product: NewItem) => {
 }
 export const parseCategoryToAdd = (product: Product) => {
   const newCategoryWithProduct: Category = {
-    name: product.category.name,
+    category: product.category.category,
     id: product.category.id,
     product: [product],
   }

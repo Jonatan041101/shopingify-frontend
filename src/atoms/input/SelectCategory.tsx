@@ -1,6 +1,7 @@
-import { CategoryName, InputChange } from '@/types/types'
+import { CategoryName } from '@/types/types'
 import React from 'react'
 import Category from '../list/Category'
+import { InputChange } from '@/types/string'
 interface Props {
   label: string
   place: string

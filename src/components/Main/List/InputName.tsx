@@ -46,6 +46,8 @@ export default function InputName() {
     const parseHistoryPendingToListBuy = historyPendingToListBuy(historyCreated)
     // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY Y EN EL COMPONENTE ItemList se vuelve a renderizar
     // pero con los productos de "parseHistoryPendingToListBuy"
+    console.log({ historyCreated, parseHistoryPendingToListBuy })
+
     existHistoryListPending(
       parseHistoryPendingToListBuy,
       historyCreated.history.id

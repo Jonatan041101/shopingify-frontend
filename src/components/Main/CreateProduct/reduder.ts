@@ -1,4 +1,5 @@
-import { InputChange, NewItem } from '@/types/types'
+import { InputChange } from '@/types/string'
+import { NewItem } from '@/types/types'
 
 const INITIAL_STATE: NewItem = {
   categoryName: '',

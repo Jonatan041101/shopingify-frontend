@@ -1,10 +1,12 @@
+import { Status } from './string'
+
 export interface GetProduct {
   products: Category[]
 }
 
 export interface Category {
   id: string
-  name: string
+  category: string
   product: ProductCount[]
 }
 
@@ -23,12 +25,14 @@ export interface ProductCount extends Product {
 }
 export interface ProductList extends Product {
   count: number
+  productId?: string
 }
 export interface ListBuy {
   category: string
   id: string
   product: ProductList[]
 }
+
 export interface BuyProduct extends ListBuy {
   product: ProductList
 }
@@ -41,20 +45,11 @@ export interface NewItem {
   stock: number | string
 }
 export interface CategoryName extends Omit<Category, 'product'> {}
-export type InputChange =
-  | 'categoryName'
-  | 'image'
-  | 'name'
-  | 'note'
-  | 'user'
-  | 'password'
-  | 'price'
-  | 'stock'
+
 export interface ProductHistory {
   productId: string
   count: number
 }
-export type Status = 'Pendiente' | 'Completado' | 'Cancelado'
 export interface HistoryCreate {
   nameList: string
   status: Status

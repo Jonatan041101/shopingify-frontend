@@ -3,11 +3,11 @@ import useView from '@/hooks/useView'
 import { ListBuy, ProductList } from '@/types/types'
 import React from 'react'
 import Pzas from '../Pzas'
-import Button from '@/atoms/button/Button'
 import { useBearStore } from '@/store/store'
 import { createBuyProduct } from '@/utils/convert'
-import OptionsProduct from './OptionsProduct'
 import useProduct from '@/hooks/useProduct'
+import MarkerCheck from './MarkerCheck'
+import OptionsProduct from './OptionsProduct'
 interface Props {
   product: ProductList
   listItems: ListBuy[]
@@ -16,12 +16,12 @@ interface Props {
 export default function ProductList({ product, listItems }: Props) {
   const { view, changeView } = useView()
   const { view: checked, changeView: changeChecked } = useView()
-  const { deleteItem, handleUpdateProdcut } = useProduct()
+  const { deleteItem, handleUpdateProduct } = useProduct()
   const { viewDrive, viewProductDetail, changeStatus } = useBearStore(
     (state) => state
   )
 
-  const categoryName = product.category.name
+  const categoryName = product.category.category
   const handleViewProductDetail = () => {
     const { newProduct } = createBuyProduct(product)
     viewProductDetail(newProduct)
@@ -49,7 +49,7 @@ export default function ProductList({ product, listItems }: Props) {
   return (
     <article className="itemslist__article">
       <div className="itemslist__product">
-        <OptionsProduct
+        <MarkerCheck
           checked={checked}
           viewDrive={viewDrive}
           handleChangeListProductBuy={handleChangeListProductBuy}
@@ -62,22 +62,14 @@ export default function ProductList({ product, listItems }: Props) {
         </h3>
       </div>
       {view ? (
-        <div className="itemslist__white">
-          <Button deleteP icon="delete" click={() => handleCofirm(false)} />
-          <Button
-            icon="less"
-            click={() =>
-              handleUpdateProdcut(-1, product.id, categoryName, listItems)
-            }
-          />
-          <Pzas count={product.count} />
-          <Button
-            icon="more"
-            click={() =>
-              handleUpdateProdcut(1, product.id, categoryName, listItems)
-            }
-          />
-        </div>
+        <OptionsProduct
+          categoryName={categoryName}
+          count={product.count}
+          productId={product?.productId ?? product.id}
+          listItems={listItems}
+          handleCofirm={handleCofirm}
+          handleUpdateProduct={handleUpdateProduct}
+        />
       ) : (
         <button onClick={changeView}>
           <Pzas count={product.count} />
