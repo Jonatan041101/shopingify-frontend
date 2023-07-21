@@ -16,7 +16,6 @@ import UpImage from './UpImage'
 import RestForm from './RestForm'
 import { INITIAL_STATE_REDUCER, reducer } from './reduder'
 import { InputChange } from '@/types/string'
-import { Category } from '@/types/types'
 import { CategoryWithProductClient } from '@/types/parse'
 
 export default function CreateProduct() {

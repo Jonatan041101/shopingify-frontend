@@ -2,7 +2,7 @@ import Input from '@/atoms/input/Input'
 import SelectCategory from '@/atoms/input/SelectCategory'
 import { EventInput } from '@/types/events'
 import { CreateProductModel } from '@/types/sendBackend'
-import { CategoryName, NewItem } from '@/types/types'
+import { CategoryName } from '@/types/types'
 import React from 'react'
 
 interface Props {

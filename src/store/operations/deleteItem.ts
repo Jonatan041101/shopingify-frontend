@@ -1,5 +1,4 @@
 import { ProductShoppingListWithCategoryClient } from '@/types/parse'
-import { BuyProduct, ListBuy } from '@/types/types'
 export const deleteItemList = (
   list: ProductShoppingListWithCategoryClient[],
   categoryName: string,

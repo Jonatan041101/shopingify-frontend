@@ -2,7 +2,8 @@
 import Button from '@/atoms/button/Button'
 import useAlert from '@/hooks/useAlert'
 import { useBearStore } from '@/store/store'
-import { HistoryCreate, ProductList } from '@/types/types'
+import { ProductShoppingListModel } from '@/types/model'
+import { HistoryCreate } from '@/types/types'
 import { completeList } from '@/utils/apiHistory'
 import { historyPendingToListBuy } from '@/utils/convert'
 import { createHistory } from '@/utils/fetchApi'
@@ -35,7 +36,7 @@ export default function InputName() {
       return createAlert('No puedes tener mas de una lista activa.', true)
     changeNameList(name)
     setName('')
-    let products: ProductList[] = []
+    let products: ProductShoppingListModel[] = []
     list.forEach(({ product }) => products.push(...product))
     const productsHistory: HistoryCreate = {
       nameList: name.length === 0 ? 'Lista de compras' : name,

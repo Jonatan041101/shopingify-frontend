@@ -1,5 +1,4 @@
 import { CategoryWithProductClient } from '@/types/parse'
-import { Category } from '@/types/types'
 import { StateCreator } from 'zustand'
 export interface Filter {
   searchNameItemOrCategory: string

@@ -1,4 +1,4 @@
-import { EventFile, EventInput } from '@/types/events'
+import { EventFile } from '@/types/events'
 import { CloudinaryResponse } from '@/types/response'
 import { NO_ENVIRONMENT_VARIABLE } from '../api/loginApi'
 import { Message } from '../apiHistory'

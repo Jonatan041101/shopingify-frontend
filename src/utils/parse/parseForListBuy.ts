@@ -2,7 +2,6 @@ import {
   ProductShoppingListWithCategoryClient,
   ProductShoppingListWithCategoryClientOne,
 } from '@/types/parse'
-import { BuyProduct, ListBuy } from '@/types/types'
 
 export const parseListBuyTheBuyProduct = (
   item: ProductShoppingListWithCategoryClientOne

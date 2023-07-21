@@ -1,13 +1,12 @@
 import Icons from '@/atoms/icons'
-import { HistoryShopping } from '@/types/types'
 import React from 'react'
 import Status from './Status'
-import { parseDate } from '@/utils/parseDate'
 import Dates from './Dates'
+import { HistoryShoppingModel } from '@/types/model'
 
 interface Props {
-  history: HistoryShopping
-  handleViewHistory: (historyItem: HistoryShopping) => void
+  history: HistoryShoppingModel
+  handleViewHistory: (historyItem: HistoryShoppingModel) => void
 }
 export default function HistoryCard({ history, handleViewHistory }: Props) {
   return (

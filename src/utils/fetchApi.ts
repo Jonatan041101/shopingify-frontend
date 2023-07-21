@@ -1,17 +1,19 @@
 import {
   ResponseCategoryWithProduct,
   ResponseCreateProduct,
+  ResponseHistoryPending,
+  ResponseHistoryShoppingModelAll,
 } from '@/types/response'
-import { HistoryCreate, HistoryGet, HistoryPending } from '@/types/types'
+import { HistoryCreate, HistoryGet } from '@/types/types'
 import { errorFunction } from './handlerError/error'
 import { CreateProductModel } from '@/types/sendBackend'
 
 export const getProductsWithCategory = async () => {
-  if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
-    throw new Error(
-      'No has ingresado la variable de entorno para los productos'
-    )
   try {
+    if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
+      throw new Error(
+        'No has ingresado la variable de entorno para los productos'
+      )
     const products = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
       cache: 'no-cache',
     })
@@ -28,46 +30,72 @@ export const getProductsWithCategory = async () => {
 export const createProduct = async (product: CreateProductModel) => {
   console.log({ product })
 
-  if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
-    throw new Error(
-      'No has ingresado la variable de entorno para los productos'
-    )
-  const res = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
-    cache: 'no-cache',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(product),
-  })
-  console.log({ res })
+  try {
+    if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
+      throw new Error(
+        'No has ingresado la variable de entorno para los productos'
+      )
+    const res = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
+      cache: 'no-cache',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    })
+    console.log({ res })
 
-  const productCreated = (await res.json()) as ResponseCreateProduct
-  return productCreated
+    const productCreated = await res.json()
+    if (!res.ok) {
+      errorFunction(productCreated)
+    }
+    return productCreated as ResponseCreateProduct
+  } catch (error) {
+    console.log({ error })
+    errorFunction(error)
+  }
 }
 export const createHistory = async (history: HistoryCreate) => {
-  if (!process.env.NEXT_PUBLIC_API_HISTORY)
-    throw new Error('No has ingresado la variable de entorno para las historys')
+  try {
+    if (!process.env.NEXT_PUBLIC_API_HISTORY)
+      throw new Error(
+        'No has ingresado la variable de entorno para las historys'
+      )
 
-  const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
-    cache: 'no-cache',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(history),
-  })
-  const historyCreated = (await res.json()) as HistoryPending
-  return historyCreated
+    const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
+      cache: 'no-cache',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(history),
+    })
+    const historyCreated = await res.json()
+    if (!res.ok) {
+      errorFunction(historyCreated)
+    }
+    return historyCreated as ResponseHistoryPending
+  } catch (error) {
+    errorFunction(error)
+  }
 }
 export const getHistorys = async () => {
-  if (!process.env.NEXT_PUBLIC_API_HISTORY)
-    throw new Error('No has ingresado la variable de entorno para las historys')
-  const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
-    cache: 'no-cache',
-  })
-  const historys = (await res.json()) as HistoryGet
-  return historys
+  try {
+    if (!process.env.NEXT_PUBLIC_API_HISTORY)
+      throw new Error(
+        'No has ingresado la variable de entorno para las historys'
+      )
+    const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
+      cache: 'no-cache',
+    })
+    const historys = await res.json()
+    if (!res.ok) {
+      errorFunction(historys)
+    }
+    return historys as ResponseHistoryShoppingModelAll
+  } catch (error) {
+    errorFunction(error)
+  }
 }
 export const getHistoryPending = async () => {
   try {
@@ -80,10 +108,11 @@ export const getHistoryPending = async () => {
     })
 
     const historyPending = await res.json()
-    if (historyPending.message) throw new Error(historyPending.message)
-    return historyPending as HistoryPending
+    if (!res.ok) {
+      errorFunction(historyPending)
+    }
+    return historyPending as ResponseHistoryPending
   } catch (error) {
-    const ERROR = error as Error
-    return ERROR.message
+    errorFunction(error)
   }
 }

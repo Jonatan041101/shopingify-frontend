@@ -1,5 +1,4 @@
 import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
-import { BuyProduct } from '@/types/types'
 import { StateCreator } from 'zustand'
 
 export interface ProductDetail {

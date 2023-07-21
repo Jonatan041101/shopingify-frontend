@@ -1,5 +1,4 @@
 import { ProductShoppingListWithCategoryClient } from '@/types/parse'
-import { ListBuy } from '@/types/types'
 import { StateCreator } from 'zustand'
 export interface Drive {
   viewDrive: boolean

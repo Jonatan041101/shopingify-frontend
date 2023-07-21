@@ -2,7 +2,6 @@ import {
   ProductShoppingListWithCategoryClient,
   ProductShoppingListWithCategoryClientOne,
 } from '@/types/parse'
-import { BuyProduct, ListBuy } from '@/types/types'
 import { parseListBuyTheBuyProduct } from '@/utils/parse/parseForListBuy'
 import {
   newProductToAdd,

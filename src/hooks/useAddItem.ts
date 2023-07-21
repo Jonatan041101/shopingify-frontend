@@ -2,7 +2,6 @@ import { useBearStore } from '@/store/store'
 import { addProductListHistory } from '@/utils/apiHistory'
 import useAlert from './useAlert'
 import { createProductShoppinList } from '@/utils/convert'
-import { Product } from '@/types/types'
 import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { ProductModel } from '@/types/model'
 
