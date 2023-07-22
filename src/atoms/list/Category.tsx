@@ -1,8 +1,8 @@
-import { CategoryName } from '@/types/types'
 import React from 'react'
 import Li from './Li'
+import { CategoryWithNameOnly } from '@/types/parse'
 interface Props {
-  category: CategoryName[]
+  category: CategoryWithNameOnly[]
   handleChangeCategory: (category: string) => void
 }
 export default function Category({ category, handleChangeCategory }: Props) {
