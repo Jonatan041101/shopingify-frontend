@@ -1,11 +1,13 @@
-import { BuyProduct } from '@/types/types'
+import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
 import { StateCreator } from 'zustand'
 
 export interface ProductDetail {
-  product: BuyProduct | null
+  product: ProductShoppingListWithCategoryClientOne | null
   url: string
   changeUrl: (url: string) => void
-  viewProductDetail: (product: BuyProduct | null) => void
+  viewProductDetail: (
+    product: ProductShoppingListWithCategoryClientOne | null
+  ) => void
 }
 export const productSlice: StateCreator<ProductDetail> = (set) => ({
   product: null,

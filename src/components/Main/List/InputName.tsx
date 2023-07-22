@@ -2,10 +2,10 @@
 import Button from '@/atoms/button/Button'
 import useAlert from '@/hooks/useAlert'
 import { useBearStore } from '@/store/store'
-import { HistoryCreate, ProductList } from '@/types/types'
-import { completeList } from '@/utils/apiHistory'
-import { historyPendingToListBuy } from '@/utils/convert'
-import { createHistory } from '@/utils/fetchApi'
+import { ProductShoppingListModel } from '@/types/model'
+import { HistoryCreate } from '@/types/types'
+import { completeList, createHistory } from '@/utils/api/history'
+import { historyPendingToProductShoppingListWithCategoryClient } from '@/utils/parse/parseShoppingList'
 import React, { useRef, useState } from 'react'
 
 export default function InputName() {
@@ -14,7 +14,7 @@ export default function InputName() {
   // const [status, setStatus] = useState<boolean>(false)
   const status = useRef<boolean>(false)
   const {
-    list,
+    shoppinList: list,
     historyListPending,
     historyId,
     nameList,
@@ -31,26 +31,41 @@ export default function InputName() {
   }
 
   const handleSendNameList = async () => {
-    if (historyListPending)
-      return createAlert('No puedes tener mas de una lista activa.', true)
-    changeNameList(name)
-    setName('')
-    let products: ProductList[] = []
-    list.forEach(({ product }) => products.push(...product))
-    const productsHistory: HistoryCreate = {
-      nameList: name.length === 0 ? 'Lista de compras' : name,
-      status: 'Pendiente',
-      productsList: products.map(({ id, count }) => ({ productId: id, count })),
+    try {
+      if (historyListPending)
+        return createAlert('No puedes tener mas de una lista activa.', true)
+      changeNameList(name)
+      setName('')
+      let products: ProductShoppingListModel[] = []
+      list.forEach(({ product }) => products.push(...product))
+      const productsHistory: HistoryCreate = {
+        nameList: name.length === 0 ? 'Lista de compras' : name,
+        status: 'Pendiente',
+        productsList: products.map(({ id, count, product }) => ({
+          productId: id.length === 0 ? product.id : id,
+          count,
+        })),
+      }
+      console.log({ products, productsHistory })
+
+      const historyCreated = await createHistory(productsHistory)
+      if (historyCreated) {
+        const { history } = historyCreated
+        const parseHistoryPendingToListBuy =
+          historyPendingToProductShoppingListWithCategoryClient(history)
+        // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY Y EN EL COMPONENTE ItemList se vuelve a renderizar
+        // pero con los productos de "parseHistoryPendingToListBuy"
+        console.log({ historyCreated, parseHistoryPendingToListBuy })
+
+        existHistoryListPending(
+          parseHistoryPendingToListBuy,
+          historyCreated.history.id
+        )
+        changeListForView(true)
+      }
+    } catch (error) {
+      console.log({ error })
     }
-    const historyCreated = await createHistory(productsHistory)
-    const parseHistoryPendingToListBuy = historyPendingToListBuy(historyCreated)
-    // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY Y EN EL COMPONENTE ItemList se vuelve a renderizar
-    // pero con los productos de "parseHistoryPendingToListBuy"
-    existHistoryListPending(
-      parseHistoryPendingToListBuy,
-      historyCreated.history.id
-    )
-    changeListForView(true)
   }
   const handleEndList = async (status: boolean) => {
     const history = await completeList(status, historyId)

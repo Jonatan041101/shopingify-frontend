@@ -2,6 +2,7 @@
   width: 100%;
   // background: red;
   @include flex(column-reverse, nowrap, flex-start, flex-start, 0.5em);
+  position: relative;
   &__label {
     width: 100%;
     font-size: 0.85em;
@@ -23,26 +24,33 @@
   &__input {
     width: 100%;
     border: 2px solid $color-placeholder;
-    width: 100%;
-    padding: 1em;
     border-radius: 1em;
     outline: none;
+    padding: 0 1em;
     color: #000;
     @include flex(row, nowrap, flex-start, center, 0.5em);
   }
   &__value {
+    width: 100%;
+    padding: 1em 0;
     color: #000;
     outline: none;
+  }
+  &__category {
+    border: 2px solid $color-placeholder;
+    width: 100%;
+    outline: none;
+    padding: 1em;
+    border-radius: 1em;
+    color: #000;
+    @include flex(row, nowrap, flex-start, center, 0.5em);
   }
   &__textarea {
     outline: none;
     color: #000;
-    &:focus {
-      border-color: $color-yellow;
-    }
-    &:focus ~ .input__label {
-      color: $color-yellow;
-    }
+    width: 100%;
+    padding: 1em 0;
+    resize: none;
   }
 }
 [data-color='true'] {

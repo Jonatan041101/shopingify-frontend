@@ -1,18 +1,19 @@
 'use client'
 import Button from '@/atoms/button/Button'
-import { BuyProduct, Category } from '@/types/types'
 import Image from 'next/image'
 import React from 'react'
 import Section from './Section'
 import { useBearStore } from '@/store/store'
-import { addItemOrUpdate } from '@/store/operations/addItem'
+import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { deleteItemList } from '@/store/operations/deleteItem'
 import useAddItem from '@/hooks/useAddItem'
-import { deleteItemToListArticles } from '@/utils/products'
+import { deleteProductModel } from '@/utils/products'
 import useAlert from '@/hooks/useAlert'
-import { deleteItemsHome } from '@/utils/deleteItems'
+import { deleteProductModelHome } from '@/utils/deleteProductModel'
+import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
+import Spinner from '@/atoms/Spinner'
 interface Props {
-  product: BuyProduct
+  product: ProductShoppingListWithCategoryClientOne
 }
 export default function DetailProduct({ product }: Props) {
   const {
@@ -20,9 +21,10 @@ export default function DetailProduct({ product }: Props) {
     addItemList,
     changeStatus,
     addProductHistory,
-    deleteItems,
-    items,
-    list,
+    deleteProducts: deleteItems,
+    dolar,
+    products: items,
+    shoppinList: list,
     historyListPending,
   } = useBearStore((state) => state)
   const { addItemHistory } = useAddItem()
@@ -33,17 +35,16 @@ export default function DetailProduct({ product }: Props) {
   }
   const handleAddItemList = async () => {
     if (historyListPending) {
-      addItemHistory(product.product.id, product.product)
+      addItemHistory(product.product.id, product.product.product)
       return
     }
-    const newList = addItemOrUpdate(product, list)
+    const newList = addOrUpdateFromAllListToShoppingList(product, list)
     addItemList(newList)
   }
   const deleteItem = async (confirm: boolean) => {
     try {
       if (confirm) {
-        const res = await deleteItemToListArticles(product.product.id)
-        console.log({ res })
+        const res = await deleteProductModel(product.product.id)
 
         if (res) {
           createAlert(res.message, true)
@@ -55,11 +56,10 @@ export default function DetailProduct({ product }: Props) {
             product.category,
             product.product.id
           )
-          console.log({ newList })
 
           addProductHistory(newList)
           changeStatus(false, '', false, () => {})
-          const ITEMS = deleteItemsHome(items, product.product.id)
+          const ITEMS = deleteProductModelHome(items, product.product.id)
           deleteItems(ITEMS)
           return
         }
@@ -68,11 +68,10 @@ export default function DetailProduct({ product }: Props) {
           product.category,
           product.product.id
         )
-        console.log({ newList })
 
         addItemList(newList)
         changeStatus(false, '', false, () => {})
-        const ITEMS = deleteItemsHome(items, product.product.id)
+        const ITEMS = deleteProductModelHome(items, product.product.id)
         deleteItems(ITEMS)
         return
       }
@@ -84,7 +83,7 @@ export default function DetailProduct({ product }: Props) {
   const handleConfirm = () => {
     changeStatus(
       false,
-      `Esta seguro que desea eliminar de la lista de articulos el producto ${product.product.name}`,
+      `Esta seguro que desea eliminar de la lista de articulos el producto ${product.product.product.name}`,
       true,
       deleteItem
     )
@@ -96,23 +95,43 @@ export default function DetailProduct({ product }: Props) {
         <div className="detailproduct__back">
           <Button
             icon="arrow-back"
-            text="Back"
+            text="Atras"
             click={handleViewProductDetail}
           />
         </div>
         <Image
           className="detailproduct__image"
-          src={product.product.image}
-          alt={`Imagen del producto ${product.product.name}`}
+          src={product.product.product.image}
+          alt={`Imagen del producto ${product.product.product.name}`}
           width={150}
           height={100}
         />
       </div>
       <section className="detailproduct__description">
         <div className="detailproduct__des">
-          <Section name="Nombre" text={product.product.name} titleName />
+          <Section
+            name="Nombre"
+            text={product.product.product.name}
+            titleName
+          />
           <Section name="Categoria" text={product.category} />
-          <Section name="Nota" text={product.product.note} />
+          {isNaN(Number(dolar?.value)) ? (
+            <Spinner height="1em" width="1em" />
+          ) : (
+            <Section
+              name="Precio"
+              text={String(
+                Math.trunc(
+                  Number(product.product.product.price) * Number(dolar?.value)
+                )
+              )}
+            />
+          )}
+          <Section
+            name="Cantidad"
+            text={String(product.product.product.stock.count)}
+          />
+          <Section name="Nota" text={product.product.product.note} />
         </div>
         <div className="detailproduct__buttons">
           <Button
@@ -121,7 +140,7 @@ export default function DetailProduct({ product }: Props) {
             classN="button__white"
           />
           <Button
-            text="Agregar a la lista"
+            text="Agregar"
             click={handleAddItemList}
             classN="button__yellow"
           />

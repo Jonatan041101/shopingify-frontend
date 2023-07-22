@@ -1,6 +1,6 @@
-import { BuyProduct, ListBuy } from '@/types/types'
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 export const deleteItemList = (
-  list: ListBuy[],
+  list: ProductShoppingListWithCategoryClient[],
   categoryName: string,
   productId: string
 ) => {
@@ -15,7 +15,6 @@ export const deleteItemList = (
   if (category && restProducts) {
     category.product = restProducts
   }
-  console.log({ restProducts })
 
   if (restProducts?.length === 0) {
     const NEW_LIST_DELETE_CATEGORY = newList.filter(

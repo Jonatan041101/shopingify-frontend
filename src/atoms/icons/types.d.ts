@@ -19,3 +19,5 @@ export type IconsTypes =
   | 'padlock'
   | 'user'
   | 'visibility'
+  | 'image-up'
+  | 'money'

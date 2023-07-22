@@ -8,15 +8,23 @@ export default function NameList() {
     (state) => state
   )
   const handleViewDrive = () => {
-    if (!listForView) return 'Guarda la lista para empezar a usarla.'
+    // if (!listForView) return 'Guarda la lista para empezar a usarla.'
     changeViewDrive(!viewDrive)
   }
+  console.log({ viewDrive })
+
   return (
     <div className="list__name">
       <p className="list__list">
         {nameList.length === 0 ? 'Lista de compras' : nameList}
       </p>
-      <Button icon="lapiz" click={handleViewDrive} classNIcon="button__color" />
+      <div className="list__money">
+        <Button
+          icon="money"
+          click={handleViewDrive}
+          classNIcon="button__color"
+        />
+      </div>
     </div>
   )
 }

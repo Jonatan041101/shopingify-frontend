@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { ProductDetail, productSlice } from './slice/productSlice'
-import { List, buySlice } from './slice/buySlice'
+import { Shopping, buySlice } from './slice/shoppingSlice'
 import { CreateProduct, createSlice } from './slice/createSlice'
 import { Drive, driveSlice } from './slice/driveSlice'
 import { AlertNotify, sliceAlert } from './slice/alertSlice'
@@ -8,9 +8,10 @@ import { Styles, styleSlice } from './slice/styleSlice'
 import { FunctionsModal, sliceModal } from './slice/sliceModal'
 import { Filter, sliceFilter } from './slice/sliceFilter'
 import { UserSlice, userSlice } from './slice/userSlice'
+import { DolarSlice, sliceDolar } from './slice/dolarSlice'
 
 export const useBearStore = create<
-  List &
+  Shopping &
     ProductDetail &
     CreateProduct &
     Drive &
@@ -18,7 +19,8 @@ export const useBearStore = create<
     Styles &
     FunctionsModal &
     Filter &
-    UserSlice
+    UserSlice &
+    DolarSlice
 >((...set) => ({
   ...buySlice(...set),
   ...productSlice(...set),
@@ -29,4 +31,5 @@ export const useBearStore = create<
   ...sliceModal(...set),
   ...sliceFilter(...set),
   ...userSlice(...set),
+  ...sliceDolar(...set),
 }))

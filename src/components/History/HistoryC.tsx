@@ -1,17 +1,17 @@
 'use client'
-import { HistoryItem } from '@/types/types'
 import React, { useState } from 'react'
 import HistoryCard from './HistoryCard'
 import HistoryDetail from './HistoryDetail'
 import Message from '../Message'
+import { HistoryShoppingModel } from '@/types/model'
 
 interface Props {
-  history: [string, HistoryItem[]][]
+  history: [string, HistoryShoppingModel[]][]
 }
 
 export default function HistoryC({ history }: Props) {
-  const [product, setProduct] = useState<HistoryItem | null>(null)
-  const handleViewHistory = (historyItem: HistoryItem | null) => {
+  const [product, setProduct] = useState<HistoryShoppingModel | null>(null)
+  const handleViewHistory = (historyItem: HistoryShoppingModel | null) => {
     setProduct(historyItem)
   }
   return (

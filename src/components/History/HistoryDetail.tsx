@@ -1,12 +1,14 @@
-import { Category, HistoryItem } from '@/types/types'
 import React from 'react'
 import Button from '@/atoms/button/Button'
 import Dates from './Dates'
 import { addCategoryProduct } from '@/utils/addCategoryProduct'
 import CategoryItems from '../Main/Products/CategoryItems'
+import { HistoryShoppingModel } from '@/types/model'
+import { ProductShoppingListWithCategoryClient } from '@/types/parse'
+import Item from '../Main/Products/Item'
 
 interface Props {
-  product: HistoryItem
+  product: HistoryShoppingModel
   handleViewHistory: (historyItem: null) => void
 }
 
@@ -15,14 +17,13 @@ export default function HistoryDetail({ product, handleViewHistory }: Props) {
     handleViewHistory(null)
   }
   const productSeparate = addCategoryProduct(product)
-  const category: Category[] = productSeparate.map((category) => ({
-    id: category.id,
-    name: category.name,
-    product: category.product.map((product) => ({
-      ...product.product,
-      count: product.count,
-    })),
-  }))
+  const category: ProductShoppingListWithCategoryClient[] = productSeparate.map(
+    (category) => ({
+      id: category.id,
+      category: category.category,
+      product: category.product,
+    })
+  )
   return (
     <div className="historial__detail">
       <Button icon="arrow-back" text="Back" click={handleClose} />
@@ -31,8 +32,16 @@ export default function HistoryDetail({ product, handleViewHistory }: Props) {
           <h3 className="historial__detail--name">{product.name}</h3>
           <Dates classN="historial__details" date={product.date} />
         </div>
-        {category.map((cate) => (
-          <CategoryItems key={cate.id} category={cate} />
+        {category.map((category) => (
+          <CategoryItems key={category.id} category={category}>
+            {category.product.map((product) => (
+              <Item
+                key={product.id}
+                product={product.product}
+                count={product.count}
+              />
+            ))}
+          </CategoryItems>
         ))}
       </div>
     </div>

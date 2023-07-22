@@ -512,6 +512,7 @@ button {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 0.5em;
+  position: relative;
 }
 .input__label {
   width: 100%;
@@ -532,10 +533,9 @@ button {
 .input__input {
   width: 100%;
   border: 2px solid #bdbdbd;
-  width: 100%;
-  padding: 1em;
   border-radius: 1em;
   outline: none;
+  padding: 0 1em;
   color: #000;
   display: flex;
   flex-flow: row nowrap;
@@ -544,18 +544,30 @@ button {
   gap: 0.5em;
 }
 .input__value {
+  width: 100%;
+  padding: 1em 0;
   color: #000;
   outline: none;
+}
+.input__category {
+  border: 2px solid #bdbdbd;
+  width: 100%;
+  outline: none;
+  padding: 1em;
+  border-radius: 1em;
+  color: #000;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
 }
 .input__textarea {
   outline: none;
   color: #000;
-}
-.input__textarea:focus {
-  border-color: #f9a109;
-}
-.input__textarea:focus ~ .input__label {
-  color: #f9a109;
+  width: 100%;
+  padding: 1em 0;
+  resize: none;
 }
 
 [data-color=true] {
@@ -618,9 +630,14 @@ button {
   min-height: 3em;
   flex-grow: 1;
   height: calc(100vh - 546.77px);
+  max-height: 250px;
   overflow: auto;
   border-radius: 1em;
   border: 2px solid #bdbdbd;
+  position: absolute;
+  top: 100%;
+  z-index: 5;
+  background: #fff;
 }
 .create__li {
   cursor: pointer;
@@ -630,6 +647,50 @@ button {
 .create__li:hover {
   background: #bdbdbd;
   font-weight: bold;
+}
+.create__numbers {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+}
+.create__images {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.create__image {
+  position: relative;
+  height: 8em;
+  width: 8em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.create__img {
+  mix-blend-mode: multiply;
+  width: 100%;
+  height: 100%;
+}
+.create__files {
+  width: 100%;
+  height: 100%;
+  color: #bdbdbd;
+}
+.create__file {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  cursor: pointer;
+  opacity: 0;
 }
 
 .alert {
@@ -668,12 +729,10 @@ button {
 
 .loader {
   display: block;
-  width: 1em;
-  height: 1em;
 }
 .loader__spin {
-  width: 1em;
-  height: 1em;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   border: 1px solid #000000;
   border-color: #000000 transparent #000000 transparent;
@@ -1143,7 +1202,7 @@ button {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  gap: 2em;
+  gap: 0;
   padding: 1em;
 }
 .detailproduct__top {
@@ -1155,14 +1214,26 @@ button {
   gap: 0.5em;
 }
 .detailproduct__image {
-  object-fit: scale-down;
+  width: 100%;
+  height: 14em;
+  object-fit: contain;
   aspect-ratio: 16/9;
 }
 .detailproduct__back {
   width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5em;
 }
 .detailproduct__back button {
   transition: 0.5s ease;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
 }
 .detailproduct__back button:hover {
   transform: scale(1.1);
@@ -1174,7 +1245,7 @@ button {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5em;
+  gap: 1em;
 }
 .detailproduct__des {
   width: 100%;
@@ -1183,13 +1254,13 @@ button {
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 1.5em;
+  gap: 0.5em;
 }
 .detailproduct__section {
   width: 100%;
 }
-.detailproduct__section:nth-of-type(3) {
-  height: calc(100vh - 25.774em);
+.detailproduct__section:nth-of-type(5) {
+  height: calc(100vh - 35.774em);
   overflow: auto;
 }
 .detailproduct__name {
@@ -1351,7 +1422,7 @@ button {
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
-  gap: 1em;
+  gap: 0.7em;
   width: 100%;
   max-width: 340px;
   border-radius: 1.2em;
@@ -1380,7 +1451,7 @@ button {
   text-align: center;
 }
 .list__button {
-  padding: 0.5em 0.8em;
+  padding: 0.5em;
   background: #fff;
   color: #000;
   font-weight: 600;
@@ -1415,9 +1486,93 @@ button {
   align-items: center;
   gap: 0.5em;
 }
+.list__money button i {
+  width: 2.2em;
+}
 
 [data-translate=true] {
   transform: translateX(0);
+}
+
+.facture {
+  background: #fff;
+  height: 90%;
+  width: 100%;
+  border-radius: 1em;
+  max-width: 450px;
+  padding: 2em 1em;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+}
+.facture__close {
+  min-width: 1.2em;
+  width: 1.2em;
+  height: 1.2em;
+  min-height: 1.2em;
+  color: #000;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+.facture__article {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.facture__h3 {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.facture__price {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
+}
+.facture__span {
+  font-weight: bold;
+}
+.facture__value {
+  font-weight: bold;
+  width: 4em;
+  display: block;
+}
+.facture__products {
+  width: 100%;
+  height: calc(100% - 64px);
+  overflow: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
+}
+.facture__container {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.facture__all {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.facture__total {
+  width: 100%;
+}
+.facture__total--all {
+  font-weight: bold;
+  font-size: 1.8em;
 }
 
 .products {

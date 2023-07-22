@@ -1,6 +1,6 @@
 import { Login } from '@/types/api-types'
 import { ResponseError, ResponseLogin } from '@/types/response'
-const NO_ENVIRONMENT_VARIABLE = 'No has ingresado la variable de entorno'
+export const NO_ENVIRONMENT_VARIABLE = 'No has ingresado la variable de entorno'
 export const loginQuery = async (user: Login) => {
   try {
     if (!process.env.NEXT_PUBLIC_API_M) {

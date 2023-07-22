@@ -1,12 +1,15 @@
-import { Category } from '@/types/types'
+import { CategoryWithProductClient } from '@/types/parse'
 
-export const deleteItemsHome = (items: Category[], id: string) => {
-  const newItems: Category[] = []
+export const deleteProductModelHome = (
+  items: CategoryWithProductClient[],
+  id: string
+) => {
+  const newItems: CategoryWithProductClient[] = []
   items.forEach((item) => {
     let itemDelete = false
-    const newItem: Category = {
+    const newItem: CategoryWithProductClient = {
       id: item.id,
-      name: item.name,
+      category: item.category,
       product: [],
     }
     item.product.forEach((prod, index) => {
@@ -23,7 +26,6 @@ export const deleteItemsHome = (items: Category[], id: string) => {
     })
   })
   const NEW_ITEMS = newItems.filter((product) => product.product.length > 0)
-  console.log({ NEW_ITEMS }, 'DELETEITEM')
 
   return NEW_ITEMS
 }

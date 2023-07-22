@@ -1,12 +1,12 @@
 'use client'
 import Icons from '@/atoms/icons'
 import { useBearStore } from '@/store/store'
-import { Category } from '@/types/types'
+import { CategoryWithProductClient } from '@/types/parse'
 import React from 'react'
 
 export default function Searching() {
   const {
-    copyItems,
+    copyProducts: copyItems,
     searchNameItemOrCategory,
     changeSearchName,
     addItemsFiltered,
@@ -16,15 +16,17 @@ export default function Searching() {
   ) => {
     const { value } = evt.target
     changeSearchName(value)
-    const searchCategory = copyItems.filter(({ name }) =>
-      name.toLowerCase().includes(value.toLowerCase())
+    console.log({ copyItems })
+
+    const searchCategory = copyItems.filter(({ category }) =>
+      category.toLowerCase().includes(value.toLowerCase())
     )
     if (searchCategory.length === 0) {
-      const newItems: Category[] = []
+      const newItems: CategoryWithProductClient[] = []
       copyItems.forEach((category) => {
-        const newCategory: Category = {
+        const newCategory: CategoryWithProductClient = {
           id: category.id,
-          name: category.name,
+          category: category.category,
           product: [],
         }
         category.product.forEach((product, index) => {

@@ -1,10 +1,14 @@
-import { CategoryHistory, CategoryName, HistoryItem } from '@/types/types'
-export const limpCategorys = (allCategorys: CategoryName[]) => {
-  const uniqueCategory: CategoryName[] = []
+import { HistoryShoppingModel } from '@/types/model'
+import { CategoryInHistoryClient, CategoryWithNameOnly } from '@/types/parse'
+import { parseCategoryWithName } from './parse/parseCategoryWithName'
+export const deleteNameCopyCategory = (
+  allCategorys: CategoryWithNameOnly[]
+) => {
+  const uniqueCategory: CategoryWithNameOnly[] = []
   allCategorys.forEach((repeatCategory) => {
     let exist = false
     uniqueCategory.forEach((category) => {
-      if (repeatCategory.name === category.name) {
+      if (repeatCategory.category === category.category) {
         exist = true
       }
     })
@@ -14,25 +18,22 @@ export const limpCategorys = (allCategorys: CategoryName[]) => {
   })
   return uniqueCategory
 }
-export const addCategoryProduct = (history: HistoryItem) => {
-  const allCategorys: CategoryName[] = history.product.map(({ product }) => ({
-    name: product.category.name,
-    id: product.category.id,
-  }))
-  const uniqueCategory = limpCategorys(allCategorys)
-  const newCategoryWithProduct: CategoryHistory[] = []
-  uniqueCategory.forEach(({ id, name }) => {
-    const category: CategoryHistory = {
+export const addCategoryProduct = (history: HistoryShoppingModel) => {
+  const allCategorys: CategoryWithNameOnly[] = parseCategoryWithName(history)
+  const uniqueCategory = deleteNameCopyCategory(allCategorys)
+  const newCategoryWithProduct: CategoryInHistoryClient[] = []
+  uniqueCategory.forEach(({ id, category }) => {
+    const newCategory: CategoryInHistoryClient = {
       id,
-      name,
+      category,
       product: [],
     }
     history.product.forEach((product, index) => {
-      if (name === product.product.category.name) {
-        category.product.push(product)
+      if (category === product.product.category.name) {
+        newCategory.product.push(product)
       }
       if (history.product.length - 1 === index) {
-        newCategoryWithProduct.push(category)
+        newCategoryWithProduct.push(newCategory)
       }
     })
   })
