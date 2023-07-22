@@ -4,11 +4,7 @@ import {
   ProductShoppingListWithCategoryClient,
   ProductShoppingListWithCategoryClientOne,
 } from '@/types/parse'
-import {
-  HistoryShoppingModel,
-  ProductModel,
-  ProductShoppingListModel,
-} from '@/types/model'
+import { HistoryShoppingModel, ProductModel } from '@/types/model'
 import {
   craeteProductShoppingModel,
   parseHistoryShoppingModelToProductoShooping,
