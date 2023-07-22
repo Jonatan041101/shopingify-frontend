@@ -21,6 +21,7 @@ import Padlock from './Padlock'
 import User from './User'
 import Visibility from './Visibility'
 import ImageUp from './ImageUp'
+import Money from './Money'
 
 interface Props {
   icon: IconsTypes
@@ -29,6 +30,7 @@ interface Props {
 export default function Icons({ icon }: Props) {
   return (
     <>
+      {icon === 'money' && <Money />}
       {icon === 'bottle' && <Bottle />}
       {icon === 'close' && <Close />}
       {icon === 'arrow-back' && <ArrowBack />}

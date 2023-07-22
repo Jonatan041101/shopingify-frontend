@@ -1202,7 +1202,7 @@ button {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  gap: 2em;
+  gap: 0;
   padding: 1em;
 }
 .detailproduct__top {
@@ -1486,6 +1486,9 @@ button {
   align-items: center;
   gap: 0.5em;
 }
+.list__money button i {
+  width: 2.2em;
+}
 
 [data-translate=true] {
   transform: translateX(0);
@@ -1496,6 +1499,80 @@ button {
   height: 90%;
   width: 100%;
   border-radius: 1em;
+  max-width: 450px;
+  padding: 2em 1em;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+}
+.facture__close {
+  min-width: 1.2em;
+  width: 1.2em;
+  height: 1.2em;
+  min-height: 1.2em;
+  color: #000;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+.facture__article {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.facture__h3 {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.facture__price {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
+}
+.facture__span {
+  font-weight: bold;
+}
+.facture__value {
+  font-weight: bold;
+  width: 4em;
+  display: block;
+}
+.facture__products {
+  width: 100%;
+  height: calc(100% - 64px);
+  overflow: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
+}
+.facture__container {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.facture__all {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.facture__total {
+  width: 100%;
+}
+.facture__total--all {
+  font-weight: bold;
+  font-size: 1.8em;
 }
 
 .products {

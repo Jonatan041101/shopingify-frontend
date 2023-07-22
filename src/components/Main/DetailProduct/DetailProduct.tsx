@@ -7,10 +7,11 @@ import { useBearStore } from '@/store/store'
 import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
 import { deleteItemList } from '@/store/operations/deleteItem'
 import useAddItem from '@/hooks/useAddItem'
-import { deleteItemToListArticles } from '@/utils/products'
+import { deleteProductModel } from '@/utils/products'
 import useAlert from '@/hooks/useAlert'
 import { deleteProductModelHome } from '@/utils/deleteProductModel'
 import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
+import Spinner from '@/atoms/Spinner'
 interface Props {
   product: ProductShoppingListWithCategoryClientOne
 }
@@ -21,6 +22,7 @@ export default function DetailProduct({ product }: Props) {
     changeStatus,
     addProductHistory,
     deleteProducts: deleteItems,
+    dolar,
     products: items,
     shoppinList: list,
     historyListPending,
@@ -42,7 +44,7 @@ export default function DetailProduct({ product }: Props) {
   const deleteItem = async (confirm: boolean) => {
     try {
       if (confirm) {
-        const res = await deleteItemToListArticles(product.product.id)
+        const res = await deleteProductModel(product.product.id)
 
         if (res) {
           createAlert(res.message, true)
@@ -93,7 +95,7 @@ export default function DetailProduct({ product }: Props) {
         <div className="detailproduct__back">
           <Button
             icon="arrow-back"
-            text="Back"
+            text="Atras"
             click={handleViewProductDetail}
           />
         </div>
@@ -113,10 +115,18 @@ export default function DetailProduct({ product }: Props) {
             titleName
           />
           <Section name="Categoria" text={product.category} />
-          <Section
-            name="Precio"
-            text={String(Number(product.product.product.price) * 525)}
-          />
+          {isNaN(Number(dolar?.value)) ? (
+            <Spinner height="1em" width="1em" />
+          ) : (
+            <Section
+              name="Precio"
+              text={String(
+                Math.trunc(
+                  Number(product.product.product.price) * Number(dolar?.value)
+                )
+              )}
+            />
+          )}
           <Section
             name="Cantidad"
             text={String(product.product.product.stock.count)}

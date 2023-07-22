@@ -2,7 +2,7 @@
   background: #fff;
   flex-grow: 1;
   width: 100%;
-  @include flex(column, nowrap, space-between, center, 2em);
+  @include flex(column, nowrap, space-between, center, 0);
   padding: 1em;
   &__top {
     width: 100%;

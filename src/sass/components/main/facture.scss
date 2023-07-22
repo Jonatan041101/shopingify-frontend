@@ -3,4 +3,60 @@
   height: 90%;
   width: 100%;
   border-radius: 1em;
+  max-width: 450px;
+  padding: 2em 1em;
+  position: relative;
+  @include flex(column, nowrap, space-between, center, 0.5em);
+  &__close {
+    min-width: 1.2em;
+    width: 1.2em;
+    height: 1.2em;
+    min-height: 1.2em;
+    color: #000;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+  }
+  &__article {
+    width: 100%;
+    @include flex(row, nowrap, space-between, center, 0);
+  }
+  &__div {
+  }
+  &__h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  &__price {
+    @include flex(row, nowrap, flex-start, center, 0.5em);
+  }
+  &__span {
+    font-weight: bold;
+  }
+  &__value {
+    font-weight: bold;
+    width: 4em;
+    display: block;
+  }
+  &__products {
+    width: 100%;
+    height: calc(100% - 64px);
+    overflow: auto;
+    @include flex(column, nowrap, flex-start, center, 0.5em);
+  }
+  &__container {
+    width: 100%;
+    @include flex(row, nowrap, space-between, center, 0);
+  }
+  &__all {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  &__total {
+    width: 100%;
+    &--all {
+      font-weight: bold;
+      font-size: 1.8em;
+    }
+  }
 }

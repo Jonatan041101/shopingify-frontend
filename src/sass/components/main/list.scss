@@ -68,6 +68,9 @@
     flex-grow: 1;
     @include flex(column, nowrap, center, center, 0.5em);
   }
+  &__money button i {
+    width: 2.2em;
+  }
 }
 [data-translate='true'] {
   transform: translateX(0);

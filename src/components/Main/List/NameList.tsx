@@ -18,9 +18,9 @@ export default function NameList() {
       <p className="list__list">
         {nameList.length === 0 ? 'Lista de compras' : nameList}
       </p>
-      <div>
+      <div className="list__money">
         <Button
-          icon="lapiz"
+          icon="money"
           click={handleViewDrive}
           classNIcon="button__color"
         />

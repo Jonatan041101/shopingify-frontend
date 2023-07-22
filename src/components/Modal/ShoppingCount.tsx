@@ -1,37 +1,29 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import Modal from './Modal'
 import { useBearStore } from '@/store/store'
+import Facture from './Facture'
 
 export default function ShoppingCount() {
-  const { viewDrive, historyListPending, shoppinList } = useBearStore(
-    (state) => state
-  )
+  const { viewDrive, historyListPending, shoppinList, dolar, changeViewDrive } =
+    useBearStore((state) => state)
   return (
     <>
       {viewDrive && (
         <Modal>
-          {historyListPending
-            ? historyListPending.map(({ product, id }) => (
-                <div key={id} className="facture">
-                  {product.map((product) => (
-                    <article className="" key={product.id}>
-                      <div>
-                        <h3>{product.product.name}</h3>
-                        <span>{product.count}</span>
-                        <span>{product.product.price}</span>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              ))
-            : shoppinList.map((product) => (
-                <div key={product.id}>
-                  {product.product.map((prd) => (
-                    <div key={prd.id}>{prd.product.name}</div>
-                  ))}
-                </div>
-              ))}
+          {historyListPending ? (
+            <Facture
+              changeViewDrive={changeViewDrive}
+              shopping={historyListPending}
+              dolar={dolar}
+            />
+          ) : (
+            <Facture
+              changeViewDrive={changeViewDrive}
+              shopping={shoppinList}
+              dolar={dolar}
+            />
+          )}
         </Modal>
       )}
     </>

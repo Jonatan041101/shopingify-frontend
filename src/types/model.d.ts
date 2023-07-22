@@ -37,3 +37,7 @@ export interface HistoryShoppingModel {
   status: string
   product: ProductShoppingListModel[]
 }
+export interface DolarModel {
+  id: string
+  value: number
+}

@@ -8,6 +8,7 @@ import { Styles, styleSlice } from './slice/styleSlice'
 import { FunctionsModal, sliceModal } from './slice/sliceModal'
 import { Filter, sliceFilter } from './slice/sliceFilter'
 import { UserSlice, userSlice } from './slice/userSlice'
+import { DolarSlice, sliceDolar } from './slice/dolarSlice'
 
 export const useBearStore = create<
   Shopping &
@@ -18,7 +19,8 @@ export const useBearStore = create<
     Styles &
     FunctionsModal &
     Filter &
-    UserSlice
+    UserSlice &
+    DolarSlice
 >((...set) => ({
   ...buySlice(...set),
   ...productSlice(...set),
@@ -29,4 +31,5 @@ export const useBearStore = create<
   ...sliceModal(...set),
   ...sliceFilter(...set),
   ...userSlice(...set),
+  ...sliceDolar(...set),
 }))

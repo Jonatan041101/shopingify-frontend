@@ -1,5 +1,6 @@
 import {
   CategoryModel,
+  DolarModel,
   HistoryShoppingModel,
   ProductModel,
   ProductShoppingListModel,
@@ -61,4 +62,7 @@ interface ResponseHistoryUpdateCountProductShoppinList {
 }
 export interface Message {
   message: string
+}
+export interface ResponseModal {
+  dolar: DolarModel
 }

@@ -7,3 +7,11 @@ export const parseDate = (date: Date) => {
   })
   return newDate
 }
+export const parsePriceARS = (price: number) => {
+  console.log({ price })
+  const PRICE = price.toLocaleString('es-AR', {
+    style: 'curreny',
+    currency: 'USD',
+  })
+  return PRICE
+}
