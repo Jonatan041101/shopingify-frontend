@@ -1,7 +1,6 @@
 import { EventFile } from '@/types/events'
-import { CloudinaryResponse } from '@/types/response'
+import { CloudinaryResponse, Message } from '@/types/response'
 import { NO_ENVIRONMENT_VARIABLE } from '../api/loginApi'
-import { Message } from '../apiHistory'
 export const uploadFiles = async (evt: EventFile) => {
   try {
     const files = evt.target.files
