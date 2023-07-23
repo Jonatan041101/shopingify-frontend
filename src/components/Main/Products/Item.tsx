@@ -27,6 +27,8 @@ export default function Item({ product, count }: Props) {
     useCountProduct()
   const handleAddItemList = async () => {
     try {
+      if (product.stock.count === 0)
+        return createAlert(`El producto ${product.name} no tiene stock`, true)
       if (historyListPending) {
         addItemHistory(product.id, product)
         return

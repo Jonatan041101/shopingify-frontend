@@ -6,7 +6,7 @@ import {
 } from '@/types/response'
 import { HistoryCreate } from '@/types/types'
 import { errorFunction } from '../handlerError/error'
-import { CreateProductModel } from '@/types/sendBackend'
+import { CreateProductModel, ProductStock } from '@/types/sendBackend'
 
 export const getProductsWithCategory = async () => {
   try {
@@ -52,6 +52,31 @@ export const createProduct = async (product: CreateProductModel) => {
     return productCreated as ResponseCreateProduct
   } catch (error) {
     console.log({ error })
+    errorFunction(error)
+  }
+}
+export const updateStockProduct = async (stock: ProductStock) => {
+  try {
+    if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
+      throw new Error(
+        'No has ingresado la variable de entorno para los productos'
+      )
+    const res = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
+      cache: 'no-cache',
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(stock),
+    })
+    console.log({ res })
+
+    const productUpdate = await res.json()
+    if (!res.ok) {
+      errorFunction(productUpdate)
+    }
+    return productUpdate as ResponseCreateProduct
+  } catch (error) {
     errorFunction(error)
   }
 }
