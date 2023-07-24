@@ -6,10 +6,10 @@ export const parseProductToAdd = (product: CreateProductModel) => {
   const NEW_PRODUCT: CreateProductModel = {
     ...product,
     category: product.category,
+    price: Number(product.price) / 525,
     stock: {
-      count: Number(product.stock) ?? 0,
+      count: Number(product.stock.count),
     },
-    price: Number(product.price) ?? 0,
   }
 
   return {

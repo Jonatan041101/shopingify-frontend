@@ -12,6 +12,7 @@ import useAlert from '@/hooks/useAlert'
 import { deleteProductModelHome } from '@/utils/deleteProductModel'
 import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
 import Spinner from '@/atoms/Spinner'
+import Icons from '@/atoms/icons'
 interface Props {
   product: ProductShoppingListWithCategoryClientOne
 }
@@ -21,6 +22,8 @@ export default function DetailProduct({ product }: Props) {
     addItemList,
     changeStatus,
     addProductHistory,
+    optionsUpdateProduct,
+    changeViewCreate,
     deleteProducts: deleteItems,
     dolar,
     products: items,
@@ -88,7 +91,13 @@ export default function DetailProduct({ product }: Props) {
       deleteItem
     )
   }
-
+  const handleUpdateProduct = (
+    product: ProductShoppingListWithCategoryClientOne
+  ) => {
+    optionsUpdateProduct(product)
+    handleViewProductDetail()
+    changeViewCreate(true)
+  }
   return (
     <div className="detailproduct">
       <div className="detailproduct__top">
@@ -98,6 +107,14 @@ export default function DetailProduct({ product }: Props) {
             text="Atras"
             click={handleViewProductDetail}
           />
+          <button
+            onClick={() => handleUpdateProduct(product)}
+            id="detailproduct__edition"
+          >
+            <i className="detailproduct__edit">
+              <Icons icon="lapiz" />
+            </i>
+          </button>
         </div>
         <Image
           className="detailproduct__image"

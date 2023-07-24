@@ -1238,6 +1238,11 @@ button {
   object-fit: contain;
   aspect-ratio: 16/9;
 }
+.detailproduct__edit {
+  width: 1em;
+  min-width: 1em;
+  color: #000;
+}
 .detailproduct__back {
   width: 100%;
   display: flex;
@@ -1300,6 +1305,22 @@ button {
 
 [data-title=true] {
   font-size: 1.25em;
+}
+
+#detailproduct__edition {
+  width: 1.5em;
+  min-width: 1.5em;
+  height: 1.5em;
+  border-radius: 0.5em;
+  transition: 0.5s ease;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+#detailproduct__edition:hover {
+  background: #bdbdbd;
 }
 
 .itemslist {

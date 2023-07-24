@@ -6,6 +6,7 @@ import {
   ProductShoppingListModel,
   User,
 } from './model'
+import { CategoryWithNameOnly } from './parse'
 
 export interface ResponseLogin {
   user: User
@@ -43,6 +44,9 @@ export interface ResponseCategoryWithProduct {
 }
 interface ResponseCreateProduct {
   product: ProductModel
+}
+interface ResponseUpdateProduct {
+  product: Omit<ProductModel, 'category'> & CategoryWithNameOnly
 }
 export interface ResponseHistoryPending {
   history: HistoryShoppingModel
