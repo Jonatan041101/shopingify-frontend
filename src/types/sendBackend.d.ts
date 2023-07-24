@@ -9,3 +9,7 @@ export interface CreateProductModel
   price: string | number
   stock: StockModelCountStringOrNumber
 }
+export interface ProductStock {
+  productId: string
+  count: number
+}

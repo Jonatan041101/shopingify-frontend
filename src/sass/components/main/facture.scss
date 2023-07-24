@@ -7,6 +7,11 @@
   padding: 2em 1em;
   position: relative;
   @include flex(column, nowrap, space-between, center, 0.5em);
+  &__facture {
+    height: 100%;
+    background-color: #fff;
+    width: 100%;
+  }
   &__close {
     min-width: 1.2em;
     width: 1.2em;
@@ -16,6 +21,7 @@
     position: absolute;
     top: 0.5em;
     right: 0.5em;
+    cursor: pointer;
   }
   &__article {
     width: 100%;

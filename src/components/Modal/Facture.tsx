@@ -13,36 +13,42 @@ export default function Facture({ shopping, dolar, changeViewDrive }: Props) {
   const closeModal = () => {
     changeViewDrive(false)
   }
-  return shopping.map(({ product, id }) => (
-    <div key={id} className="facture">
+  console.log('HOLA')
+
+  return (
+    <div className="facture">
       <i className="facture__close" onClick={closeModal}>
         <Icons icon="close" />
       </i>
-      <div className="facture__products">
-        {product.map((product) => (
-          <article className="facture__article" key={product.id}>
-            <div className="facture__div">
-              <h3 className="facture__h3">{product.product.name}</h3>
+      {shopping.map(({ product, id }) => (
+        <div key={id} className="facture__facture">
+          <div className="facture__products">
+            {product.map((product) => (
+              <article className="facture__article" key={product.id}>
+                <div className="facture__div">
+                  <h3 className="facture__h3">{product.product.name}</h3>
+                </div>
+                <div className="facture__price">
+                  <span className="facture__span">{product.count} </span>
+                  <span className="">x</span>
+                  <span className="facture__value">
+                    $
+                    {Math.trunc(
+                      product.product.price * Number(dolar?.value ?? 525)
+                    )}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="facture__total">
+            <div className="facture__container">
+              <span className="facture__all">Total</span>
+              <span className="facture__total--all">${Math.trunc(total)}</span>
             </div>
-            <div className="facture__price">
-              <span className="facture__span">{product.count} </span>
-              <span className="">x</span>
-              <span className="facture__value">
-                $
-                {Math.trunc(
-                  product.product.price * Number(dolar?.value ?? 525)
-                )}
-              </span>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div className="facture__total">
-        <div className="facture__container">
-          <span className="facture__all">Total</span>
-          <span className="facture__total--all">${Math.trunc(total)}</span>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
-  ))
+  )
 }
