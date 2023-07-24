@@ -3,6 +3,7 @@ import { DolarModel } from '@/types/model'
 import { ProductShoppingListWithCategoryClient } from '@/types/parse'
 import { getTotal } from '@/utils/total'
 import React from 'react'
+import ViewNoProducts from '../Main/List/ViewNoProducts'
 interface Props {
   shopping: ProductShoppingListWithCategoryClient[]
   dolar: DolarModel | null
@@ -13,13 +14,13 @@ export default function Facture({ shopping, dolar, changeViewDrive }: Props) {
   const closeModal = () => {
     changeViewDrive(false)
   }
-  console.log('HOLA')
 
   return (
     <div className="facture">
       <i className="facture__close" onClick={closeModal}>
         <Icons icon="close" />
       </i>
+      <ViewNoProducts />
       {shopping.map(({ product, id }) => (
         <div key={id} className="facture__facture">
           <div className="facture__products">

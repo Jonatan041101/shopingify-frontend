@@ -50,13 +50,6 @@ export const counterItem = (
   categoryName: string,
   backend?: boolean
 ) => {
-  console.log({
-    items,
-    count,
-    PRODUCT_ID,
-    categoryName,
-  })
-
   const { newItems, category } =
     newProductToAdd<ProductShoppingListWithCategoryClient>(items, categoryName)
   if (!category)

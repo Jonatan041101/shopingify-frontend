@@ -7,7 +7,6 @@ import Facture from './Facture'
 export default function ShoppingCount() {
   const { viewDrive, historyListPending, shoppinList, dolar, changeViewDrive } =
     useBearStore((state) => state)
-  console.log({ shoppinList })
 
   return (
     <>

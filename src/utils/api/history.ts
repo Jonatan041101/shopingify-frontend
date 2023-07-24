@@ -1,4 +1,5 @@
 import {
+  ResponseCompleteHistory,
   ResponseHistoryPending,
   ResponseHistoryShoppingModelAll,
 } from '@/types/response'
@@ -83,7 +84,10 @@ export const completeList = async (complete: boolean, historyId: string) => {
       }),
     })
     const history = await res.json()
-    return history
+    if (!res.ok) {
+      errorFunction(history)
+    }
+    return history as ResponseCompleteHistory
   } catch (error) {
     console.log({ error })
     errorFunction(error)

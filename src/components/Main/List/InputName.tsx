@@ -3,7 +3,8 @@ import Button from '@/atoms/button/Button'
 import useAlert from '@/hooks/useAlert'
 import { useBearStore } from '@/store/store'
 import { ProductShoppingListModel } from '@/types/model'
-import { HistoryCreate } from '@/types/types'
+import { CategoryWithProductClient } from '@/types/parse'
+import { HistoryCreate, Keys } from '@/types/types'
 import { completeList, createHistory } from '@/utils/api/history'
 import { historyPendingToProductShoppingListWithCategoryClient } from '@/utils/parse/parseShoppingList'
 import React, { useRef, useState } from 'react'
@@ -18,12 +19,14 @@ export default function InputName() {
     historyListPending,
     historyId,
     nameList,
+    products,
     changeNameList,
     changeListForView,
     existHistoryListPending,
     deleteListBuy,
     endHistoryPending,
     changeStatus,
+    addItemsProducts,
   } = useBearStore((state) => state)
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target
@@ -46,7 +49,6 @@ export default function InputName() {
           count,
         })),
       }
-      console.log({ products, productsHistory })
 
       const historyCreated = await createHistory(productsHistory)
       if (historyCreated) {
@@ -55,7 +57,6 @@ export default function InputName() {
           historyPendingToProductShoppingListWithCategoryClient(history)
         // ACA PASAMOS LA LISBUY Y EL ID DE EL HISTORY Y EN EL COMPONENTE ItemList se vuelve a renderizar
         // pero con los productos de "parseHistoryPendingToListBuy"
-        console.log({ historyCreated, parseHistoryPendingToListBuy })
 
         existHistoryListPending(
           parseHistoryPendingToListBuy,
@@ -69,7 +70,50 @@ export default function InputName() {
   }
   const handleEndList = async (status: boolean) => {
     const history = await completeList(status, historyId)
+    if (history) {
+      console.log(history)
 
+      if (history.products.length === 0)
+        createAlert(
+          `Lista ${status ? 'Completada' : 'Cancelada'} sin cambios`,
+          false
+        )
+      const newProductUpdating: CategoryWithProductClient[] = []
+
+      let caching: Keys = {}
+      products.forEach((category) => {
+        const newCateoory: CategoryWithProductClient = {
+          category: category.category,
+          id: category.id,
+          product: [],
+        }
+        category.product.forEach((product, index) => {
+          let existStockProduct = false
+          history.products.forEach((stock) => {
+            let productUpdating = {
+              ...product,
+            }
+            if (caching[product.id]) {
+            } else {
+              console.log({ productId: product.id })
+              if (product.id === stock.productId) {
+                productUpdating.stock.count = stock.count
+                caching[product.id] = product.id
+                existStockProduct = true
+                newCateoory.product.push(productUpdating)
+              }
+            }
+          })
+          if (!existStockProduct) {
+            newCateoory.product.push({ ...product })
+          }
+          if (category.product.length - 1 === index) {
+            newProductUpdating.push(newCateoory)
+          }
+        })
+      })
+      addItemsProducts([...newProductUpdating])
+    }
     createAlert(`Lista ${status ? 'Completada' : 'Cancelada'}`, false)
   }
   const handleDecision = (changeStatusHistoryApi: boolean) => {

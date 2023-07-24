@@ -28,8 +28,6 @@ export const getProductsWithCategory = async () => {
   }
 }
 export const createProduct = async (product: CreateProductModel) => {
-  console.log({ product })
-
   try {
     if (!process.env.NEXT_PUBLIC_API_PRODUCTS)
       throw new Error(
@@ -43,7 +41,6 @@ export const createProduct = async (product: CreateProductModel) => {
       },
       body: JSON.stringify(product),
     })
-    console.log({ res })
 
     const productCreated = await res.json()
     if (!res.ok) {
@@ -51,7 +48,6 @@ export const createProduct = async (product: CreateProductModel) => {
     }
     return productCreated as ResponseCreateProduct
   } catch (error) {
-    console.log({ error })
     errorFunction(error)
   }
 }
@@ -69,7 +65,6 @@ export const updateStockProduct = async (stock: ProductStock) => {
       },
       body: JSON.stringify(stock),
     })
-    console.log({ res })
 
     const productUpdate = await res.json()
     if (!res.ok) {

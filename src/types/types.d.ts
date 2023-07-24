@@ -22,3 +22,6 @@ export interface Stat {
   id: string
   name: string
 }
+export interface Keys {
+  [key: string]: string
+}

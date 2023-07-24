@@ -7,7 +7,6 @@ export const getDolarValue = async () => {
       throw new Error('No has colocado la variable de entorno')
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOLAR}`)
     const dolar = await res.json()
-    console.log({ dolar })
     if (!res.ok) throw new Error('Error del servidor')
     return dolar as ResponseModal
   } catch (error) {
