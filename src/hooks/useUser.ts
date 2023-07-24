@@ -20,7 +20,7 @@ export default function useUser() {
             handleRouter(RouterNames.HOME)
             changeUser(user.user)
           }
-          changeLoaderUser(false)
+          setTimeout(() => changeLoaderUser(false), 1500)
         } catch (error) {
           const ERROR = error as Error
           setErrFetch(ERROR.message)

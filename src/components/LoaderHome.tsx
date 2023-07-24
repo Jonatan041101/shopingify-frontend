@@ -13,7 +13,6 @@ export default function LoaderHome() {
         <div className="loader__user">
           <ImageLog />
           <Regaleria />
-
           <Spinner height="3em" width="3em" user />
         </div>
       )}
