@@ -36,9 +36,31 @@ type Reduce =
       type: '@change/loading'
       payload: boolean
     }
+  | {
+      type: '@product/update'
+      payload: CreateProductModel
+    }
 export const reducer = (state: StateReducer, action: Reduce) => {
   switch (action.type) {
+    case '@product/update': {
+      return {
+        ...state,
+        newProduct: { ...action.payload },
+      }
+    }
     case '@change/new-product': {
+      if (action.payload.name === 'stock') {
+        return {
+          ...state,
+          newProduct: {
+            ...state.newProduct,
+            stock: {
+              ...state.newProduct.stock,
+              count: action.payload.value,
+            },
+          },
+        }
+      }
       return {
         ...state,
         newProduct: {

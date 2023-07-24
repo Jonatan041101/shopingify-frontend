@@ -14,6 +14,12 @@
     object-fit: contain;
     aspect-ratio: 16 / 9;
   }
+
+  &__edit {
+    width: 1em;
+    min-width: 1em;
+    color: #000;
+  }
   &__back {
     width: 100%;
     @include flex(row, nowrap, flex-start, flex-start, 0.5em);
@@ -57,4 +63,15 @@
 }
 [data-title='true'] {
   font-size: 1.25em;
+}
+#detailproduct__edition {
+  width: 1.5em;
+  min-width: 1.5em;
+  height: 1.5em;
+  border-radius: 0.5em;
+  transition: 0.5s ease;
+  @include flex(column, nowrap, center, center, 0.5em);
+  &:hover {
+    background: $color-placeholder;
+  }
 }
