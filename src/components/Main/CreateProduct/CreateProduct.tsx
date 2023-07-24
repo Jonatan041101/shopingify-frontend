@@ -24,14 +24,26 @@ export default function CreateProduct() {
     category,
     changeViewCreate,
     addItemsProducts,
+    changeStatus,
   } = useBearStore((state) => state)
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE_REDUCER)
   const { view, changeView, manualView } = useView()
   const refCloseSelect = useRef<boolean>(true)
   const { createAlert } = useAlert()
-
-  const handleChangeViewCreate = () => {
-    changeViewCreate(false)
+  const handleChangeViewCreate = (confirm: boolean) => {
+    if (confirm) {
+      changeStatus(false, '', false, () => {})
+      changeViewCreate(false)
+    }
+    changeStatus(false, '', false, () => {})
+  }
+  const handleViewModalConfirm = () => {
+    changeStatus(
+      false,
+      'Esta seguro que desea cerrar la creacion del producto',
+      true,
+      handleChangeViewCreate
+    )
   }
   const handleChangeCreateProduct = (evt: EventInput) => {
     const { name, value } = evt.target
@@ -45,11 +57,17 @@ export default function CreateProduct() {
   }
   const handleCreateProduct = async () => {
     try {
+      if (state.loading)
+        return createAlert('La imagen esta cargando espere...', true)
+      if (state.newProduct.name.trim().length === 0)
+        return createAlert('Debe agregar un nombre al producto', true)
+      if (state.newProduct.category.trim().length === 0)
+        return createAlert('Debe agregar una categoria', true)
       if (
         isNaN(Number(state.newProduct.price)) ||
         isNaN(Number(state.newProduct.stock))
       ) {
-        throw new Error(`El precio  y el stock deben ser numeros`)
+        return createAlert(`El precio  y el stock deben ser numeros`, true)
       }
       const { NEW_PRODUCT } = parseProductToAdd(state.newProduct)
       const productCreated = await createProduct(NEW_PRODUCT)
@@ -73,7 +91,7 @@ export default function CreateProduct() {
             false
           )
         }
-        handleChangeViewCreate()
+        handleChangeViewCreate(true)
         dispatch({ type: '@reset/new-product' })
       }
     } catch (error) {
@@ -112,8 +130,10 @@ export default function CreateProduct() {
         })
       }
       dispatch({ type: '@change/loading', payload: false })
+      createAlert('Imagen subida', false)
     } catch (error) {
       console.log({ error })
+      createAlert('No se pudo subir la imagen', true)
     }
   }
   console.log({ category })
@@ -145,7 +165,7 @@ export default function CreateProduct() {
       <div className="create__buttons">
         <Button
           classN="button__white"
-          click={handleChangeViewCreate}
+          click={handleViewModalConfirm}
           text="Cancelar"
         />
         <Button

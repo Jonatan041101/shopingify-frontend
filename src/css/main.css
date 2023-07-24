@@ -1508,6 +1508,11 @@ button {
   align-items: center;
   gap: 0.5em;
 }
+.facture__facture {
+  height: 100%;
+  background-color: #fff;
+  width: 100%;
+}
 .facture__close {
   min-width: 1.2em;
   width: 1.2em;
@@ -1517,6 +1522,7 @@ button {
   position: absolute;
   top: 0.5em;
   right: 0.5em;
+  cursor: pointer;
 }
 .facture__article {
   width: 100%;
