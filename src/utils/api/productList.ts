@@ -74,11 +74,9 @@ export const addProductListHistory = async (
       }),
     })
     const message = (await res.json()) as ResponseProductListHistory
-    console.log({ res, message })
 
     return message
   } catch (error) {
-    console.log({ error })
     errorFunction(error)
   }
 }

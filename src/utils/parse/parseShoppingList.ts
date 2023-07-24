@@ -30,7 +30,6 @@ export const historyPendingToProductShoppingListWithCategoryClient = (
 ) => {
   const categorys: CategoryWithNameOnly[] =
     parseCategoryWithName(historyPending)
-  console.log({ categorys })
 
   const uniqueCategory = deleteNameCopyCategory(categorys)
   const productShoppingListWithCategory: ProductShoppingListWithCategoryClient[] =

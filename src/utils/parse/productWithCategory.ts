@@ -11,7 +11,6 @@ export const parseProductToAdd = (product: CreateProductModel) => {
     },
     price: Number(product.price) ?? 0,
   }
-  console.log({ NEW_PRODUCT })
 
   return {
     NEW_PRODUCT,

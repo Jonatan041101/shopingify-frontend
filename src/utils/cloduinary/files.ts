@@ -10,7 +10,6 @@ export const uploadFiles = async (evt: EventFile) => {
     if (files) {
       data.append('file', files[0])
       data.append('upload_preset', 'regaleria')
-      console.log(process.env.NEXT_PUBLIC_API_CLOUDINARY)
 
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_API_CLOUDINARY}/image/upload`,

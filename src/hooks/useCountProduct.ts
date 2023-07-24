@@ -42,10 +42,6 @@ export default function useCountProduct() {
       return newItems // DEVOLVEMOS UN ARRAY MUTADO PERO NO DA PROBLEMAS PORQUE MUTAMOS UN ARRAY EXTERNO RECUERDA SIEMPRE QUE NO ES BUENO MUTAR PERO EN ESTE CASO ES UNA EXCEPCION
     }
     //Si el producto existe aumentamos su count porque lo que hace es la funciona de agregar
-    console.log({
-      productStock: product.product.stock.count + 1,
-      stock: product.product.stock.count,
-    })
 
     if (product.count + 1 > product.product.stock.count) {
       createAlert(`No se pueden agregar mas ${product.product.name} `, true)
@@ -63,13 +59,6 @@ export default function useCountProduct() {
     categoryName: string,
     backend?: boolean
   ) => {
-    console.log({
-      items,
-      count,
-      PRODUCT_ID,
-      categoryName,
-    })
-
     const { newItems, category } =
       newProductToAdd<ProductShoppingListWithCategoryClient>(
         items,

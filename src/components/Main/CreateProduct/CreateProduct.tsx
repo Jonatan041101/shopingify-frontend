@@ -132,11 +132,9 @@ export default function CreateProduct() {
       dispatch({ type: '@change/loading', payload: false })
       createAlert('Imagen subida', false)
     } catch (error) {
-      console.log({ error })
       createAlert('No se pudo subir la imagen', true)
     }
   }
-  console.log({ category })
 
   return (
     <div className="create" onClick={closeViewCategory}>

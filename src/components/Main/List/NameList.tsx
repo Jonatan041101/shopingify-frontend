@@ -11,7 +11,6 @@ export default function NameList() {
     // if (!listForView) return 'Guarda la lista para empezar a usarla.'
     changeViewDrive(!viewDrive)
   }
-  console.log({ viewDrive })
 
   return (
     <div className="list__name">

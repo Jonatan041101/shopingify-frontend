@@ -25,7 +25,6 @@ export default function useProduct() {
     if (historyListPending) {
       try {
         const response = await updateCountProductListHistory(productId, count)
-        console.log({ response })
 
         if (response) {
           const newList = counterItem(

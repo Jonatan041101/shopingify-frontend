@@ -66,3 +66,11 @@ export interface Message {
 export interface ResponseModal {
   dolar: DolarModel
 }
+export interface ResponseStock {
+  productId: string
+  count: number
+}
+export interface ResponseCompleteHistory {
+  history: Omit<HistoryShoppingModel, 'product'>
+  products: ResponseStock[]
+}
