@@ -43,6 +43,16 @@
     border-color: #000000 transparent #000000 transparent;
     animation: spinner 1.2s linear infinite;
   }
+  &__user {
+    z-index: 10;
+    position: fixed;
+    background: #fff;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    @include flex(column, nowrap, center, center, 2em);
+  }
 }
 
 @keyframes spinner {
@@ -52,4 +62,8 @@
   100% {
     transform: rotate(360deg);
   }
+}
+[data-user='true'] {
+  border: 0.4em solid $color-yellow;
+  border-color: $color-yellow transparent $color-yellow transparent;
 }

@@ -738,6 +738,20 @@ button {
   border-color: #000000 transparent #000000 transparent;
   animation: spinner 1.2s linear infinite;
 }
+.loader__user {
+  z-index: 10;
+  position: fixed;
+  background: #fff;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
 
 @keyframes spinner {
   0% {
@@ -747,6 +761,11 @@ button {
     transform: rotate(360deg);
   }
 }
+[data-user=true] {
+  border: 0.4em solid #f9a109;
+  border-color: #f9a109 transparent #f9a109 transparent;
+}
+
 .stats {
   width: 100%;
   height: calc(100vh - 2em);
