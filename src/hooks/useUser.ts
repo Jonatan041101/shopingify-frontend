@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import useRouting from './useRouting'
 
 export default function useUser() {
-  const { changeUser } = useBearStore((state) => state)
+  const { changeUser, changeLoaderUser } = useBearStore((state) => state)
   const { handleRouter } = useRouting()
   const [errFetch, setErrFetch] = useState<string>('')
   useEffect(() => {
@@ -20,6 +20,7 @@ export default function useUser() {
             handleRouter(RouterNames.HOME)
             changeUser(user.user)
           }
+          changeLoaderUser(false)
         } catch (error) {
           const ERROR = error as Error
           setErrFetch(ERROR.message)
@@ -30,6 +31,7 @@ export default function useUser() {
       keepSession()
     } else {
       handleRouter(RouterNames.LOGIN)
+      setTimeout(() => changeLoaderUser(false), 1500)
     }
   }, [])
   return {
