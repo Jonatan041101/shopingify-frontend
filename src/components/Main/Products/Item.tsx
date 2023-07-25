@@ -54,16 +54,18 @@ export default function Item({ product, count }: Props) {
       <h3 className="item__name" onClick={handleViewProductDetail}>
         {product.name}
       </h3>
-      <div className="itemslist__count item__count">
-        <div>{count ? count : product.stock.count}</div>
+      <div className="item__counter">
+        <div className="itemslist__count item__count">
+          <div>{count ? count : product.stock.count}</div>
+        </div>
+        {!count && (
+          <button className="item__more" onClick={handleAddItemList}>
+            <i className="item__icon">
+              <Icons icon="more" />
+            </i>
+          </button>
+        )}
       </div>
-      {!count && (
-        <button className="item__more" onClick={handleAddItemList}>
-          <i className="item__icon">
-            <Icons icon="more" />
-          </i>
-        </button>
-      )}
     </article>
   )
 }

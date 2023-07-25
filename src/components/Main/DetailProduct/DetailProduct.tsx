@@ -104,7 +104,7 @@ export default function DetailProduct({ product }: Props) {
         <div className="detailproduct__back">
           <Button
             icon="arrow-back"
-            text="Atras"
+            text="Volver"
             click={handleViewProductDetail}
           />
           <button
