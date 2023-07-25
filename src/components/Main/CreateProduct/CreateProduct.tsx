@@ -11,7 +11,7 @@ import {
   parseProductToAdd,
 } from '@/utils/parse/productWithCategory'
 import { newProductToAdd } from '@/utils/searching/searchingProductOrCategory'
-import React, { useEffect, useReducer, useRef } from 'react'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import UpImage from './UpImage'
 import RestForm from './RestForm'
 import { INITIAL_STATE_REDUCER, reducer } from './reduder'
@@ -19,18 +19,21 @@ import { InputChange } from '@/types/string'
 import { CategoryWithProductClient } from '@/types/parse'
 import { controlForm } from '@/utils/controls-forms'
 import { parseProductModel } from '@/utils/parse/parseProductModel'
+import Spinner from '@/atoms/Spinner'
 
 export default function CreateProduct() {
   const {
     products,
     category,
+    updatingProduct,
     changeViewCreate,
     addItemsProducts,
     changeStatus,
-    updatingProduct,
+    handleLoadingChange,
     optionsUpdateProduct,
   } = useBearStore((state) => state)
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE_REDUCER)
+  // const [loading,setLoading] = useState<boolean>(false)
   const { view, changeView, manualView } = useView()
   const refCloseSelect = useRef<boolean>(true)
   const { createAlert } = useAlert()
@@ -50,6 +53,7 @@ export default function CreateProduct() {
       optionsUpdateProduct(null)
     }
     changeStatus(false, '', false, () => {})
+    handleLoadingChange(false)
   }
   const handleViewModalConfirm = () => {
     changeStatus(
@@ -82,10 +86,11 @@ export default function CreateProduct() {
       )
       const { NEW_PRODUCT } = parseProductToAdd(state.newProduct)
       if (NEW_PRODUCT.id) {
-        // const PRICE = Number(state.newProduct.price) / 525
-        // state.newProduct.price = PRICE
         console.log({ NEW_PRODUCT })
+        dispatch({ type: '@form/send-end', payload: true })
         const productUpdate = await updateProduct(NEW_PRODUCT)
+        dispatch({ type: '@form/send-end', payload: false })
+
         if (productUpdate) {
           const productsUpdate = [...products]
           productsUpdate.forEach((product) => {
@@ -102,8 +107,14 @@ export default function CreateProduct() {
           })
           addItemsProducts([...productsUpdate])
         }
+        createAlert(
+          `Producto ${productUpdate?.product.name} actualizado`,
+          false
+        )
       } else {
+        dispatch({ type: '@form/send-end', payload: true })
         const productCreated = await createProduct(NEW_PRODUCT)
+        dispatch({ type: '@form/send-end', payload: false })
         if (productCreated) {
           const { product } = productCreated
 
@@ -198,16 +209,24 @@ export default function CreateProduct() {
         </div>
       </div>
       <div className="create__buttons">
-        <Button
-          classN="button__white"
-          click={handleViewModalConfirm}
-          text="Cancelar"
-        />
-        <Button
-          classN="button__yellow"
-          click={handleCreateProduct}
-          text="Guardar"
-        />
+        {state.loadingForm ? (
+          <div className="create__loader">
+            <Spinner user height="3.5em" width="3.5em" />
+          </div>
+        ) : (
+          <>
+            <Button
+              classN="button__white"
+              click={handleViewModalConfirm}
+              text="Cancelar"
+            />
+            <Button
+              classN="button__yellow"
+              click={handleCreateProduct}
+              text="Guardar"
+            />
+          </>
+        )}
       </div>
     </div>
   )

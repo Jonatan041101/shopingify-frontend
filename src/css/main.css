@@ -697,6 +697,14 @@ button {
   cursor: pointer;
   opacity: 0;
 }
+.create__loader {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
 
 .alert {
   left: 0px;

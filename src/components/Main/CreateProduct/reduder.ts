@@ -14,10 +14,12 @@ const INITIAL_STATE: CreateProductModel = {
 interface StateReducer {
   newProduct: CreateProductModel
   loading: boolean
+  loadingForm: boolean
 }
 export const INITIAL_STATE_REDUCER: StateReducer = {
   newProduct: INITIAL_STATE,
   loading: false,
+  loadingForm: false,
 }
 interface ChangeNewProduct {
   name: InputChange
@@ -39,6 +41,10 @@ type Reduce =
   | {
       type: '@product/update'
       payload: CreateProductModel
+    }
+  | {
+      type: '@form/send-end'
+      payload: boolean
     }
 export const reducer = (state: StateReducer, action: Reduce) => {
   switch (action.type) {
@@ -79,6 +85,12 @@ export const reducer = (state: StateReducer, action: Reduce) => {
       return {
         ...state,
         loading: action.payload,
+      }
+    }
+    case '@form/send-end': {
+      return {
+        ...state,
+        loadingForm: action.payload,
       }
     }
   }
