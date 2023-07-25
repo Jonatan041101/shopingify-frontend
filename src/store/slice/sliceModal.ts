@@ -4,6 +4,8 @@ export interface FunctionsModal {
   viewModal: boolean
   status: boolean
   text: string
+  loading: boolean
+  handleLoadingChange: (load: boolean) => void
   yesNoFunction: (confirm: boolean) => void
   changeStatus: (
     status: boolean,
@@ -18,6 +20,10 @@ export const sliceModal: StateCreator<FunctionsModal> = (set) => ({
   yesNoFunction: () => {},
   status: false,
   text: '',
+  loading: false,
+  handleLoadingChange: (load) => {
+    set((state) => ({ ...state, loading: load }))
+  },
   changeStatus: (status, text, viewModal, yesNoFunction) => {
     set((state) => ({
       ...state,

@@ -8,9 +8,11 @@ export default function useView() {
   const manualView = (view: boolean) => {
     setView(view)
   }
+  const handleLoading = (loading: boolean) => setView(() => loading)
   return {
     view,
     changeView,
     manualView,
+    handleLoading,
   }
 }

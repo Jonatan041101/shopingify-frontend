@@ -83,4 +83,8 @@
     cursor: pointer;
     opacity: 0;
   }
+  &__loader {
+    width: 100%;
+    @include flex(row, nowrap, center, center, 1em);
+  }
 }
