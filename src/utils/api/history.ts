@@ -69,6 +69,7 @@ export const getHistoryPending = async () => {
 }
 export const completeList = async (complete: boolean, historyId: string) => {
   const STATUS = complete ? 'Completado' : 'Cancelado'
+  console.log({ complete, historyId })
   if (!process.env.NEXT_PUBLIC_API_HISTORY)
     throw new Error('No has ingresado la variable de entorno para las historys')
   try {
@@ -83,7 +84,11 @@ export const completeList = async (complete: boolean, historyId: string) => {
         historyId,
       }),
     })
+    console.log({ res })
+
     const history = await res.json()
+    console.log({ history })
+
     if (!res.ok) {
       errorFunction(history)
     }

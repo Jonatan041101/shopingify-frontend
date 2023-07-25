@@ -26,6 +26,7 @@
     width: 5em;
     border-radius: 0.8em;
     font-weight: bold;
+    @include flex(row, nowrap, center, center, 0);
   }
   &__buttons {
     width: 100%;

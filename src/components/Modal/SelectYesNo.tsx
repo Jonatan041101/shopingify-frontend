@@ -9,6 +9,7 @@ interface Props {
   pickYesNo: (pick: boolean) => void
   closeModal: () => void
   status: boolean
+  handleLoadingChange: (load: boolean) => void
 }
 
 export default function SelectYesNo({
@@ -16,7 +17,12 @@ export default function SelectYesNo({
   status,
   pickYesNo,
   closeModal,
+  handleLoadingChange,
 }: Props) {
+  const handleEnd = (pick: boolean) => {
+    handleLoadingChange(pick)
+    pickYesNo(pick)
+  }
   return (
     <Modal>
       <div className="modal__select">
@@ -33,7 +39,7 @@ export default function SelectYesNo({
             text="Cancelar"
           />
           <Button
-            click={() => pickYesNo(true)}
+            click={() => handleEnd(true)}
             classN={status ? 'button__blue' : 'button__red'}
             text="Si"
           />
