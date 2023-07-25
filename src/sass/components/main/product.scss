@@ -1,7 +1,6 @@
 .products {
   flex-grow: 12;
   width: 100%;
-  // max-width: 72.22222222222223%;
   background: #fafafe;
   align-self: stretch;
   color: #000;
@@ -28,14 +27,14 @@
   &__input {
     @include flex(row, nowrap, flex-start, center, 0.6em);
     padding: 0.5em;
-    box-sizing: content-box;
+    // box-sizing: content-box;
     background: #fff;
     @include shadow;
     width: 100%;
     max-width: 250px;
     border-radius: 0.4em;
     @include responsive(720px) {
-      max-width: 90%;
+      max-width: 100%;
       margin: auto;
     }
   }
@@ -47,6 +46,7 @@
     border: none;
     outline: none;
     color: #000;
+    flex-grow: 1;
     &::placeholder {
       color: $color-placeholder;
     }

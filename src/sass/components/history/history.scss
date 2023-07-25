@@ -96,6 +96,9 @@
   &__title {
     @include flex(column, nowrap, flex-start, flex-start, 0.5em);
   }
+  &__total {
+    font-weight: bold;
+  }
 }
 .pendiente {
   border: 1px solid $color-yellow;

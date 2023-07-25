@@ -8,7 +8,7 @@ export default async function page() {
   const historys = await getHistorys()
 
   return (
-    <Container text="historial">
+    <Container textYellow="Historial" text="de venta">
       {historys ? (
         <HistoryParse historys={historys} />
       ) : (
