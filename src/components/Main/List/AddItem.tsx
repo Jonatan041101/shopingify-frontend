@@ -6,7 +6,7 @@ import React from 'react'
 export default function AddItem() {
   const { changeViewCreate } = useBearStore((state) => state)
   const handleClick = () => {
-    changeViewCreate(true)
+    changeViewCreate(true, 'Agregar producto')
   }
   return (
     <div className="list__top">

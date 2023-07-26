@@ -6,6 +6,8 @@ export const deleteProductModel = async (id: string) => {
     throw new Error(
       'No has ingresado la variable de entorno para los productos'
     )
+  console.log({ id })
+
   try {
     const res = await fetch(process.env.NEXT_PUBLIC_API_PRODUCTS, {
       method: 'DELETE',
@@ -17,8 +19,12 @@ export const deleteProductModel = async (id: string) => {
         id,
       }),
     })
+    console.log({ res })
+
     const message = await res.json()
     if (!res.ok) {
+      console.log({ message })
+
       errorFunction(message)
     }
     return message as Message

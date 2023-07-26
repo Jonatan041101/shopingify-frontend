@@ -27,6 +27,7 @@ export default function CreateProduct() {
     products,
     category,
     updatingProduct,
+    textCreated,
     changeViewCreate,
     addItemsProducts,
     changeStatus,
@@ -50,7 +51,7 @@ export default function CreateProduct() {
   const handleChangeViewCreate = (confirm: boolean) => {
     if (confirm) {
       changeStatus(false, '', false, () => {})
-      changeViewCreate(false)
+      changeViewCreate(false, '')
       optionsUpdateProduct(null)
     }
     changeStatus(false, '', false, () => {})
@@ -231,7 +232,7 @@ export default function CreateProduct() {
   return (
     <div className="create" onClick={closeViewCategory}>
       <div className="create__div">
-        <h2 className="create__title">Agregar nuevo producto</h2>
+        <h2 className="create__title">{textCreated}</h2>
         <div className="create__inputs">
           <RestForm
             category={category}
