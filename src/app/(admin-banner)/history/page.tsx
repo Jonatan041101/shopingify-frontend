@@ -1,5 +1,4 @@
 import Container from '@/components/Container'
-import HistoryC from '@/components/History/HistoryC'
 import HistoryParse from '@/components/History/HistoryParse'
 import { getHistorys } from '@/utils/api/history'
 import React from 'react'

@@ -1,4 +1,3 @@
-import { deleteItemList } from '@/store/operations/deleteItem'
 import { useBearStore } from '@/store/store'
 
 import useAlert from './useAlert'
@@ -16,6 +15,7 @@ export default function useProduct() {
   const { historyListPending, addItemList, addProductHistory } = useBearStore(
     (state) => state
   )
+  const { deleteItemList } = useCountProduct()
   const { createAlert } = useAlert()
   const { handlerMsgErr } = useError()
   const { counterItem } = useCountProduct()

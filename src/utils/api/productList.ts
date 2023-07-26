@@ -22,7 +22,6 @@ export const deleteProductListHistory = async (productId: string) => {
     const message = (await res.json()) as Message
     return message
   } catch (error) {
-    console.log({ error })
     errorFunction(error)
   }
 }
