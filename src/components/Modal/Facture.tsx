@@ -20,7 +20,7 @@ export default function Facture({ shopping, dolar, changeViewDrive }: Props) {
       <i className="facture__close" onClick={closeModal}>
         <Icons icon="close" />
       </i>
-      <ViewNoProducts />
+      {shopping.length === 0 && <ViewNoProducts />}
       {shopping.map(({ product, id }) => (
         <div key={id} className="facture__facture">
           <div className="facture__products">
