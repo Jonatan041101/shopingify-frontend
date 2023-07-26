@@ -9,6 +9,9 @@ export interface StockModel {
   id: string
   count: number
 }
+
+// cambiar category por name
+
 export interface ProductModel {
   id: string
   name: string

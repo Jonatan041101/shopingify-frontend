@@ -20,6 +20,7 @@ import { CategoryWithProductClient } from '@/types/parse'
 import { controlForm } from '@/utils/controls-forms'
 import { parseProductModel } from '@/utils/parse/parseProductModel'
 import Spinner from '@/atoms/Spinner'
+import { ProductModel } from '@/types/model'
 
 export default function CreateProduct() {
   const {
@@ -73,10 +74,12 @@ export default function CreateProduct() {
       },
     })
   }
+  console.log({ products })
+
   const handleCreateProduct = async () => {
     try {
       console.log({ state })
-      controlForm(
+      const controls = controlForm(
         state.loading,
         createAlert,
         state.newProduct.name,
@@ -84,16 +87,18 @@ export default function CreateProduct() {
         state.newProduct.price,
         state.newProduct.stock.count
       )
+      if (!controls) {
+        return
+      }
       const { NEW_PRODUCT } = parseProductToAdd(state.newProduct)
       if (NEW_PRODUCT.id) {
-        console.log({ NEW_PRODUCT })
         dispatch({ type: '@form/send-end', payload: true })
         const productUpdate = await updateProduct(NEW_PRODUCT)
         dispatch({ type: '@form/send-end', payload: false })
-
         if (productUpdate) {
-          const productsUpdate = [...products]
-          productsUpdate.forEach((product) => {
+          const newProducts = [...products]
+          let categoryBefore = false
+          newProducts.forEach((product) => {
             const PRODUCT_UPDATE = product.product.find(
               ({ id }) => id === productUpdate.product.id
             )
@@ -103,9 +108,47 @@ export default function CreateProduct() {
               PRODUCT_UPDATE.image = productUpdate.product.image
               PRODUCT_UPDATE.note = productUpdate.product.note
               PRODUCT_UPDATE.stock.count = productUpdate.product.stock.count
+              categoryBefore =
+                product.category === productUpdate.product.category.name
             }
           })
-          addItemsProducts([...productsUpdate])
+
+          if (!categoryBefore) {
+            newProducts.forEach((category) => {
+              category.product = category.product.filter(
+                ({ id }) => id !== productUpdate.product.id
+              )
+            })
+            const category = newProducts.find(
+              ({ category }) => category === productUpdate.product.category.name
+            )
+            const PRODUCT: ProductModel = {
+              category: {
+                id: productUpdate.product.category.id,
+                name: productUpdate.product.category.name,
+                product: [],
+              },
+              categoryId: productUpdate.product.categoryId,
+              id: productUpdate.product.id,
+              image: productUpdate.product.image,
+              name: productUpdate.product.name,
+              note: productUpdate.product.note,
+              price: productUpdate.product.price,
+              stock: {
+                count: productUpdate.product.stock.count,
+                id: productUpdate.product.stock.id,
+              },
+            }
+            if (category) {
+              category.product.push(PRODUCT)
+              addItemsProducts([...newProducts])
+            } else {
+              const { newCategoryWithProduct } = parseCategoryToAdd(PRODUCT)
+              addItemsProducts([...newProducts, newCategoryWithProduct])
+            }
+          } else {
+            addItemsProducts([...newProducts])
+          }
         }
         createAlert(
           `Producto ${productUpdate?.product.name} actualizado`,
@@ -113,26 +156,27 @@ export default function CreateProduct() {
         )
       } else {
         dispatch({ type: '@form/send-end', payload: true })
+        console.log('HOLA')
+
         const productCreated = await createProduct(NEW_PRODUCT)
         dispatch({ type: '@form/send-end', payload: false })
         if (productCreated) {
           const { product } = productCreated
-
-          const { newItems, category } =
+          const { newProductsList, category } =
             newProductToAdd<CategoryWithProductClient>(
               products,
               product.category.name
             )
           if (category) {
             category.product.push(product)
-            addItemsProducts(newItems)
+            addItemsProducts(newProductsList)
             createAlert(
               `${product.name} agregado a ${category.category}`,
               false
             )
           } else {
             const { newCategoryWithProduct } = parseCategoryToAdd(product)
-            addItemsProducts([...newItems, newCategoryWithProduct])
+            addItemsProducts([...newProductsList, newCategoryWithProduct])
             createAlert(
               `Categoria ${newCategoryWithProduct.category} creada y producto ${product.name} agregado.`,
               false
