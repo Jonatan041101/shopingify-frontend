@@ -51,7 +51,6 @@ export default function DetailProduct({ product }: Props) {
       changeStatus(false, '', false, () => {})
       if (confirm) {
         const res = await deleteProductModel(product.product.id)
-        console.log({ res })
 
         if (res) {
           createAlert(res.message, true)

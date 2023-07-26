@@ -86,8 +86,6 @@ export default function useCountProduct() {
     categoryName: string,
     productId: string
   ) => {
-    console.log({ categoryName, productId })
-
     const newList = [...list]
     let category = newList.find(({ category }) => category === categoryName)
 

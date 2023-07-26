@@ -76,8 +76,6 @@ export default function InputName() {
   }
   const handleEndList = async (status: boolean) => {
     try {
-      console.log({ status, historyId })
-
       const history = await completeList(status, historyId)
       if (history) {
         if (history.history.status === 'Cancelado') {
@@ -114,7 +112,6 @@ export default function InputName() {
               }
               if (caching[product.id]) {
               } else {
-                console.log({ productId: product.id })
                 if (product.id === stock.productId) {
                   productUpdating.stock.count = stock.count
                   caching[product.id] = product.id
@@ -158,7 +155,6 @@ export default function InputName() {
       handleDecision
     )
   }
-  console.log({ LOADING })
 
   return (
     <>

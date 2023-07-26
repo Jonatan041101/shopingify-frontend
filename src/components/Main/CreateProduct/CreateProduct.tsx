@@ -75,11 +75,9 @@ export default function CreateProduct() {
       },
     })
   }
-  console.log({ products })
 
   const handleCreateProduct = async () => {
     try {
-      console.log({ state })
       const controls = controlForm(
         state.loading,
         createAlert,
@@ -157,7 +155,6 @@ export default function CreateProduct() {
         )
       } else {
         dispatch({ type: '@form/send-end', payload: true })
-        console.log('HOLA')
 
         const productCreated = await createProduct(NEW_PRODUCT)
         dispatch({ type: '@form/send-end', payload: false })
