@@ -13,7 +13,7 @@ import Spinner from '@/atoms/Spinner'
 import Icons from '@/atoms/icons'
 
 import useCount from '@/hooks/useCount'
-=======
+
 import useCountProduct from '@/hooks/useCountProduct'
 
 interface Props {
@@ -39,7 +39,6 @@ export default function DetailProduct({ product }: Props) {
   const { createAlert } = useAlert()
 
   const { verifyCount } = useCount()
-=======
   const { deleteItemList } = useCountProduct()
   const { addOrUpdateFromAllListToShoppingList } = useCountProduct()
 

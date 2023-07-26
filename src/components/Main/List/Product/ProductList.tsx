@@ -16,7 +16,9 @@ interface Props {
 export default function ProductList({ product, listItems }: Props) {
   const { view, changeView } = useView()
   const { deleteItem, handleUpdateProduct } = useProduct()
-  const { viewProductDetail, changeStatus } = useBearStore((state) => state)
+  const { viewProductDetail, changeStatus, handleLoadingChange } = useBearStore(
+    (state) => state
+  )
 
   const categoryName = product.product.category.name
   const handleViewProductDetail = () => {
@@ -34,6 +36,7 @@ export default function ProductList({ product, listItems }: Props) {
     } else {
       changeStatus(false, '', false, () => {})
     }
+    handleLoadingChange(false)
   }
   const handleCofirm = (stat: boolean) => {
     // Paso la funcion handleDecision para ejecutarla en la modal y asi poder reutilizar esa modal con distintas funciones
