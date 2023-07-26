@@ -4,7 +4,6 @@ import Image from 'next/image'
 import React from 'react'
 import Section from './Section'
 import { useBearStore } from '@/store/store'
-import { deleteItemList } from '@/store/operations/deleteItem'
 import useAddItem from '@/hooks/useAddItem'
 import { deleteProductModel } from '@/utils/products'
 import useAlert from '@/hooks/useAlert'
@@ -34,6 +33,7 @@ export default function DetailProduct({ product }: Props) {
   } = useBearStore((state) => state)
   const { addItemHistory } = useAddItem()
   const { createAlert } = useAlert()
+  const { deleteItemList } = useCountProduct()
   const { addOrUpdateFromAllListToShoppingList } = useCountProduct()
   const handleViewProductDetail = () => {
     viewProductDetail(null)
