@@ -95,7 +95,6 @@ export const updateProduct = async (product: CreateProductModel) => {
     if (!res.ok) {
       errorFunction(productUpdate)
     }
-    console.log({ productUpdate })
 
     return productUpdate as ResponseUpdateProduct
   } catch (error) {

@@ -1,4 +1,3 @@
-// import '../css/main.css'
 import Products from '@/components/Main/Products'
 import { getProductsWithCategory } from '@/utils/api/product'
 export default async function Home() {

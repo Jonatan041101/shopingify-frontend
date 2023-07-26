@@ -8,9 +8,11 @@ import {
   searchingProductWithID,
 } from '@/utils/searching/searchingProductOrCategory'
 import useAlert from './useAlert'
+import { useBearStore } from '@/store/store'
 
 export default function useCountProduct() {
   const { createAlert } = useAlert()
+  const handleLoadingChange = useBearStore((state) => state.handleLoadingChange)
   const addOrUpdateFromAllListToShoppingList = (
     productShoppingList: ProductShoppingListWithCategoryClientOne,
     productShoppingListAll: ProductShoppingListWithCategoryClient[]
@@ -86,8 +88,7 @@ export default function useCountProduct() {
   ) => {
     const newList = [...list]
     let category = newList.find(({ category }) => category === categoryName)
-    // if (!category)
-    //   throw new Error(`Categoria no encontrada del nombre ${categoryName}`)
+
     const copyCategory = { ...category }
     const restProducts = copyCategory?.product?.filter(
       ({ id }) => id !== productId
@@ -100,10 +101,10 @@ export default function useCountProduct() {
       const NEW_LIST_DELETE_CATEGORY = newList.filter(
         ({ category }) => category !== copyCategory.category
       )
-
+      handleLoadingChange(false)
       return NEW_LIST_DELETE_CATEGORY
     }
-
+    handleLoadingChange(false)
     return newList
   }
   return {

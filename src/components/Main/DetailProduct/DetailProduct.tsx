@@ -4,8 +4,6 @@ import Image from 'next/image'
 import React from 'react'
 import Section from './Section'
 import { useBearStore } from '@/store/store'
-import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
-import { deleteItemList } from '@/store/operations/deleteItem'
 import useAddItem from '@/hooks/useAddItem'
 import { deleteProductModel } from '@/utils/products'
 import useAlert from '@/hooks/useAlert'
@@ -13,7 +11,11 @@ import { deleteProductModelHome } from '@/utils/deleteProductModel'
 import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
 import Spinner from '@/atoms/Spinner'
 import Icons from '@/atoms/icons'
+
 import useCount from '@/hooks/useCount'
+=======
+import useCountProduct from '@/hooks/useCountProduct'
+
 interface Props {
   product: ProductShoppingListWithCategoryClientOne
 }
@@ -35,7 +37,12 @@ export default function DetailProduct({ product }: Props) {
   } = useBearStore((state) => state)
   const { addItemHistory } = useAddItem()
   const { createAlert } = useAlert()
+
   const { verifyCount } = useCount()
+=======
+  const { deleteItemList } = useCountProduct()
+  const { addOrUpdateFromAllListToShoppingList } = useCountProduct()
+
   const handleViewProductDetail = () => {
     viewProductDetail(null)
   }
@@ -59,7 +66,6 @@ export default function DetailProduct({ product }: Props) {
       changeStatus(false, '', false, () => {})
       if (confirm) {
         const res = await deleteProductModel(product.product.id)
-        console.log({ res })
 
         if (res) {
           createAlert(res.message, true)

@@ -3,7 +3,7 @@ import Icons from '@/atoms/icons'
 import useAddItem from '@/hooks/useAddItem'
 import useAlert from '@/hooks/useAlert'
 import useCountProduct from '@/hooks/useCountProduct'
-// import { addOrUpdateFromAllListToShoppingList } from '@/store/operations/addItem'
+
 import { useBearStore } from '@/store/store'
 import { ProductModel } from '@/types/model'
 import { parseProductModelToProductShoppingListWithCategoryClientOne } from '@/utils/parse/parseShoppingList'
