@@ -14,6 +14,8 @@ export default function useAddItem() {
   const { verifyCount } = useCount()
   const { createAlert } = useAlert()
   const addItemHistory = async (id: string, product: ProductModel) => {
+    console.log({ id, product })
+
     if (historyListPending) {
       const verify = verifyCount(
         historyListPending,
