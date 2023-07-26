@@ -4,9 +4,7 @@ import React from 'react'
 import ViewNoProducts from './ViewNoProducts'
 import ListHistroyOrCreated from './ListHistroyOrCreated'
 export default function ItemsList() {
-  const { shoppinList: list, historyListPending } = useBearStore(
-    (state) => state
-  )
+  const { shoppinList, historyListPending } = useBearStore((state) => state)
 
   return (
     <div className="itemslist">
@@ -18,14 +16,14 @@ export default function ItemsList() {
               products={products}
             />
           ))
-        : list.map((products) => (
+        : shoppinList.map((products) => (
             <ListHistroyOrCreated
               key={products.id}
-              list={list}
+              list={shoppinList}
               products={products}
             />
           ))}
-      {list.length === 0 && !historyListPending && <ViewNoProducts />}
+      {shoppinList.length === 0 && !historyListPending && <ViewNoProducts />}
       {historyListPending && historyListPending.length === 0 && (
         <ViewNoProducts />
       )}

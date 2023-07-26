@@ -5,10 +5,8 @@ import { useBearStore } from '@/store/store'
 import DetailProduct from './DetailProduct/DetailProduct'
 import CreateProduct from './CreateProduct/CreateProduct'
 
-type Props = {}
-
-export default function List({}: Props) {
-  const { product, viewCreate, viewDrive, viewListComponent } = useBearStore(
+export default function List() {
+  const { product, viewCreate, viewListComponent } = useBearStore(
     (state) => state
   )
 
