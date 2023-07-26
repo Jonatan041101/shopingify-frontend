@@ -56,7 +56,7 @@ export default function Item({ product, count }: Props) {
       </h3>
       <div className="item__counter">
         <div className="itemslist__count item__count">
-          <div>{count ? count : product.stock.count}</div>
+          <div>{count ? count : product?.stock?.count}</div>
         </div>
         {!count && (
           <button className="item__more" onClick={handleAddItemList}>

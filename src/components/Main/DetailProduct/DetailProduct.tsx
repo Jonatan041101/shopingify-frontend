@@ -24,10 +24,12 @@ export default function DetailProduct({ product }: Props) {
     addProductHistory,
     optionsUpdateProduct,
     changeViewCreate,
-    deleteProducts: deleteItems,
+    handleLoadingChange,
+    deleteProducts,
     dolar,
-    products: items,
-    shoppinList: list,
+    loading,
+    products,
+    shoppinList,
     historyListPending,
   } = useBearStore((state) => state)
   const { addItemHistory } = useAddItem()
@@ -41,16 +43,19 @@ export default function DetailProduct({ product }: Props) {
       addItemHistory(product.product.id, product.product.product)
       return
     }
-    const newList = addOrUpdateFromAllListToShoppingList(product, list)
+    const newList = addOrUpdateFromAllListToShoppingList(product, shoppinList)
     addItemList(newList)
   }
   const deleteItem = async (confirm: boolean) => {
     try {
+      changeStatus(false, '', false, () => {})
       if (confirm) {
         const res = await deleteProductModel(product.product.id)
+        console.log({ res })
 
         if (res) {
           createAlert(res.message, true)
+          handleLoadingChange(false)
         }
         handleViewProductDetail()
         if (historyListPending) {
@@ -61,21 +66,20 @@ export default function DetailProduct({ product }: Props) {
           )
 
           addProductHistory(newList)
-          changeStatus(false, '', false, () => {})
-          const ITEMS = deleteProductModelHome(items, product.product.id)
-          deleteItems(ITEMS)
+          const ITEMS = deleteProductModelHome(products, product.product.id)
+          deleteProducts(ITEMS)
           return
         }
         const newList = deleteItemList(
-          list,
+          shoppinList,
           product.category,
           product.product.id
         )
 
         addItemList(newList)
         changeStatus(false, '', false, () => {})
-        const ITEMS = deleteProductModelHome(items, product.product.id)
-        deleteItems(ITEMS)
+        const ITEMS = deleteProductModelHome(products, product.product.id)
+        deleteProducts(ITEMS)
         return
       }
       changeStatus(false, '', false, () => {})
@@ -96,7 +100,7 @@ export default function DetailProduct({ product }: Props) {
   ) => {
     optionsUpdateProduct(product)
     handleViewProductDetail()
-    changeViewCreate(true)
+    changeViewCreate(true, 'Actualizar producto')
   }
   return (
     <div className="detailproduct">
@@ -107,14 +111,16 @@ export default function DetailProduct({ product }: Props) {
             text="Volver"
             click={handleViewProductDetail}
           />
-          <button
-            onClick={() => handleUpdateProduct(product)}
-            id="detailproduct__edition"
-          >
-            <i className="detailproduct__edit">
-              <Icons icon="lapiz" />
-            </i>
-          </button>
+          {!loading && (
+            <button
+              onClick={() => handleUpdateProduct(product)}
+              id="detailproduct__edition"
+            >
+              <i className="detailproduct__edit">
+                <Icons icon="lapiz" />
+              </i>
+            </button>
+          )}
         </div>
         <Image
           className="detailproduct__image"
@@ -151,16 +157,22 @@ export default function DetailProduct({ product }: Props) {
           <Section name="Nota" text={product.product.product.note} />
         </div>
         <div className="detailproduct__buttons">
-          <Button
-            text="Eliminar"
-            click={handleConfirm}
-            classN="button__white"
-          />
-          <Button
-            text="Agregar"
-            click={handleAddItemList}
-            classN="button__yellow"
-          />
+          {loading ? (
+            <Spinner height="3.5em" width="3.5em" />
+          ) : (
+            <>
+              <Button
+                text="Eliminar"
+                click={handleConfirm}
+                classN="button__white"
+              />
+              <Button
+                text="Agregar"
+                click={handleAddItemList}
+                classN="button__yellow"
+              />
+            </>
+          )}
         </div>
       </section>
     </div>

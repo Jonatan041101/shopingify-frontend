@@ -60,8 +60,7 @@
     min-width: 1.25em;
     color: $color-placeholder;
   }
-  &__span {
-  }
+
   &__status {
     padding: 0.2em 0.4em;
     border-radius: 0.5em;
@@ -104,8 +103,7 @@
   border: 1px solid $color-yellow;
   color: $color-yellow;
 }
-.completado {
-}
+
 .cancelado {
   border: 1px solid $color-red;
   color: $color-red;

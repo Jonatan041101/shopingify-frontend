@@ -12,7 +12,7 @@ export const addOrUpdateFromAllListToShoppingList = (
   productShoppingList: ProductShoppingListWithCategoryClientOne,
   productShoppingListAll: ProductShoppingListWithCategoryClient[]
 ) => {
-  const { newItems, category } =
+  const { newProductsList, category } =
     newProductToAdd<ProductShoppingListWithCategoryClient>(
       productShoppingListAll,
       productShoppingList.category
@@ -24,8 +24,8 @@ export const addOrUpdateFromAllListToShoppingList = (
     //SI NO EXISTE AGREGAMOS EL PRODUCTO CON SU CATEGORIA
     const { newCategoryWithProduct } =
       parseListBuyTheBuyProduct(productShoppingList)
-    newItems.push(newCategoryWithProduct)
-    return newItems // DEVOLVEMOS UN ARRAY MUTADO PERO NO DA PROBLEMAS PORQUE MUTAMOS UN ARRAY EXTERNO RECUERDA SIEMPRE QUE NO ES BUENO MUTAR PERO EN ESTE CASO ES UNA EXCEPCION
+    newProductsList.push(newCategoryWithProduct)
+    return newProductsList // DEVOLVEMOS UN ARRAY MUTADO PERO NO DA PROBLEMAS PORQUE MUTAMOS UN ARRAY EXTERNO RECUERDA SIEMPRE QUE NO ES BUENO MUTAR PERO EN ESTE CASO ES UNA EXCEPCION
   }
   // const productExist = category.product.find(({ id }) => id === item.product.id)
   const { product } = searchingProductWithID(
@@ -36,11 +36,11 @@ export const addOrUpdateFromAllListToShoppingList = (
   if (!product) {
     //SI EXISTE SOLO AÑADIMOS EL PRODUCTO A LA CATEGORIA EXISTENTE
     category.product.push(productShoppingList.product)
-    return newItems // DEVOLVEMOS UN ARRAY MUTADO PERO NO DA PROBLEMAS PORQUE MUTAMOS UN ARRAY EXTERNO RECUERDA SIEMPRE QUE NO ES BUENO MUTAR PERO EN ESTE CASO ES UNA EXCEPCION
+    return newProductsList // DEVOLVEMOS UN ARRAY MUTADO PERO NO DA PROBLEMAS PORQUE MUTAMOS UN ARRAY EXTERNO RECUERDA SIEMPRE QUE NO ES BUENO MUTAR PERO EN ESTE CASO ES UNA EXCEPCION
   }
   //Si el producto existe aumentamos su count porque lo que hace es la funciona de agregar
   product.count = product.count + 1
-  return newItems
+  return newProductsList
 }
 
 export const counterItem = (
@@ -50,7 +50,7 @@ export const counterItem = (
   categoryName: string,
   backend?: boolean
 ) => {
-  const { newItems, category } =
+  const { newProductsList, category } =
     newProductToAdd<ProductShoppingListWithCategoryClient>(items, categoryName)
   if (!category)
     throw new Error(`Categoria no encontrada del nombre ${categoryName}`)
@@ -64,5 +64,5 @@ export const counterItem = (
   } else {
     product.count = count
   }
-  return newItems
+  return newProductsList
 }

@@ -16,14 +16,13 @@ export const searchCategory = <T extends ValidTypes>(
 }
 
 export const newProductToAdd = <T extends ValidTypes>(
-  items: T[],
+  products: T[],
   categoryName: string
 ) => {
-  const newItems: T[] = [...items]
-  const { category } = searchCategory<T>(newItems, categoryName)
-  // const category = newItems.find(({ name }) => name === categoryName)
+  const newProductsList: T[] = [...products]
+  const { category } = searchCategory<T>(newProductsList, categoryName)
   return {
-    newItems,
+    newProductsList,
     category,
   }
 }

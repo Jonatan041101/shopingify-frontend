@@ -45,8 +45,15 @@ export interface ResponseCategoryWithProduct {
 interface ResponseCreateProduct {
   product: ProductModel
 }
+interface CategoryResWithProduct {
+  category: ResponseProductUpdating
+}
+interface ResponseProductUpdating {
+  id: string
+  name: string
+}
 interface ResponseUpdateProduct {
-  product: Omit<ProductModel, 'category'> & CategoryWithNameOnly
+  product: Omit<ProductModel, 'category'> & CategoryResWithProduct
 }
 export interface ResponseHistoryPending {
   history: HistoryShoppingModel

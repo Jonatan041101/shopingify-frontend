@@ -9,7 +9,7 @@ export const controlForm = (
   category: string,
   price: string | number,
   count: string | number
-) => {
+): void | boolean => {
   if (loading) return createAlert('La imagen esta cargando espere...', true)
   if (name.trim().length === 0)
     return createAlert('Debe agregar un nombre al producto', true)
@@ -28,4 +28,5 @@ export const controlForm = (
   if (isNaN(Number(price)) || isNaN(Number(count))) {
     return createAlert(`El precio  y el stock deben ser numeros`, true)
   }
+  return true
 }
