@@ -23,8 +23,7 @@ export default function Item({ product, count }: Props) {
   } = useBearStore((state) => state)
   const { createAlert } = useAlert()
   const { addItemHistory } = useAddItem()
-  const { addOrUpdateFromAllListToShoppingList, counterItem, deleteItemList } =
-    useCountProduct()
+  const { addOrUpdateFromAllListToShoppingList } = useCountProduct()
   const handleAddItemList = async () => {
     try {
       if (product.stock.count === 0)

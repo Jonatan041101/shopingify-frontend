@@ -1,4 +1,3 @@
-import { counterItem } from '@/store/operations/addItem'
 import { deleteItemList } from '@/store/operations/deleteItem'
 import { useBearStore } from '@/store/store'
 
@@ -9,6 +8,9 @@ import {
   deleteProductListHistory,
   updateCountProductListHistory,
 } from '@/utils/api/productList'
+import useCountProduct from './useCountProduct'
+
+import useCount from './useCount'
 
 export default function useProduct() {
   const { historyListPending, addItemList, addProductHistory } = useBearStore(
@@ -16,12 +18,16 @@ export default function useProduct() {
   )
   const { createAlert } = useAlert()
   const { handlerMsgErr } = useError()
+  const { counterItem } = useCountProduct()
+  const { verifyCount } = useCount()
   const handleUpdateProduct = async (
     count: number,
     productId: string,
     categoryName: string,
     listItems: ProductShoppingListWithCategoryClient[]
   ) => {
+    const verify = verifyCount(listItems, categoryName, productId, count)
+    if (!verify) return
     if (historyListPending) {
       try {
         const response = await updateCountProductListHistory(productId, count)
