@@ -20,7 +20,7 @@ export default function useUser() {
             handleRouter(RouterNames.HOME)
             changeUser(user.user)
           }
-          setTimeout(() => changeLoaderUser(false), 1500)
+          setTimeout(() => changeLoaderUser(false), 2500)
         } catch (error) {
           const ERROR = error as Error
           setErrFetch(ERROR.message)
@@ -31,7 +31,7 @@ export default function useUser() {
       keepSession()
     } else {
       handleRouter(RouterNames.LOGIN)
-      setTimeout(() => changeLoaderUser(false), 1500)
+      setTimeout(() => changeLoaderUser(false), 2500)
     }
   }, [])
   return {
