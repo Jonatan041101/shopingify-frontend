@@ -702,6 +702,7 @@ button {
   mix-blend-mode: multiply;
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 .create__files {
   width: 100%;

@@ -13,6 +13,7 @@ import { deleteProductModelHome } from '@/utils/deleteProductModel'
 import { ProductShoppingListWithCategoryClientOne } from '@/types/parse'
 import Spinner from '@/atoms/Spinner'
 import Icons from '@/atoms/icons'
+import useCount from '@/hooks/useCount'
 interface Props {
   product: ProductShoppingListWithCategoryClientOne
 }
@@ -34,7 +35,7 @@ export default function DetailProduct({ product }: Props) {
   } = useBearStore((state) => state)
   const { addItemHistory } = useAddItem()
   const { createAlert } = useAlert()
-
+  const { verifyCount } = useCount()
   const handleViewProductDetail = () => {
     viewProductDetail(null)
   }
@@ -43,6 +44,13 @@ export default function DetailProduct({ product }: Props) {
       addItemHistory(product.product.id, product.product.product)
       return
     }
+    const verify = verifyCount(
+      shoppinList,
+      product.category,
+      product.product.id,
+      1
+    )
+    if (!verify) return
     const newList = addOrUpdateFromAllListToShoppingList(product, shoppinList)
     addItemList(newList)
   }
