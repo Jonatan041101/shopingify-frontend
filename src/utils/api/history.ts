@@ -30,16 +30,21 @@ export const createHistory = async (history: HistoryCreate) => {
     errorFunction(error)
   }
 }
-export const getHistorys = async () => {
+export const getHistorys = async (complete: boolean) => {
   try {
     if (!process.env.NEXT_PUBLIC_API_HISTORY)
       throw new Error(
         'No has ingresado la variable de entorno para las historys'
       )
-    const res = await fetch(process.env.NEXT_PUBLIC_API_HISTORY, {
-      cache: 'no-cache',
+    const URL = complete
+      ? `${process.env.NEXT_PUBLIC_API_HISTORY}/completes`
+      : process.env.NEXT_PUBLIC_API_HISTORY
+    const res = await fetch(URL, {
+      cache: 'no-store',
     })
+
     const historys = await res.json()
+    console.log({ historys })
     if (!res.ok) {
       errorFunction(historys)
     }

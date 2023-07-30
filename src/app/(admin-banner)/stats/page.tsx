@@ -11,7 +11,7 @@ export interface GRAPH {
 
 export default async function PageStats() {
   const stats = await statHistory()
-  const historys = await getHistorys()
+  const historys = await getHistorys(true)
 
   return (
     <div className="products">

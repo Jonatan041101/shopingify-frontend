@@ -4,7 +4,7 @@ import { getHistorys } from '@/utils/api/history'
 import React from 'react'
 
 export default async function page() {
-  const historys = await getHistorys()
+  const historys = await getHistorys(false)
 
   return (
     <Container textYellow="Historial" text="de venta">
